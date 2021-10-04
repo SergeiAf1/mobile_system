@@ -24,11 +24,11 @@ USE `javaschool` ;
 DROP TABLE IF EXISTS `javaschool`.`options` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`options` (
-  `optionId` INT NOT NULL AUTO_INCREMENT,
-  `optionName` VARCHAR(45) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
-  `connectionPrice` INT NOT NULL,
-  PRIMARY KEY (`optionId`))
+  `connection_price` INT NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -38,10 +38,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `javaschool`.`tariff` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`tariff` (
-  `tariffId` INT NOT NULL AUTO_INCREMENT,
-  `tariffName` VARCHAR(45) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
-  PRIMARY KEY (`tariffId`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -51,13 +51,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `javaschool`.`address` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`address` (
-  `addressId` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `city` VARCHAR(45) NOT NULL,
   `street` VARCHAR(45) NOT NULL,
   `house` INT NOT NULL,
   `building` VARCHAR(45) NULL,
   `apartment` INT NULL,
-  PRIMARY KEY (`addressId`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -67,21 +67,21 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `javaschool`.`client` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`client` (
-  `clientId` INT NOT NULL AUTO_INCREMENT,
-  `addressId` INT NOT NULL,
-  `clientName` VARCHAR(45) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `address_id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
   `surname` VARCHAR(45) NOT NULL,
-  `passport` INT NOT NULL,
+  `passport` int  NOT NULL unique,
   `email` VARCHAR(45) NOT NULL,
-  `birthDate` DATE NOT NULL,
+  `birth_date` DATE NOT NULL,
   `password` VARCHAR(15) NOT NULL,
-  `isBlocked` TINYINT DEFAULT 0 NOT NULL,
-  PRIMARY KEY (`clientId`),
-  INDEX `fk_client_address1_idx` (`addressId` ASC) VISIBLE,
-  CONSTRAINT `checkClientIsBlocked` check (`isBlocked`=0 or `isBlocked` =1),
+  `is_blocked` TINYINT DEFAULT 0 NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_client_address1_idx` (`address_id` ASC) VISIBLE,
+  CONSTRAINT `check_client_is_blocked` check (`is_blocked`=0 or `is_blocked` =1),
   CONSTRAINT `fk_client_address1`
-    FOREIGN KEY (`addressId`)
-    REFERENCES `javaschool`.`address` (`addressId`)
+    FOREIGN KEY (`address_id`)
+    REFERENCES `javaschool`.`address` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -93,75 +93,75 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `javaschool`.`contract` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`contract` (
-  `contractId` INT NOT NULL AUTO_INCREMENT,
-  `tariffId` INT NOT NULL,
-  `clientId` INT NOT NULL,
-  `phoneNumber` BIGINT NOT NULL,
-  `isBlocked` TINYINT DEFAULT 0 NOT NULL,
-  PRIMARY KEY (`contractId`),
-  INDEX `fk_contract_tariff1_idx` (`tariffId` ASC) VISIBLE,
-  INDEX `fk_contract_client1_idx` (`clientId` ASC) VISIBLE,
-  UNIQUE INDEX `phone_number_UNIQUE` (`phoneNumber` ASC) VISIBLE,
-  CONSTRAINT `checkContractIsBlocked` check (`isBlocked`=0 or `isBlocked` =1),
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tariff_id` INT NOT NULL,
+  `client_id` INT NOT NULL,
+  `phone_number` BIGINT NOT NULL,
+  `is_blocked` TINYINT DEFAULT 0 NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_contract_tariff1_idx` (`tariff_id` ASC) VISIBLE,
+  INDEX `fk_contract_client1_idx` (`client_id` ASC) VISIBLE,
+  UNIQUE INDEX `phone_number_UNIQUE` (`phone_number` ASC) VISIBLE,
+  CONSTRAINT `check_contract_is_blocked` check (`is_blocked`=0 or `is_blocked` =1),
   CONSTRAINT `fk_contract_tariff1`
-    FOREIGN KEY (`tariffId`)
-    REFERENCES `javaschool`.`tariff` (`tariffId`)
+    FOREIGN KEY (`tariff_id`)
+    REFERENCES `javaschool`.`tariff` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contract_client1`
-    FOREIGN KEY (`clientId`)
-    REFERENCES `javaschool`.`client` (`clientId`)
+    FOREIGN KEY (`client_id`)
+    REFERENCES `javaschool`.`client` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `javaschool`.`tariffOptions`
+-- Table `javaschool`.`tariff_options`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `javaschool`.`tariffOptions` ;
+DROP TABLE IF EXISTS `javaschool`.`tariff-options` ;
 
-CREATE TABLE IF NOT EXISTS `javaschool`.`tariffOptions` (
-  `tariffOptionsId` INT NOT NULL AUTO_INCREMENT,
-  `tariffId` INT NOT NULL,
-  `optionId` INT NOT NULL,
-  PRIMARY KEY (`tariffOptionsId`),
-  INDEX `fk_tariff_options_tariff1_idx` (`tariffId` ASC) VISIBLE,
-  INDEX `fk_tariff_options_options_idx` (`optionId` ASC) VISIBLE,
-  UNIQUE INDEX `tariff_id_options_id_UNIQUE` (`tariffId` ASC, `optionId` ASC) VISIBLE,
+CREATE TABLE IF NOT EXISTS `javaschool`.`tariff_options` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tariff_id` INT NOT NULL,
+  `option_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_tariff_options_tariff1_idx` (`tariff_id` ASC) VISIBLE,
+  INDEX `fk_tariff_options_options_idx` (`option_id` ASC) VISIBLE,
+  UNIQUE INDEX `tariff_id_options_id_UNIQUE` (`tariff_id` ASC, `option_id` ASC) VISIBLE,
   CONSTRAINT `fk_options_has_tariff_options1`
-    FOREIGN KEY (`optionId`)
-    REFERENCES `javaschool`.`options` (`optionId`)
-    ON DELETE CASCADE
+    FOREIGN KEY (`option_id`)
+    REFERENCES `javaschool`.`options` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_options_has_tariff_tariff1`
-    FOREIGN KEY (`tariffId`)
-    REFERENCES `javaschool`.`tariff` (`tariffId`)
-    ON DELETE CASCADE
+    FOREIGN KEY (`tariff_id`)
+    REFERENCES `javaschool`.`tariff` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `javaschool`.`contractTariffOptions`
+-- Table `javaschool`.`contract_tariff_options`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `javaschool`.`contractTariffOptions` ;
+DROP TABLE IF EXISTS `javaschool`.`contract_tariff_options` ;
 
-CREATE TABLE IF NOT EXISTS `javaschool`.`contractTariffOptions` (
-  `contractId` INT NOT NULL,
-  `tariffOptionsId` INT NOT NULL,
-  PRIMARY KEY (`contractId`, `tariffOptionsId`),
-  INDEX `fk_contract_tariff_options_tariff_options1_idx` (`tariffOptionsId` ASC) VISIBLE,
-  INDEX `fk_contract_tariff_options_contract1_idx` (`contractId` ASC) VISIBLE,  
+CREATE TABLE IF NOT EXISTS `javaschool`.`contract_tariff_options` (
+  `contract_id` INT NOT NULL,
+  `tariff_options_id` INT NOT NULL,
+  PRIMARY KEY (`contract_id`, `tariff_options_id`),
+  INDEX `fk_contract_tariff_options_tariff_options1_idx` (`tariff_options_id` ASC) VISIBLE,
+  INDEX `fk_contract_tariff_options_contract1_idx` (`contract_id` ASC) VISIBLE,  
   CONSTRAINT `fk_contract_has_tariff_options_contract1`
-    FOREIGN KEY (`contractId`)
-    REFERENCES `javaschool`.`contract` (`contractId`)
-    ON DELETE CASCADE
+    FOREIGN KEY (`contract_id`)
+    REFERENCES `javaschool`.`contract` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contract_has_tariff_options_tariff_options1`
-    FOREIGN KEY (`tariffOptionsId`)
-    REFERENCES `javaschool`.`tariffOptions` (`tariffOptionsId`)
-    ON DELETE CASCADE
+    FOREIGN KEY (`tariff_options_id`)
+    REFERENCES `javaschool`.`tariff_options` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
