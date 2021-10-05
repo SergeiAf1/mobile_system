@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OptionServiceImpl implements OptionService{
+
+    private final OptionDAO optionDAO;
+
     @Autowired
-    private OptionDAO optionDAO;
+    public OptionServiceImpl(OptionDAO optionDAO) {
+        this.optionDAO = optionDAO;
+    }
 }

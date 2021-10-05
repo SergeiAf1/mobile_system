@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContractServiceImpl implements ContractService{
+
+    private final ContractDAO contractDAO;
+
     @Autowired
-    private ContractDAO contractDAO;
+    public ContractServiceImpl(ContractDAO contractDAO) {
+        this.contractDAO = contractDAO;
+    }
 }

@@ -5,10 +5,16 @@ import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.entity.Tariff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
-public class TariffServiceImpl implements TariffService{
+public class TariffServiceImpl implements TariffService {
+
+    private final TariffDAO tariffDAO;
+
     @Autowired
-    private TariffDAO tariffDAO;
+    public TariffServiceImpl(TariffDAO tariffDAO) {
+        this.tariffDAO = tariffDAO;
+    }
 }
