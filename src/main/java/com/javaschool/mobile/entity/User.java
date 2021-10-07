@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "client")
-public class Client {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,18 +31,21 @@ public class Client {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "is_blocked")
-    private Boolean isBlocked;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     @ManyToOne(cascade = CascadeType.ALL)    // type?
     @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)   // type?
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "user_id")
     private List<Contract> contracts;
 
-    public Client() {
+    @Column(name = "authority")
+    private String role;
+
+    public User() {
     }
 
     public void addContract(Contract contract){
@@ -52,14 +55,38 @@ public class Client {
         contracts.add(contract);
     }
 
-    public Client(String name, String surname, Date birthDate, int passport, String email, String password, Boolean isBlocked) {
+    public User(String name, String surname, String email, String password, Boolean enabled) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
+    public User(String name, String surname, Date birthDate, int passport, String email, String password, Boolean enabled) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.passport = passport;
         this.email = email;
         this.password = password;
-        this.isBlocked = isBlocked;
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<Contract> getContracts() {
@@ -126,14 +153,6 @@ public class Client {
         this.password = password;
     }
 
-    public Boolean getBlocked() {
-        return isBlocked;
-    }
-
-    public void setBlocked(Boolean blocked) {
-        isBlocked = blocked;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -144,15 +163,17 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +
-                ", passport='" + passport + '\'' +
+                ", passport=" + passport +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isBlocked=" + isBlocked +
+                ", enabled=" + enabled +
+                ", address=" + address +
+                ", contracts=" + contracts +
                 '}';
     }
 }

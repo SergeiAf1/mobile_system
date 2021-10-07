@@ -62,24 +62,26 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `javaschool`.`client`
+-- Table `javaschool`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `javaschool`.`client` ;
+DROP TABLE IF EXISTS `javaschool`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `javaschool`.`client` (
+CREATE TABLE IF NOT EXISTS `javaschool`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `address_id` INT NOT NULL,
+  `address_id` INT NULL,
   `name` VARCHAR(45) NOT NULL,
   `surname` VARCHAR(45) NOT NULL,
-  `passport` int  NOT NULL unique,
-  `email` VARCHAR(45) NOT NULL,
-  `birth_date` DATE NOT NULL,
-  `password` VARCHAR(15) NOT NULL,
-  `is_blocked` TINYINT DEFAULT 0 NOT NULL,
+  `passport` int NULL,
+  `email` VARCHAR(45) NOT NULL unique,
+  `birth_date` DATE NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `enabled` TINYINT DEFAULT 1 NOT NULL,
+  `authority` VARCHAR(45) DEFAULT 'ROLE_USER' NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_client_address1_idx` (`address_id` ASC) VISIBLE,
-  CONSTRAINT `check_client_is_blocked` check (`is_blocked`=0 or `is_blocked` =1),
-  CONSTRAINT `fk_client_address1`
+  INDEX `fk_users_address1_idx` (`address_id` ASC) VISIBLE,
+  CONSTRAINT `check_users_enabled` check (`enabled`=0 or `enabled` =1),
+  CONSTRAINT `check_users_authority` check (`authority`='ROLE_USER' or `authority` ='ROLE_ADMIN'),
+  CONSTRAINT `fk_users_address1`
     FOREIGN KEY (`address_id`)
     REFERENCES `javaschool`.`address` (`id`)
     ON DELETE NO ACTION
@@ -95,22 +97,22 @@ DROP TABLE IF EXISTS `javaschool`.`contract` ;
 CREATE TABLE IF NOT EXISTS `javaschool`.`contract` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tariff_id` INT NOT NULL,
-  `client_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `phone_number` BIGINT NOT NULL,
-  `is_blocked` TINYINT DEFAULT 0 NOT NULL,
+  `enabled` TINYINT DEFAULT 1 NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_contract_tariff1_idx` (`tariff_id` ASC) VISIBLE,
-  INDEX `fk_contract_client1_idx` (`client_id` ASC) VISIBLE,
+  INDEX `fk_contract_users1_idx` (`user_id` ASC) VISIBLE,
   UNIQUE INDEX `phone_number_UNIQUE` (`phone_number` ASC) VISIBLE,
-  CONSTRAINT `check_contract_is_blocked` check (`is_blocked`=0 or `is_blocked` =1),
+  CONSTRAINT `check_contract_enabled` check (`enabled`=0 or `enabled` =1),
   CONSTRAINT `fk_contract_tariff1`
     FOREIGN KEY (`tariff_id`)
     REFERENCES `javaschool`.`tariff` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contract_client1`
-    FOREIGN KEY (`client_id`)
-    REFERENCES `javaschool`.`client` (`id`)
+  CONSTRAINT `fk_contract_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `javaschool`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
