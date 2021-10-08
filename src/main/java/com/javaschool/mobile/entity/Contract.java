@@ -19,8 +19,8 @@ public class Contract {
     @Column(name = "phone_number")
     private Long phoneNumber;
 
-    @Column(name = "is_blocked")
-    private Boolean isBlocked;
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     @ManyToMany(cascade = CascadeType.ALL)           // type?
     @JoinTable(name = "contract_tariff_options"
@@ -39,9 +39,9 @@ public class Contract {
         options.add(option);
     }
 
-    public Contract(Long phoneNumber, Boolean isBlocked) {
+    public Contract(Long phoneNumber, Boolean enabled) {
         this.phoneNumber = phoneNumber;
-        this.isBlocked = isBlocked;
+        this.enabled = enabled;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Contract {
         return "Contract{" +
                 "id=" + id +
                 ", phoneNumber=" + phoneNumber +
-                ", isBlocked=" + isBlocked +
+                ", enabled=" + enabled +
                 '}';
     }
 
@@ -77,19 +77,19 @@ public class Contract {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getBlocked() {
-        return isBlocked;
-    }
-
-    public void setBlocked(Boolean blocked) {
-        isBlocked = blocked;
-    }
-
     public List<Option> getOptions() {
         return options;
     }
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

@@ -18,7 +18,7 @@ public class Tariff {
     @Column(name = "price")
     private  int price;
 
-    @ManyToMany(cascade = CascadeType.ALL)            // type?
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)            // type?
     @JoinTable(name = "tariff_options"
             , joinColumns = @JoinColumn(name = "tariff_id")
             , inverseJoinColumns = @JoinColumn(name = "option_id"))
@@ -74,8 +74,7 @@ public class Tariff {
     @Override
     public String toString() {
         return "Tariff{" +
-                "id=" + id +
-                ", tariffName='" + tariffName + '\'' +
+                "tariffName='" + tariffName + '\'' +
                 ", price=" + price +
                 '}';
     }

@@ -3,7 +3,9 @@ package com.javaschool.mobile.service.Mappers;
 
 import com.javaschool.mobile.dto.UserDto;
 import com.javaschool.mobile.entity.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public UserDto mapToUserDto(User user){

@@ -81,4 +81,15 @@ public class UserDto {
 
     public UserDto() {
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", email='" + email + '\'' +
+                ", contracts=" + contracts +
+                ", enabled=" + enabled +
+                '}';
+    }
 }
