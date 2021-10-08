@@ -1,6 +1,9 @@
 package com.javaschool.mobile.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +17,13 @@ public class User {
     private int id;
 
     @Column(name = "name")
+    @NotBlank
+    @Size(min = 2, max = 25)
     private String name;
 
     @Column(name = "surname")
+    @NotBlank
+    @Size(min = 2, max = 25)
     private String surname;
 
     @Column(name = "birth_date")
@@ -26,9 +33,13 @@ public class User {
     private int passport;
 
     @Column(name = "email")
+    @Email
+    @NotBlank
     private String email;
 
     @Column(name = "password")
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String password;
 
     @Column(name = "enabled")
