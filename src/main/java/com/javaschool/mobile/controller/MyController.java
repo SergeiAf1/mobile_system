@@ -1,32 +1,34 @@
 package com.javaschool.mobile.controller;
 
-import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.entity.Tariff;
 import com.javaschool.mobile.service.TariffService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.javaschool.mobile.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Controller
 public class MyController {
 
-    @Autowired
-    private TariffService tariffService;
+    private final TariffService tariffService;
+
+    private final UserService userService;
+
+    public MyController(TariffService tariffService, UserService userService) {
+        this.tariffService = tariffService;
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String login() {
         return "redirect:login";
     }
-    @GetMapping("/user")
-    public String user() {
-        return "user";
-    }
+
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        var users = userService.getAllUserDto();
+        model.addAttribute("users",users);
         return "admin";
     }
 
@@ -35,6 +37,13 @@ public class MyController {
         Tariff tariff=tariffService.findById(id);
         String tariffName = tariff.getTariffName();
         model.addAttribute("tariffName", tariffName);
+        return "user";
+    }
+
+    @GetMapping("/user")
+    public String getAllTariffs(Model model){
+        var tariffs = tariffService.getAllTariffs();
+        model.addAttribute("tariffs", tariffs);
         return "user";
     }
 

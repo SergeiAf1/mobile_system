@@ -63,8 +63,7 @@ public class Option {
     @Override
     public String toString() {
         return "Option{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", price=" + price +
                 ", connectionPrice=" + connectionPrice +
                 '}';

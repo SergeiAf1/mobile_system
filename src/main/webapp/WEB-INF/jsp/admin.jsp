@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <body style="background-color: fuchsia">
@@ -20,5 +21,42 @@
            onclick="window.location.href = '/user'">
 </div>
 <br>
+All Users
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Enabled</th>
+    </tr>
+    <c:forEach var="users" items="${users}">
+        <tr>
+            <td>${users.name}</td>
+            <td>${users.surName}</td>
+            <td>${users.email}</td>
+            <td>${users.enabled}</td>
+            <td>${users.contracts}</td>
+
+        </tr>
+    </c:forEach>
+</table>
+<br>
+All Contracts
+<table>
+    <tr>
+        <th>Tariff</th>
+        <th>PhoneNumber</th>
+    </tr>
+    <c:forEach var="users" items="${users}">
+        <c:forEach var="contracts" items="${users.contracts}">
+            <tr>
+                <td>${contracts.tariff}</td>
+                <td>${contracts.phoneNumber}</td>
+                <td>${contracts.options}</td>
+            </tr>
+        </c:forEach>
+    </c:forEach>
+</table>
 </body>
 </html>
