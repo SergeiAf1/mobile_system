@@ -58,5 +58,7 @@ All Contracts
         </c:forEach>
     </c:forEach>
 </table>
+<br>
+<input type="button" value="All Tariffs" onclick="window.location.href = '/admin/tariffs'">
 </body>
 </html>

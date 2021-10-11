@@ -34,6 +34,12 @@
     Tariff name : ${tariffName}
 
 </div>
+<div>
+    <input type="button" value="Show address"
+           onclick="window.location.href = '/user/addresses/2'">
+    Address : ${address}
+
+</div>
 <br>
 <br>
 All tariffs

@@ -9,4 +9,7 @@ import java.util.List;
 public interface TariffService {
     Tariff findById(int id);
     List<Tariff> getAllTariffs();
+    void saveTariff(Tariff tariff);
+    void deleteTariff(int id);
+
 }
