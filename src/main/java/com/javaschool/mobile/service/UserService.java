@@ -6,5 +6,8 @@ import com.javaschool.mobile.entity.User;
 import java.util.List;
 
 public interface UserService {
-    List<UserDto> getAllUserDto();
+    List<User> getAllUsers();
+    User getUserById(int id);
+    void saveUser(User user);
+    void deleteUser(int id);
 }
