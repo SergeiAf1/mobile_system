@@ -18,7 +18,7 @@
 
 <div align="center">
     <input type="button" value="GO TO USER PAGE"
-           onclick="window.location.href = '/user'">
+           onclick="window.location.href = '/users'">
 </div>
 <br>
 All Users

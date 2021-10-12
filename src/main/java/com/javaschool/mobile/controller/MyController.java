@@ -36,7 +36,7 @@ public class MyController {
         return "redirect:login";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admins")
     public String admin(Model model) {
         var use = userService.getAllUsers();
         var users = use.stream().map(userMapper::mapToUserDto).collect(Collectors.toList());
@@ -44,21 +44,21 @@ public class MyController {
         return "admin";
     }
 
-    @GetMapping("/user/tariffs/{id}")
+    @GetMapping("/users/tariffs/{id}")
     public String getAllTariffs(@PathVariable int id, Model model){
         Tariff tariff=tariffService.findById(id);
         String tariffName = tariff.getTariffName();
         model.addAttribute("tariffName", tariffName);
         return "user";
     }
-    @GetMapping("/user/addresses/{id}")
+    @GetMapping("/users/addresses/{id}")
     public String getAddress(@PathVariable int id, Model model){
         Address address = addressService.getAddressById(id);
         model.addAttribute("address", address);
         return "user";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public String getAllTariffs(Model model){
         var tariffs = tariffService.getAllTariffs();
         model.addAttribute("tariffs", tariffs);

@@ -21,20 +21,20 @@ public class TariffController {
         this.optionService = optionService;
     }
 
-    @GetMapping("/admin/tariffs")
+    @GetMapping("/admins/tariffs")
     public String getAllTariffs(Model model){
         List<Tariff> tariffs = tariffService.getAllTariffs();
         model.addAttribute("tariffs", tariffs);
         return "tariffs";
     }
 
-    @PostMapping("/saveTariff")
+    @PostMapping("/tariffs")
     public String saveTariff(@ModelAttribute("tariff") Tariff tariff) {
         tariffService.saveTariff(tariff);
-        return "redirect:/admin/tariffs";
+        return "redirect:/admins/tariffs";
     }
 
-    @RequestMapping("/admin/updateInfo")
+    @RequestMapping("/admins/update/tariffs")
     public String updateEmployee(@RequestParam("tariffId") int tariffId, Model model){
         Tariff tariff= tariffService.findById(tariffId);
         List<Option> options = tariff.getOptions();
@@ -43,7 +43,7 @@ public class TariffController {
         return "tariff-info";
     }
 
-    @RequestMapping("/admin/addNewTariff")
+    @RequestMapping("/admins/add/tariffs")
     public String addNewTariff(Model model){
         Tariff tariff = new Tariff();
         List<Option> optionsList = optionService.getAllOptions();
@@ -51,13 +51,13 @@ public class TariffController {
         model.addAttribute("optionsList",optionsList);
         return "tariff-info";
     }
-    @RequestMapping("/admin/saveTariff")
+    @RequestMapping("/admin/save/tariffs")
     public String saveEmployee(@ModelAttribute("tariff") Tariff tariff) {
         tariffService.saveTariff(tariff);
         return "redirect:/admin/tariffs";
     }
 
-    @RequestMapping("/deleteTariff")
+    @RequestMapping("/delete/tariffs")
     public String deleteTariff(@RequestParam("tariffId") int id){
         tariffService.deleteTariff(id);
         return "redirect:/admin/tariffs";

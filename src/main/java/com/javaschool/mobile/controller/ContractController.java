@@ -15,7 +15,7 @@ public class ContractController {
         this.contractService = contractService;
     }
 
-    @GetMapping("/contract/{phoneNumber}")
+    @GetMapping("/contracts/{phoneNumber}")
     public String findContractByPhoneNumber(@PathVariable Long phoneNumber, Model model){
         var contract = contractService.findContractByPhoneNumber(phoneNumber);
         var options = contract.getOptions();

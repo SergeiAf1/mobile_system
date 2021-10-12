@@ -23,14 +23,14 @@
 <div align="center">
     <security:authorize access="hasRole('ADMIN')">
         <input type="button" value="ADMIN PAGE"
-               onclick="window.location.href = '/admin'">
+               onclick="window.location.href = '/admins'">
         Go to ADMIN PAGE
     </security:authorize>
 </div>
 <br>
 <div>
     <input type="button" value="Show tariffs name"
-           onclick="window.location.href = '/user/tariffs/5'">
+           onclick="window.location.href = '/users/tariffs/5'">
     Tariff name : ${tariffName}
 
 </div>
