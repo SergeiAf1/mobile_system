@@ -44,16 +44,16 @@ public class MyController {
         return "admin";
     }
 
-    @GetMapping("/users/tariffs/{id}")
-    public String getAllTariffs(@PathVariable int id, Model model){
-        Tariff tariff=tariffService.findById(id);
+    @GetMapping("/users/tariffs/{tariff_id}")
+    public String getAllTariffs(@PathVariable int tariff_id, Model model){
+        Tariff tariff=tariffService.findById(tariff_id);
         String tariffName = tariff.getTariffName();
         model.addAttribute("tariffName", tariffName);
         return "user";
     }
-    @GetMapping("/users/addresses/{id}")
-    public String getAddress(@PathVariable int id, Model model){
-        Address address = addressService.getAddressById(id);
+    @GetMapping("/users/addresses/{address_id}")
+    public String getAddress(@PathVariable int address_id, Model model){
+        Address address = addressService.getAddressById(address_id);
         model.addAttribute("address", address);
         return "user";
     }

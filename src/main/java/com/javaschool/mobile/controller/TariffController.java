@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admins")
 public class TariffController {
 
     private final TariffService tariffService;
@@ -21,10 +22,16 @@ public class TariffController {
         this.optionService = optionService;
     }
 
-    @GetMapping("/admins/tariffs")
+    @GetMapping("/tariffs")
     public String getAllTariffs(Model model){
         List<Tariff> tariffs = tariffService.getAllTariffs();
         model.addAttribute("tariffs", tariffs);
+        return "tariffs";
+    }
+    @GetMapping("/tariffs/{tariff_id}")
+    public String getTariffById(@PathVariable int tariff_id, Model model){
+        var tariff = tariffService.findById(tariff_id);
+        model.addAttribute("tariff", tariff);
         return "tariffs";
     }
 
@@ -34,8 +41,8 @@ public class TariffController {
         return "redirect:/admins/tariffs";
     }
 
-    @RequestMapping("/admins/update/tariffs")
-    public String updateEmployee(@RequestParam("tariffId") int tariffId, Model model){
+    @PutMapping("/tariffs")
+    public String updateTariff(@RequestParam("tariffId") int tariffId, Model model){
         Tariff tariff= tariffService.findById(tariffId);
         List<Option> options = tariff.getOptions();
         model.addAttribute("tariff", tariff);
@@ -43,21 +50,7 @@ public class TariffController {
         return "tariff-info";
     }
 
-    @RequestMapping("/admins/add/tariffs")
-    public String addNewTariff(Model model){
-        Tariff tariff = new Tariff();
-        List<Option> optionsList = optionService.getAllOptions();
-        model.addAttribute("tariff", tariff);
-        model.addAttribute("optionsList",optionsList);
-        return "tariff-info";
-    }
-    @RequestMapping("/admin/save/tariffs")
-    public String saveEmployee(@ModelAttribute("tariff") Tariff tariff) {
-        tariffService.saveTariff(tariff);
-        return "redirect:/admin/tariffs";
-    }
-
-    @RequestMapping("/delete/tariffs")
+    @DeleteMapping("/tariffs")
     public String deleteTariff(@RequestParam("tariffId") int id){
         tariffService.deleteTariff(id);
         return "redirect:/admin/tariffs";
