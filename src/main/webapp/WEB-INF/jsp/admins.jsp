@@ -1,7 +1,6 @@
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,24 +9,36 @@
 <body style="background-color: violet">
 <br>
 <br>
+<br>
 <div align="right">
     <input type="button" value="LOG OUT"
            onclick="window.location.href = '/logout'">
 </div>
 <br>
+<br>
 <h1 align="center">
-    User page
+    Admin main page
 </h1>
-<br>
-<br>
-<div align="center">
-    <security:authorize access="hasRole('ADMIN')">
-        Go to ADMIN PAGE <input type="button" value="ADMIN PAGE"
-               onclick="window.location.href = '/admin'">
-    </security:authorize>
+
+<div>
+    <input type="button" value="GO TO USER PAGE"
+           onclick="window.location.href = '/user'">
 </div>
 <br>
-
+<div>
+    <input type="button" value="All Tariffs" onclick="window.location.href = '/admin/tariffs'">
+</div>
 <br>
+<div>
+    <input type="button" value="All Options" onclick="window.location.href = '/admin/options'">
+</div>
+<br>
+<div>
+    <input type="button" value="All Contracts" onclick="window.location.href = '/admin/contracts'">
+</div>
+<br>
+<div>
+    <input type="button" value="All Users" onclick="window.location.href = '/admin/users'">
+</div>
 </body>
 </html>
