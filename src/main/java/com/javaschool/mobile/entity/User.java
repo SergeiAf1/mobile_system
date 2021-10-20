@@ -30,7 +30,7 @@ public class User {
     private Date birthDate;
 
     @Column(name = "passport")
-    private int passport;
+    private String passport;
 
     @Column(name = "email")
     @Email
@@ -45,9 +45,8 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @ManyToOne(cascade = CascadeType.ALL)    // type?
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @Column(name = "address")
+    private String address;
 
     @OneToMany(cascade = CascadeType.ALL)   // type?
     @JoinColumn(name = "user_id")
@@ -66,15 +65,7 @@ public class User {
         contracts.add(contract);
     }
 
-    public User(String name, String surname, String email, String password, Boolean enabled) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-    }
-
-    public User(String name, String surname, Date birthDate, int passport, String email, String password, Boolean enabled) {
+    public User(String name, String surname, Date birthDate, String passport, String email, String password, Boolean enabled, String address) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -82,6 +73,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.enabled = enabled;
+        this.address = address;
     }
 
     public String getRole() {
@@ -140,11 +132,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public int getPassport() {
+    public String getPassport() {
         return passport;
     }
 
-    public void setPassport(int passport) {
+    public void setPassport(String passport) {
         this.passport = passport;
     }
 
@@ -164,11 +156,11 @@ public class User {
         this.password = password;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -183,7 +175,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", address=" + address +
                 ", contracts=" + contracts +
                 '}';
     }
