@@ -1,6 +1,7 @@
 package com.javaschool.mobile.entity;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class Tariff {
     @Column(name = "price")
     private  int price;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)            // type?
     @JoinTable(name = "tariff_options"
             , joinColumns = @JoinColumn(name = "tariff_id")
@@ -32,6 +36,21 @@ public class Tariff {
             options = new ArrayList<>();
         }
         options.add(option);
+    }
+
+    public Tariff(String tariffName, int price, Boolean enabled, List<Option> options) {
+        this.tariffName = tariffName;
+        this.price = price;
+        this.enabled = enabled;
+        this.options = options;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<Option> getOptions() {
