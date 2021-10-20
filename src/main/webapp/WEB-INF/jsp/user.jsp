@@ -16,7 +16,7 @@
 </div>
 <br>
 <h1 align="center">
-    User page
+    Hello ${user.name} !!!
 </h1>
 <br>
 <br>
@@ -27,7 +27,29 @@
     </security:authorize>
 </div>
 <br>
-
+<table>
+    <tr>
+        <th>My name</th>
+        <th>My surname</th>
+        <th>My email</th>
+        <th>My password</th>
+    </tr>
+    <tr>
+        <td>${user.name}</td>
+        <td>${user.surname}</td>
+        <td>${user.email}</td>
+        <td>${user.password}</td>
+    </tr>
+    <c:forEach var="user" items="${users}">
+        <c:forEach var="contracts" items="${users.contracts}">
+            <tr>
+                <td>${user.name}</td>
+                <td>${user.surname}</td>
+                <td>${contracts.options}</td>
+            </tr>
+        </c:forEach>
+    </c:forEach>
+</table>
 <br>
 </body>
 </html>

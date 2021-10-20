@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `javaschool`.`options` ;
 CREATE TABLE IF NOT EXISTS `javaschool`.`options` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `price` INT NOT NULL,
-  `connection_price` INT NOT NULL,
+  `price` INT NOT NULL default 0,
+  `connection_price` INT NOT NULL default 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -40,26 +40,10 @@ DROP TABLE IF EXISTS `javaschool`.`tariff` ;
 CREATE TABLE IF NOT EXISTS `javaschool`.`tariff` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `price` INT NOT NULL,
+  `price` INT NOT NULL default 0,
+  `enabled` TINYINT DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `javaschool`.`address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `javaschool`.`address` ;
-
-CREATE TABLE IF NOT EXISTS `javaschool`.`address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `city` VARCHAR(45) NOT NULL,
-  `street` VARCHAR(45) NOT NULL,
-  `house` INT NOT NULL,
-  `building` VARCHAR(45) NULL,
-  `apartment` INT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `javaschool`.`users`
@@ -67,26 +51,21 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `javaschool`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `address_id` INT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `surname` VARCHAR(45) NOT NULL,
-  `passport` int NULL,
-  `email` VARCHAR(45) NOT NULL unique,
-  `birth_date` DATE NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `enabled` TINYINT DEFAULT 1 NOT NULL,
-  `authority` VARCHAR(45) DEFAULT 'ROLE_USER' NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_users_address1_idx` (`address_id` ASC) VISIBLE,
-  CONSTRAINT `check_users_enabled` check (`enabled`=0 or `enabled` =1),
-  CONSTRAINT `check_users_authority` check (`authority`='ROLE_USER' or `authority` ='ROLE_ADMIN'),
-  CONSTRAINT `fk_users_address1`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `javaschool`.`address` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(45) NOT NULL,
+    `surname` VARCHAR(45) NOT NULL,
+    `passport` VARCHAR(10) NULL DEFAULT 0,
+    `email` VARCHAR(45) NOT NULL UNIQUE,
+    `birth_date` DATE NULL,
+    `password` VARCHAR(45) NOT NULL DEFAULT 'user',
+    `address` VARCHAR(225) NULL DEFAULT '',
+    `enabled` TINYINT DEFAULT 1 NOT NULL,
+    `authority` VARCHAR(45) DEFAULT 'ROLE_USER' NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `check_users_enabled` CHECK (`enabled` = 0 OR `enabled` = 1),
+    CONSTRAINT `check_users_authority` CHECK (`authority` = 'ROLE_USER'
+        OR `authority` = 'ROLE_ADMIN')
+)  ENGINE=INNODB;
 
 
 -- -----------------------------------------------------
@@ -96,8 +75,8 @@ DROP TABLE IF EXISTS `javaschool`.`contract` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`contract` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `tariff_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
+  `tariff_id` INT NULL,
+  `user_id` INT NULL,
   `phone_number` BIGINT NOT NULL,
   `enabled` TINYINT DEFAULT 1 NOT NULL,
   PRIMARY KEY (`id`),
