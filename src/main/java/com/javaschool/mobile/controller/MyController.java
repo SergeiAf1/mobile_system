@@ -1,6 +1,8 @@
 package com.javaschool.mobile.controller;
 
+import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.entity.User;
+import com.javaschool.mobile.service.ContractService;
 import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
@@ -18,11 +20,14 @@ public class MyController {
 
     private final UserService userService;
 
+    private final ContractService contractService;
+
     private final UserMapper userMapper;
 
-    public MyController(TariffService tariffService, UserService userService, UserMapper userMapper) {
+    public MyController(TariffService tariffService, UserService userService, ContractService contractService, UserMapper userMapper) {
         this.tariffService = tariffService;
         this.userService = userService;
+        this.contractService = contractService;
         this.userMapper = userMapper;
     }
 
@@ -40,10 +45,8 @@ public class MyController {
     public String getAllTariffs(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        User user = userService.getUserByEmail(currentPrincipalName);
-        var tariffs = tariffService.getAllTariffs();
-        model.addAttribute("tariffs", tariffs);
-        model.addAttribute("user",user);
+        model.addAttribute("tariffs", tariffService.getAllTariffs());
+        model.addAttribute("user",userService.getUserByEmail(currentPrincipalName));
         return "user";
     }
 
@@ -54,12 +57,30 @@ public class MyController {
         return "users";
     }
 
-    @RequestMapping("/user/change")
-    public String changeEmailOrPassword(@RequestParam("user_id") int user_id, Model model){
-        var user = userService.getUserById(user_id);
-        model.addAttribute("user", user);
-        return "user-change";
+//    @RequestMapping("/user/change")
+//    public String changeEmailOrPassword(@RequestParam("user_id") int user_id, Model model){
+//        model.addAttribute("user", userService.getUserById(user_id));
+//        return "user-change";
+//    }
+    @RequestMapping("/user/update/contract")
+    public String updateUserContract(@RequestParam("contract_id") int contract_id, Model model){
+        model.addAttribute("contract", contractService.findContractById(contract_id));
+        model.addAttribute("tariffs", tariffService.getAllTariffs());
+        return "contract-info";
     }
+    @PostMapping("/user/save/contracts")
+    public String saveUserContract(@ModelAttribute("contract") Contract contract) {
+        contractService.saveContract(contract);
+        return "redirect:/user";
+    }
+
+    @RequestMapping("/user/update/options")
+    public String updateUserOptions(@RequestParam("contract_id") int contract_id, Model model){
+        model.addAttribute("contract", contractService.findContractById(contract_id));
+        model.addAttribute("options",contractService.findContractById(contract_id).getTariff().getOptions());
+        return "option-info";
+    }
+
 
 
 

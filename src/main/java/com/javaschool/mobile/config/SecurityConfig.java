@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole( "ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/login").permitAll()
                 .and().formLogin()
                 //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/user")
@@ -52,5 +53,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login");
     }
 }
-
 
