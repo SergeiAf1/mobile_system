@@ -23,9 +23,9 @@ public class Contract {
     private Boolean enabled;
 
     @ManyToMany(cascade = CascadeType.ALL)           // type?
-    @JoinTable(name = "contract_tariff_options"
+    @JoinTable(name = "contract_options"
             ,joinColumns = @JoinColumn(name = "contract_id")
-            ,inverseJoinColumns = @JoinColumn(name = "tariff_options_id"))
+            ,inverseJoinColumns = @JoinColumn(name = "option_id"))
     private List<Option> options;
 
 
