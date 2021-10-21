@@ -28,8 +28,8 @@ public class ContractController {
         this.optionService = optionService;
     }
 
-    @GetMapping("/contracts/{phone}")
-    public String findContractByPhoneNumber(@PathVariable Long phone, Model model){
+    @RequestMapping("/contracts/phoneNumber")
+    public String findContractByPhoneNumber(@RequestParam("phone") Long phone, Model model){
         var contract = contractService.findContractByPhoneNumber(phone);
         var options = contract.getOptions();
         model.addAttribute("contract",contract);
