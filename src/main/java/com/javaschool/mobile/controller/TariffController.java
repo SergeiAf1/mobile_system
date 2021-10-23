@@ -38,20 +38,19 @@ public class TariffController {
     @RequestMapping("/update/tariffs")
     public String updateTariff(@RequestParam("tariff_id") int id, Model model) {
         var tariff = tariffService.findById(id);
-//        var oldoptions = tariff.getOptions();
         var options = optionService.getAllOptions();
-        tariff.setOptions(options);
         model.addAttribute("tariff", tariff);
-//        model.addAttribute("oldoptions", oldoptions);
+        model.addAttribute("options", options);
         return "tariffs-info";
     }
 
     @RequestMapping("/add/tariffs")
     public String addNewTariff(Model model) {
-        Tariff tariff = new Tariff();
-        List<Option> optionsList = optionService.getAllOptions();
-        tariff.setOptions(optionsList);
+        var tariff = new Tariff();
+        var options = optionService.getAllOptions();
+        tariff.setOptions(options);
         model.addAttribute("tariff", tariff);
+        model.addAttribute("options", options);
         return "tariffs-info";
     }
 

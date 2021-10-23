@@ -9,12 +9,12 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="background-color: violet">
+<br/>
 <h2>Tariff Info</h2>
 <div align="right">
-    Go back to admin page<input type="button" value="admin page"
-                                onclick="window.location.href = '/admin'">
+    Go back to <input type="button" value="admin page"
+                      onclick="window.location.href = '/admin'">
 </div>
-<br/>
 <form:form action="/admin/save/tariffs" modelAttribute="tariff">
     <form:hidden path="id"/>
     Name <form:input path="tariffName"/>
@@ -26,12 +26,13 @@
     <div id="wrapper">
         <input type="button" value="Check All" onclick="check();">
         <input type="button" value="Uncheck All" onclick="uncheck();">
+        <br/>
         <table border="2">
             <tr align="center">
-                <td>Option name</td>
-                <td> Choice</td>
+                <th>Option name</th>
+                <th> Choice</th>
             </tr>
-            <c:forEach var="option" items="${tariff.options}">
+            <c:forEach var="option" items="${options}">
                 <tr align="center">
                     <td>${option.name}</td>
                     <td><form:checkbox path="options" value="${option}"></form:checkbox></td>
@@ -39,6 +40,7 @@
             </c:forEach>
         </table>
     </div>
+    <br/>
     <input type="submit" value="CONFIRM">
     <br/> <br/>
 </form:form>
@@ -51,7 +53,6 @@
             }
         }
     }
-
     function uncheck() {
         var uncheck = document.getElementsByTagName('input');
         for (var i = 0; i < uncheck.length; i++) {

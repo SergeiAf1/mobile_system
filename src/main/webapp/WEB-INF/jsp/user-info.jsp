@@ -11,7 +11,7 @@
 <body style="background-color: violet">
 <h2>User info</h2>
 <div align="right">
-    Go back to admin page<input type="button" value="admin page"
+    Go back to <input type="button" value="admin page"
                                 onclick="window.location.href = '/admin'">
 </div>
 <br/>

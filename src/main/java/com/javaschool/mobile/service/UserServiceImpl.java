@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         userDAO.deleteById(id);
     }
-	
+
     @Override
     public User getUserByEmail(String email) {
         return userDAO.findByEmail(email);

@@ -11,13 +11,15 @@
 <body style="background-color: violet">
 <h2>Contract Info</h2>
 <div align="right">
-    Go back to main page<input type="button" value="main page"
+    Go back to <input type="button" value="main page"
                                 onclick="window.location.href = '/user'">
 </div>
 <br/>
 <form:form action="/user/save/contracts" modelAttribute="contract">
     <form:hidden path="id"/>
     <form:hidden path="phoneNumber"/>
+    <form:hidden path="enabled"/>
+    <form:hidden path="options"/>
     <br/> <br/>
 <%--    Enabled <form:checkbox path="enabled"></form:checkbox>--%>
         <table border="2">
