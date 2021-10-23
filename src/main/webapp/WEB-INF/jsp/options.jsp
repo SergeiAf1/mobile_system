@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="background-color: violet">
+<br/>
 <h2>
     All Options
 </h2>
 <div align="right">
-    Go back to admin page<input type="button" value="admin page"
+    Go back to <input type="button" value="admin page"
                                 onclick="window.location.href = '/admin'">
 </div>
 <br>
 <table border="2">
-    <tr>
-        <th>Option name</th>
-        <th>Price</th>
-        <th align="center">Connection price</th>
+    <tr align="center">
+        <th width="150">Option name</th>
+        <th width="100">Price</th>
+        <th  width="150">Connection price</th>
+        <th  width="100">Action</th>
     </tr>
     <c:forEach var="option" items="${options}">
         <c:url var="updateButton" value="/admin/update/options">
@@ -28,10 +30,10 @@
 <%--        <c:url var="deleteButton" value="/admin/delete/options">--%>
 <%--            <c:param name="optionId" value="${option.id}"></c:param>--%>
 <%--        </c:url>--%>
-        <tr>
+        <tr align="center">
             <td>${option.name}</td>
-            <td align="center">${option.price}</td>
-            <td  align="center">${option.connectionPrice}</td>
+            <td>${option.price}</td>
+            <td>${option.connectionPrice}</td>
             <td>
                 <input type="button" value="Update" onclick="window
                         .location.href = '${updateButton}'"/>

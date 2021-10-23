@@ -15,62 +15,24 @@
     <input type="button" value="LOG OUT"
            onclick="window.location.href = '/logout'">
 </div>
-<br>
 <h1 align="center">
     Hello ${user.name} !!!
 </h1>
-<br>
-<style>
-    /*#myInput {*/
-    /*    !*background-image: url('/css/searchicon.png'); !* Добавить значок поиска для ввода *!*!*/
-    /*    background-position: 10px 12px; !* Расположите значок поиска *!*/
-    /*    background-repeat: no-repeat; !* Не повторяйте изображение значка *!*/
-    /*    width: 100%; !* Полная ширина *!*/
-    /*    font-size: 16px; !* Увеличить размер шрифта *!*/
-    /*    padding: 12px 20px 12px 40px; !* Добавить немного отступов *!*/
-    /*    border: 1px solid #ddd; !* Добавить серую границу *!*/
-    /*    margin-bottom: 12px; !* Добавить некоторое пространство под входом *!*/
-    /*}*/
-
-    /*#myTable {*/
-    /*    border-collapse: collapse; !* Свернуть границы *!*/
-    /*    width: 100%; !* Полная ширина *!*/
-    /*    border: 1px solid #ddd; !* Добавить серую границу *!*/
-    /*    font-size: 18px; !* Увеличить размер шрифта *!*/
-    /*}*/
-
-    /*#myTable th, #myTable td {*/
-    /*    text-align: left; !* Выравнивание текста по левому краю *!*/
-    /*    padding: 12px; !* Добавить отступ *!*/
-    /*}*/
-
-    /*#myTable tr {*/
-    /*    !* Добавить нижнюю границу для всех строк таблицы *!*/
-    /*    border-bottom: 1px solid #ddd;*/
-    /*}*/
-
-    /*#myTable tr.header, #myTable tr:hover {*/
-    /*    !* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши *!*/
-    /*    !*background-color: #f1f1f1;*!*/
-    }
-</style>
-<br>
-<div align="center">
+<div>
     <security:authorize access="hasRole('ADMIN')">
-        Go to ADMIN PAGE <input type="button" value="ADMIN PAGE"
+        Go to <input type="button" value="admin page"
                                 onclick="window.location.href = '/admin'">
     </security:authorize>
 </div>
 <h1>${user.name} ${user.surname}</h1>
 <h3>My contracts</h3>
-
 <table id="myTable" border="2">
     <tr class="header" align="center">
-        <th>Phone number</th>
-        <th>Tariff</th>
-        <th>Tariff price</th>
-        <th>Options</th>
-        <th>Option price</th>
+        <th width="150">Phone number</th>
+        <th width="100">Tariff</th>
+        <th width="100">Tariff price</th>
+        <th width="150">Options</th>
+        <th width="150">Option price</th>
         <th>Actions</th>
         <th>Actions</th>
     </tr>
@@ -92,7 +54,7 @@
             </td>
             <td>
                 <c:forEach var="option" items="${contract.options}">
-                <li>${option.price}</li>
+                    <li>${option.price}</li>
                 </c:forEach></td>
             <td align="center">
                 <input type="button" value="Change tariff" onclick="window
@@ -103,12 +65,13 @@
                         .location.href = '${updateOptions}'"/>
             </td>
         </tr>
-
     </c:forEach>
 </table>
 <br>
-<input type="button" style="background-color: darkorchid" value="All Tariffs and Options"
+<input type="button" style="background-color: orchid" value="All Tariffs and Options"
        onclick="window.location.href = '/user/tariffs'">
-<br>
+<br><br>
+
 </body>
 </html>
+

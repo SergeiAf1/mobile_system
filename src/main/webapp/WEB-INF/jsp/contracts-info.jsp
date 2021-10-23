@@ -12,7 +12,7 @@
 <h2>Contract Info</h2>
 <input type="button" value="All contracts" onclick="window.location.href='/admin/contracts'">
 <div align="right">
-    Go back to admin page<input type="button" value="admin page"
+    Go back to <input type="button" value="admin page"
                                 onclick="window.location.href = '/admin'">
 </div>
 <br/>
@@ -27,8 +27,8 @@
         <input type="button" value="Uncheck All" onclick="uncheck();">
         <table border="2">
             <tr align="center">
-                <td>Tariff name</td>
-                <td> Choice</td>
+                <th>Tariff name</th>
+                <th> Choice</th>
 <%--                <td>Options</td>--%>
             </tr>
             <c:forEach var="tariff" items="${tariffs}">
@@ -37,16 +37,18 @@
 
                     <td><form:radiobutton path="tariff" value="${tariff}"></form:radiobutton></td>
 
-
+                </tr>
                 <tr>
                 <td>
                     Available options :
                     <c:forEach var="option" items="${tariff.options}">
+<%--                        <c:forEach var="contractopt" items="${contract.options}">--%>
 
                         <li>
                                 ${option.name}
                             <form:checkbox path="options" value="${option}"></form:checkbox>
                         </li>
+<%--                        </c:forEach>--%>
                     </c:forEach>
                 </td>
             </tr>

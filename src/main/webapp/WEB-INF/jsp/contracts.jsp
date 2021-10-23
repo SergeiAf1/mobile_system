@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="background-color: violet">
+<br/>
 <h2>
     All Contracts
 </h2>
 <div align="right">
-    Go back to admin page<input type="button" value="admin page"
+    Go back to <input type="button" value="admin page"
                                 onclick="window.location.href = '/admin'">
 </div>
 <input type="button" value="Add Contract"
@@ -68,6 +69,7 @@
         <tr>
 
             <td align="center"input type="number">${contract.phoneNumber}</td>
+<%--            <td align="center">${contract.user.email}</td>--%>
             <td align="center">${contract.tariff.tariffName}</td>
             <td>
                 <c:forEach var="option" items="${contract.options}">
