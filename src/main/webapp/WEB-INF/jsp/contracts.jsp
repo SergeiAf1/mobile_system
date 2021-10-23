@@ -57,7 +57,6 @@
 <table id="myTable">
     <tr class="header">
         <th>Phone number</th>
-        <th>User email</th>
         <th>Tariff name</th>
         <th>Options</th>
         <th>Enabled</th>
