@@ -18,15 +18,18 @@
 
 <br>
 <style>
-    #myInput {
-        /*background-image: url('/css/searchicon.png'); !* Добавить значок поиска для ввода *!*/
-        background-position: 10px 12px; /* Расположите значок поиска */
-        background-repeat: no-repeat; /* Не повторяйте изображение значка */
-        width: 100%; /* Полная ширина */
-        font-size: 16px; /* Увеличить размер шрифта */
-        padding: 12px 20px 12px 40px; /* Добавить немного отступов */
-        border: 1px solid #ddd; /* Добавить серую границу */
-        margin-bottom: 12px; /* Добавить некоторое пространство под входом */
+    /*#myInput {*/
+    /*    !*background-image: url('/css/searchicon.png'); !* Добавить значок поиска для ввода *!*!*/
+    /*    background-position: 10px 12px; !* Расположите значок поиска *!*/
+    /*    background-repeat: no-repeat; !* Не повторяйте изображение значка *!*/
+    /*    width: 100%; !* Полная ширина *!*/
+    /*    font-size: 16px; !* Увеличить размер шрифта *!*/
+    /*    padding: 12px 20px 12px 40px; !* Добавить немного отступов *!*/
+    /*    border: 1px solid #ddd; !* Добавить серую границу *!*/
+    /*    margin-bottom: 12px; !* Добавить некоторое пространство под входом *!*/
+    /*}*/
+    #myInput, #email{
+        width: 25%;
     }
 
     #myTable {
@@ -54,7 +57,11 @@
 <input type="button" value="Add new user"
        onclick="window.location.href = '/admin/add/users'"/>
 <br><br>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search user..">
+<div>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search user by phone number">
+    <input type="text" id="email" onkeyup="myFunctionE()" placeholder="Search user by email">
+</div>
+<br/>
 <table id="myTable" border="2">
     <tr class="header">
         <th>Phone number</th>
@@ -71,6 +78,9 @@
         <c:url var="updateButton" value="/admin/update/users">
             <c:param name="user_id" value="${user.id}"></c:param>
         </c:url>
+<%--        <c:url var="addContractButton" value="/admin/addcontract/users">--%>
+<%--            <c:param name="user_id" value="${user.id}"></c:param>--%>
+<%--        </c:url>--%>
         <tr>
             <td>
                 <c:forEach var="contract" items="${user.contracts}">
@@ -90,6 +100,10 @@
                 <input type="button" value="Update" onclick="window
                         .location.href = '${updateButton}'"/>
             </td>
+<%--            <td align="center">--%>
+<%--                <input type="button" value="Add contract" onclick="window--%>
+<%--                        .location.href = '${addContractButton}'"/>--%>
+<%--            </td>--%>
         </tr>
     </c:forEach>
 </table>
@@ -108,6 +122,27 @@
         // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function myFunctionE() {
+        // Объявить переменные
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("email");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {

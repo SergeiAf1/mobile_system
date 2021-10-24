@@ -18,7 +18,7 @@
 <div>
 <form:form action="/admin/save/users" modelAttribute="user">
     <form:hidden path="id"/>
-<%--    <form:hidden path="role"/>--%>
+    <form:hidden path="role" value="ROLE_USER"/>
     Name <form:input path="name"/>
     <br> <br>
     Surname <form:input path="surname"/>

@@ -20,6 +20,7 @@
     <form:hidden path="phoneNumber"/>
     <form:hidden path="enabled"/>
     <form:hidden path="options"/>
+    <form:hidden path="user"/>
     <br/> <br/>
 <%--    Enabled <form:checkbox path="enabled"></form:checkbox>--%>
         <table border="2">

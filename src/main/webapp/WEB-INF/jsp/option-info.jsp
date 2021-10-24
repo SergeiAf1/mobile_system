@@ -23,6 +23,7 @@
         <form:hidden path="phoneNumber"/>
         <form:hidden path="tariff"/>
         <form:hidden path="enabled"/>
+        <form:hidden path="user"/>
         <tr align="center">
             <th width="150">Option name</th>
             <th width="70">Price</th>
