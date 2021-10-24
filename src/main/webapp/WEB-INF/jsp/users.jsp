@@ -78,9 +78,9 @@
         <c:url var="updateButton" value="/admin/update/users">
             <c:param name="user_id" value="${user.id}"></c:param>
         </c:url>
-        <c:url var="addContractButton" value="/admin/addcontract/users">
-            <c:param name="user_id" value="${user.id}"></c:param>
-        </c:url>
+<%--        <c:url var="addContractButton" value="/admin/addcontract/users">--%>
+<%--            <c:param name="user_id" value="${user.id}"></c:param>--%>
+<%--        </c:url>--%>
         <tr>
             <td>
                 <c:forEach var="contract" items="${user.contracts}">
@@ -100,10 +100,10 @@
                 <input type="button" value="Update" onclick="window
                         .location.href = '${updateButton}'"/>
             </td>
-            <td align="center">
-                <input type="button" value="Add contract" onclick="window
-                        .location.href = '${addContractButton}'"/>
-            </td>
+<%--            <td align="center">--%>
+<%--                <input type="button" value="Add contract" onclick="window--%>
+<%--                        .location.href = '${addContractButton}'"/>--%>
+<%--            </td>--%>
         </tr>
     </c:forEach>
 </table>
