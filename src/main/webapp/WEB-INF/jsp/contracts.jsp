@@ -67,6 +67,7 @@
             <c:param name="contract_id" value="${contract.id}"></c:param>
         </c:url>
         <tr>
+<%--            <td><form:hidden path="user"></form:hidden></td>--%>
 
             <td align="center"input type="number">${contract.phoneNumber}</td>
 <%--            <td align="center">${contract.user.email}</td>--%>

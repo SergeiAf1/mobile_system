@@ -22,6 +22,10 @@ public class Contract {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER )
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany(cascade = CascadeType.ALL)           // type?
     @JoinTable(name = "contract_options"
             ,joinColumns = @JoinColumn(name = "contract_id")
@@ -51,6 +55,14 @@ public class Contract {
                 ", phoneNumber=" + phoneNumber +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

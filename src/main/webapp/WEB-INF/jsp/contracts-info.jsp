@@ -18,6 +18,7 @@
 <br/>
 <form:form action="/admin/save/contracts" modelAttribute="contract">
     <form:hidden path="id"/>
+    <form:hidden path="user"/>
     Phone number <form:input path="phoneNumber"/>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>

@@ -48,8 +48,7 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL)   // type?
-    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")   // type?
     private List<Contract> contracts;
 
     @Column(name = "authority")
