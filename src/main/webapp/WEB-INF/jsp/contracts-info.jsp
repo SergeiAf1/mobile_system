@@ -13,24 +13,43 @@
 <input type="button" value="All contracts" onclick="window.location.href='/admin/contracts'">
 <div align="right">
     Go back to <input type="button" value="admin page"
-                                onclick="window.location.href = '/admin'">
+                      onclick="window.location.href = '/admin'">
 </div>
 <br/>
 <form:form action="/admin/save/contracts" modelAttribute="contract">
     <form:hidden path="id"/>
-    <form:hidden path="user"/>
+    <%--<form:hidden path="user"/>--%>
     Phone number <form:input path="phoneNumber"/>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/> <br/>
-
+    <div>
+        Choose user by email
+        <form:select path="user" >
+            <option selected="selected"></option>
+            <c:forEach var="user" items="${users}">
+<%--<form:hidden path="${user.role}"></form:hidden>--%>
+                <form:option value="${user}"> ${user.email}</form:option>
+            </c:forEach>
+        </form:select>
+<%--        <label class="span2">Action--%>
+<%--            <form:select path="user">--%>
+<%--&lt;%&ndash;                <c:forEach var="user" items="${users}">&ndash;%&gt;--%>
+<%--                <option selected="selected"> -- Please choose --</option>--%>
+<%--                <form:option value="${user}" > ${user.email}</form:option>--%>
+<%--                <form:options items="${users}"  />--%>
+<%--&lt;%&ndash;                </c:forEach>&ndash;%&gt;--%>
+<%--            </form:select>--%>
+<%--        </label>--%>
+    </div>
+    <br/>
     <div id="wrapper">
         <input type="button" value="Uncheck All" onclick="uncheck();">
         <table border="2">
             <tr align="center">
                 <th>Tariff name</th>
                 <th> Choice</th>
-<%--                <td>Options</td>--%>
+                    <%--                <td>Options</td>--%>
             </tr>
             <c:forEach var="tariff" items="${tariffs}">
                 <tr align="center" style="background-color: orchid">
@@ -40,19 +59,19 @@
 
                 </tr>
                 <tr>
-                <td>
-                    Available options :
-                    <c:forEach var="option" items="${tariff.options}">
-<%--                        <c:forEach var="contractopt" items="${contract.options}">--%>
+                    <td>
+                        Available options :
+                        <c:forEach var="option" items="${tariff.options}">
+                            <%--                        <c:forEach var="contractopt" items="${contract.options}">--%>
 
-                        <li>
-                                ${option.name}
-                            <form:checkbox path="options" value="${option}"></form:checkbox>
-                        </li>
-<%--                        </c:forEach>--%>
-                    </c:forEach>
-                </td>
-            </tr>
+                            <li>
+                                    ${option.name}
+                                <form:checkbox path="options" value="${option}"></form:checkbox>
+                            </li>
+                            <%--                        </c:forEach>--%>
+                        </c:forEach>
+                    </td>
+                </tr>
 
                 </tr>
             </c:forEach>
