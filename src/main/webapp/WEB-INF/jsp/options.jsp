@@ -44,7 +44,7 @@
     </c:forEach>
 </table>
 <br />
-<input type="button" value="Add Option"
+<input style="width: 13%" type="button" value="Add new Option"
        onclick="window.location.href = '/admin/add/options'"/>
 </body>
 </html>
