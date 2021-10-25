@@ -19,7 +19,7 @@
 <div>
     <form:form action="/admin/save/options" modelAttribute="option">
         <form:hidden path="id"/>
-        Name <form:input path="name"/>
+        Name <form:input required="required" minlength="2" maxlength="44" path="name"/>
         <br/> <br/>
         Price <form:input path="price"/>
         <br/> <br/>
