@@ -17,7 +17,7 @@
 </div>
 <form:form action="/admin/save/tariffs" modelAttribute="tariff">
     <form:hidden path="id"/>
-    Name <form:input path="tariffName"/>
+    Name <form:input required="required" maxlength="44" path="tariffName"/>
     <br/> <br/>
     Price <form:input path="price"/>
     <br/> <br/>
