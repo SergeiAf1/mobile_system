@@ -20,25 +20,26 @@
 <h1 align="center">
     Admin main page
 </h1>
+<br/>
 <div>
-    <input type="button" value="User page"
+    <input style="width: 15%" type="button" value="All Options" onclick="window.location.href = '/admin/options'">
+</div>
+<br>
+<div>
+    <input style="width: 15%" type="button" value="All Tariffs" onclick="window.location.href = '/admin/tariffs'">
+</div>
+<br>
+<div>
+    <input style="width: 15%" type="button" value="All Users" onclick="window.location.href = '/admin/users'">
+</div>
+<br>
+<div>
+    <input style="width: 15%" type="button" value="All Contracts" onclick="window.location.href = '/admin/contracts'">
+</div>
+<br>
+<div>
+    <input style="width: 15%" type="button" value="User page"
            onclick="window.location.href = '/user'">
-</div>
-<br>
-<div>
-    <input type="button" value="All Tariffs" onclick="window.location.href = '/admin/tariffs'">
-</div>
-<br>
-<div>
-    <input type="button" value="All Options" onclick="window.location.href = '/admin/options'">
-</div>
-<br>
-<div>
-    <input type="button" value="All Contracts" onclick="window.location.href = '/admin/contracts'">
-</div>
-<br>
-<div>
-    <input type="button" value="All Users" onclick="window.location.href = '/admin/users'">
 </div>
 </body>
 </html>
