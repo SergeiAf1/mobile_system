@@ -37,7 +37,7 @@
         <th>Actions</th>
     </tr>
     <c:forEach var="contract" items="${user.contracts}">
-        <c:url var="updateTariff" value="/user/update/contract">
+        <c:url var="updateTariff" value="/user/update/tariffs">
             <c:param name="contract_id" value="${contract.id}"></c:param>
         </c:url>
         <c:url var="updateOptions" value="/user/update/options">

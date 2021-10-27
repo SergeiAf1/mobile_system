@@ -64,7 +64,7 @@ public class MyController {
         return "users";
     }
 
-    @RequestMapping("/user/update/contract")
+    @RequestMapping("/user/update/tariffs")
     public String updateUserContract(@RequestParam("contract_id") int contract_id, Model model) {
         model.addAttribute("contract", contractService.findContractById(contract_id));
         var tariffs = tariffService.getAllTariffs()

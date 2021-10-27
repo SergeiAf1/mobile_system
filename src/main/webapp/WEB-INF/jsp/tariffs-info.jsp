@@ -19,7 +19,7 @@
     <form:hidden path="id"/>
     Name <form:input required="required" maxlength="44" path="tariffName"/>
     <br/> <br/>
-    Price <form:input path="price"/>
+    Price <form:input  pattern="\d+" required="required" maxlength="6" path="price"/>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/> <br/>
