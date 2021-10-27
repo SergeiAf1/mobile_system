@@ -1,10 +1,10 @@
 package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.ContractDto;
-import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.service.ContractService;
 import com.javaschool.mobile.service.Mappers.ContractMapper;
 import com.javaschool.mobile.service.Mappers.TariffMapper;
+import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
@@ -28,19 +28,21 @@ public class ContractController {
 
     private final ContractMapper contractMapper;
     private final TariffMapper tariffMapper;
+    private final UserMapper userMapper;
 
-    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, UserService userService, ContractMapper contractMapper, TariffMapper tariffMapper) {
+    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, UserService userService, ContractMapper contractMapper, TariffMapper tariffMapper, UserMapper userMapper) {
         this.contractService = contractService;
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.userService = userService;
         this.contractMapper = contractMapper;
         this.tariffMapper = tariffMapper;
+        this.userMapper = userMapper;
     }
 
     @RequestMapping("/contracts/phoneNumber")
     public String findContractByPhoneNumber(@RequestParam("phone") Long phone, Model model){
-        var contract = contractService.findContractByPhoneNumber(phone);
+        var contract = contractMapper.toDto(contractService.findContractByPhoneNumber(phone));
         var options = contract.getOptions();
         model.addAttribute("contract",contract);
         model.addAttribute("options",options);
@@ -63,7 +65,11 @@ public class ContractController {
                 .map(tariffMapper::toDto)
                 .collect(Collectors.toList())
         );
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers()
+                .stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList())
+        );
         return "contracts-info";
     }
     @PostMapping("/save/contracts")
@@ -79,7 +85,11 @@ public class ContractController {
                 .map(tariffMapper::toDto)
                 .collect(Collectors.toList())
         );
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers()
+                .stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList())
+        );
         return "contracts-info";
     }
 }

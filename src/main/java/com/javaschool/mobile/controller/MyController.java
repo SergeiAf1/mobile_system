@@ -1,8 +1,9 @@
 package com.javaschool.mobile.controller;
 
+import com.javaschool.mobile.dto.ContractDto;
 import com.javaschool.mobile.dto.TariffDto;
-import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.service.ContractService;
+import com.javaschool.mobile.service.Mappers.ContractMapper;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.Mappers.TariffMapper;
 import com.javaschool.mobile.service.Mappers.UserMapper;
@@ -28,8 +29,9 @@ public class MyController {
     private final UserMapper userMapper;
     private final TariffMapper tariffMapper;
     private final OptionMapper optionMapper;
+    private final ContractMapper contractMapper;
 
-    public MyController(TariffService tariffService, UserService userService, ContractService contractService, OptionService optionService, UserMapper userMapper, TariffMapper tariffMapper, OptionMapper optionMapper) {
+    public MyController(TariffService tariffService, UserService userService, ContractService contractService, OptionService optionService, UserMapper userMapper, TariffMapper tariffMapper, OptionMapper optionMapper, ContractMapper contractMapper) {
         this.tariffService = tariffService;
         this.userService = userService;
         this.contractService = contractService;
@@ -37,6 +39,7 @@ public class MyController {
         this.userMapper = userMapper;
         this.tariffMapper = tariffMapper;
         this.optionMapper = optionMapper;
+        this.contractMapper = contractMapper;
     }
 
     @GetMapping("/")
@@ -53,38 +56,46 @@ public class MyController {
     public String getAllTariffs(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        model.addAttribute("user", userService.getUserByEmail(currentPrincipalName));
+        model.addAttribute("user", userMapper.toDto(userService.getUserByEmail(currentPrincipalName)));
         return "user";
     }
 
     @GetMapping("/admin/users")
     public String getAllUsers(Model model) {
-        var users = userService.getAllUsers();
+        var users = userService.getAllUsers()
+                .stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
         model.addAttribute("users", users);
         return "users";
     }
 
     @RequestMapping("/user/update/tariffs")
     public String updateUserContract(@RequestParam("contract_id") int contract_id, Model model) {
-        model.addAttribute("contract", contractService.findContractById(contract_id));
+        model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));
         var tariffs = tariffService.getAllTariffs()
                 .stream()
-                .filter(t -> t.getEnabled())
+                .map(tariffMapper::toDto)
+                .filter(TariffDto::getEnabled)
                 .collect(Collectors.toList());
         model.addAttribute("tariffs", tariffs);
         return "contract-info";
     }
 
     @PostMapping("/user/save/contracts")
-    public String saveUserContract(@ModelAttribute("contract") Contract contract) {
-        contractService.saveContract(contract);
+    public String saveUserContract(@ModelAttribute("contract") ContractDto contract) {
+        contractService.saveContract(contractMapper.toEntity(contract));
         return "redirect:/user";
     }
 
     @RequestMapping("/user/update/options")
     public String updateUserOptions(@RequestParam("contract_id") int contract_id, Model model) {
-        model.addAttribute("contract", contractService.findContractById(contract_id));
-        model.addAttribute("options", contractService.findContractById(contract_id).getTariff().getOptions());
+        model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));
+        model.addAttribute("options", contractService.findContractById(contract_id).getTariff().getOptions()
+                .stream()
+                .map(optionMapper::toDto)
+                .collect(Collectors.toList())
+        );
         return "option-info";
     }
 
@@ -94,12 +105,14 @@ public class MyController {
                 .stream()
                 .map(tariffMapper::toDto)
                 .filter(TariffDto::getEnabled)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
         model.addAttribute("oldtariffs", tariffService.getAllTariffs()
                 .stream()
                 .map(tariffMapper::toDto)
                 .filter(t -> !t.getEnabled())
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
         model.addAttribute("options", optionService.getAllOptions()
                 .stream()
                 .map(optionMapper::toDto)

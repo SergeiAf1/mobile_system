@@ -1,50 +1,90 @@
 package com.javaschool.mobile.dto;
 
+
 import com.javaschool.mobile.entity.Contract;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class UserDto {
 
-    @NotBlank
-    @Size(min = 2, max = 25)
+    private int id;
+
     private String name;
-    @NotBlank
-    @Size(min = 2, max = 25)
-    private String surName;
-    @Email
-    @NotBlank
+
+    private String surname;
+
+    private Date birthDate;
+
+    private String passport;
+
     private String email;
 
-    private List<Contract> contracts;
+    private String password;
 
     private Boolean enabled;
 
-    public String getName() {
-        return name;
+    private String address;
+
+    private List<ContractDto> contracts;
+
+    private String role;
+
+    public UserDto() {
     }
 
-    public void addContract(Contract contract) {
-        if (contracts == null) {
-            contracts = new ArrayList<>();
-        }
-        contracts.add(contract);
+    public UserDto(int id, String name, String surname, Date birthDate, String passport, String email, String password, Boolean enabled, String address, List<ContractDto> contracts, String role) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.passport = passport;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.address = address;
+        this.contracts = contracts;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 
     public String getEmail() {
@@ -55,12 +95,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public List<Contract> getContracts() {
-        return contracts;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContracts(List<Contract> contracts) {
-        this.contracts = contracts;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getEnabled() {
@@ -71,25 +111,27 @@ public class UserDto {
         this.enabled = enabled;
     }
 
-    public UserDto(String name, String surName, String email, List<Contract> contracts, Boolean enabled) {
-        this.name = name;
-        this.surName = surName;
-        this.email = email;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<ContractDto> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<ContractDto> contracts) {
         this.contracts = contracts;
-        this.enabled = enabled;
     }
 
-    public UserDto() {
+    public String getRole() {
+        return role;
     }
 
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", email='" + email + '\'' +
-                ", contracts=" + contracts +
-                ", enabled=" + enabled +
-                '}';
+    public void setRole(String role) {
+        this.role = role;
     }
 }

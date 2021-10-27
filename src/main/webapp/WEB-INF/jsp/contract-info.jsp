@@ -20,7 +20,7 @@
     <form:hidden path="phoneNumber"/>
     <form:hidden path="enabled"/>
     <form:hidden path="options"/>
-    <form:hidden path="user"/>
+    <form:hidden path="userEmail"/>
     <br/> <br/>
 <%--    Enabled <form:checkbox path="enabled"></form:checkbox>--%>
         <table border="2">
@@ -33,7 +33,7 @@
                 <tr align="center" style="background-color: orchid">
                     <td>${tariff.tariffName}</td>
                     <td>${tariff.price}</td>
-                    <td><form:radiobutton path="tariff" value="${tariff}"></form:radiobutton></td>
+                    <td><form:radiobutton path="tariffName" value="${tariff.tariffName}"></form:radiobutton></td>
                 </tr>
             </c:forEach>
         </table>

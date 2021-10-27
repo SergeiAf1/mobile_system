@@ -1,7 +1,8 @@
 package com.javaschool.mobile.controller;
 
-import com.javaschool.mobile.entity.User;
+import com.javaschool.mobile.dto.UserDto;
 import com.javaschool.mobile.service.ContractService;
+import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,39 +20,42 @@ public class UserController {
 
     private final ContractService contractService;
 
-    public UserController(UserService userService, ContractService contractService) {
+    private final UserMapper userMapper;
+
+    public UserController(UserService userService, ContractService contractService, UserMapper userMapper) {
         this.userService = userService;
         this.contractService = contractService;
+        this.userMapper = userMapper;
     }
 
     @RequestMapping("/add/users")
     public String addNewUser(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
         return "user-info";
     }
 
     @RequestMapping("/save/users")
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
+    public String saveUser(@ModelAttribute("user") UserDto user) {
+        userService.saveUser(userMapper.toEntity(user));
         return "redirect:/admin/users";
     }
 
     @RequestMapping("/update/users")
     public String updateUser(@RequestParam("user_id") int user_id, Model model) {
-        model.addAttribute("user", userService.getUserById(user_id));
+        model.addAttribute("user", userMapper.toDto(userService.getUserById(user_id)));
         return "user-info";
     }
 
-    @RequestMapping("/addcontract/users")
-    public String addContractUser(@RequestParam("user_id") int user_id, Model model) {
-        model.addAttribute("user", userService.getUserById(user_id));
-        var contracts = contractService.getAllContracts()
-                .stream()
-                .filter(contract -> contract.getUser() == null || contract.getUser().getId() == user_id)
-                .collect(Collectors.toList());
-        model.addAttribute("contracts", contracts);
-        return "user-contract";
-    }
+//    @RequestMapping("/addcontract/users")
+//    public String addContractUser(@RequestParam("user_id") int user_id, Model model) {
+//        model.addAttribute("user", userMapper.toDto(userService.getUserById(user_id)));
+//        var contracts = contractService.getAllContracts()
+//                .stream()
+//                .filter(contract -> contract.getUser() == null || contract.getUser().getId() == user_id)
+//                .collect(Collectors.toList());
+//        model.addAttribute("contracts", contracts);
+//        return "user-contract";
+//    }
 
 
 }
