@@ -37,4 +37,9 @@ public class TariffServiceImpl implements TariffService {
         tariffDAO.deleteById(id);
     }
 
+    @Override
+    public Tariff findByName(String name) {
+        return tariffDAO.findTariffByTariffName(name);
+    }
+
 }

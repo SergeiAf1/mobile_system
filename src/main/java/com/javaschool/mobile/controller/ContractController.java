@@ -1,13 +1,18 @@
 package com.javaschool.mobile.controller;
 
+import com.javaschool.mobile.dto.ContractDto;
 import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.service.ContractService;
+import com.javaschool.mobile.service.Mappers.ContractMapper;
+import com.javaschool.mobile.service.Mappers.TariffMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,11 +26,16 @@ public class ContractController {
 
     private final UserService userService;
 
-    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, UserService userService) {
+    private final ContractMapper contractMapper;
+    private final TariffMapper tariffMapper;
+
+    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, UserService userService, ContractMapper contractMapper, TariffMapper tariffMapper) {
         this.contractService = contractService;
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.userService = userService;
+        this.contractMapper = contractMapper;
+        this.tariffMapper = tariffMapper;
     }
 
     @RequestMapping("/contracts/phoneNumber")
@@ -38,26 +48,37 @@ public class ContractController {
     }
     @GetMapping("/contracts")
     public String allContracts(Model model){
-        var contracts = contractService.getAllContracts();
+        var contracts = contractService.getAllContracts()
+                .stream()
+                .map(contractMapper::toDto)
+                .collect(Collectors.toList());
         model.addAttribute("contracts", contracts);
         return "contracts";
     }
     @RequestMapping("/add/contracts")
     public String addNewContract(Model model){
-        model.addAttribute("contract", new Contract());
-        model.addAttribute("tariffs", tariffService.getAllTariffs());
+        model.addAttribute("contract", new ContractDto());
+        model.addAttribute("tariffs", tariffService.getAllTariffs()
+                .stream()
+                .map(tariffMapper::toDto)
+                .collect(Collectors.toList())
+        );
         model.addAttribute("users", userService.getAllUsers());
         return "contracts-info";
     }
     @PostMapping("/save/contracts")
-    public String saveContract(@ModelAttribute("contract") Contract contract) {
-        contractService.saveContract(contract);
+    public String saveContract(@ModelAttribute("contract") ContractDto contract) {
+        contractService.saveContract(contractMapper.toEntity(contract));
         return "redirect:/admin/contracts";
     }
     @RequestMapping ("/update/contracts")
     public String updateContract(@RequestParam("contract_id") int contract_id, Model model){
-        model.addAttribute("contract", contractService.findContractById(contract_id));
-        model.addAttribute("tariffs", tariffService.getAllTariffs());
+        model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));
+        model.addAttribute("tariffs", tariffService.getAllTariffs()
+                .stream()
+                .map(tariffMapper::toDto)
+                .collect(Collectors.toList())
+        );
         model.addAttribute("users", userService.getAllUsers());
         return "contracts-info";
     }

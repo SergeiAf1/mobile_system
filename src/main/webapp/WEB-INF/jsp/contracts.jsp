@@ -79,12 +79,12 @@
 <%--            <td><form:hidden path="user"></form:hidden></td>--%>
 
             <td align="center"input type="number">${contract.phoneNumber}</td>
-            <td align="center">${contract.user.email}</td>
-            <td align="center">${contract.tariff.tariffName}</td>
+            <td align="center">${contract.userEmail}</td>
+            <td align="center">${contract.tariffName}</td>
             <td>
                 <c:forEach var="option" items="${contract.options}">
                     <li>
-                            ${option.name}
+                            ${option}
                     </li>
                 </c:forEach>
             </td>
