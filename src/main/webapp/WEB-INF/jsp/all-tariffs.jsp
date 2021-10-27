@@ -139,7 +139,7 @@
                         <td><p align="center"><a href="javascript:flipflop('${tariff.tariffName}');">Options</a></p>
                             <ul id="${tariff.tariffName}" style="display: none;">
                                 <c:forEach var="option" items="${tariff.options}">
-                                    <li>${option.name}</li>
+                                    <li>${option}</li>
                                 </c:forEach>
                             </ul>
                         </td>
@@ -162,11 +162,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="option" items="${options}">
+                <c:forEach var="opt" items="${options}">
                     <tr>
-                        <td>${option.name}</td>
-                        <td align="center">${option.price}</td>
-                        <td align="center">${option.connectionPrice}</td>
+                        <td>${opt.name}</td>
+                        <td align="center">${opt.price}</td>
+                        <td align="center">${opt.connectionPrice}</td>
                     </tr>
                 </c:forEach>
                 <tr></tr>
