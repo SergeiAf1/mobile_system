@@ -17,6 +17,9 @@
 </div>
 
 <br>
+<input style="width: 10%" type="button" value="Add new Tariff"
+       onclick="window.location.href = '/admin/add/tariffs'"/>
+<br>
 <%--<style>--%>
 <%--    /*#myInput {*/--%>
 <%--    /*    !*background-image: url('/css/searchicon.png'); !* Добавить значок поиска для ввода *!*!*/--%>
@@ -51,12 +54,13 @@
 <%--    /*    !*background-color: #f1f1f1;*!*/--%>
 <%--    /*}*/--%>
 <%--</style>--%>
+<br>
 <table id="myTable" border="2">
-    <tr class="header">
-        <th>Tariff name</th>
-        <th>Price</th>
-        <th>Available options</th>
-        <th>Enabled</th>
+    <tr class="header" align="center">
+        <th width="130">Tariff name</th>
+        <th width="100">Price</th>
+        <th width="150">Available options</th>
+        <th width="100">Enabled</th>
         <th></th>
     </tr>
     <c:forEach var="tariff" items="${tariffs}">
@@ -92,7 +96,6 @@
     </c:forEach>
 </table>
 <br />
-<input type="button" value="Add Tariff"
-       onclick="window.location.href = '/admin/add/tariffs'"/>
+
 </body>
 </html>
