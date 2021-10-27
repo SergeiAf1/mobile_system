@@ -34,11 +34,11 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public Option getOptionById(int id) {
-        Option option = null;
-        Optional<Option> opt = optionDAO.findById(id);
-        if (opt.isPresent()) {
-            option = opt.get();
-        }
-        return option;
+        return optionDAO.findById(id).orElse(null);
+    }
+
+    @Override
+    public Option getOptionByName(String name) {
+        return optionDAO.findByName(name);
     }
 }

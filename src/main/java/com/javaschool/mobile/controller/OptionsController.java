@@ -1,7 +1,6 @@
 package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.OptionDto;
-import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;

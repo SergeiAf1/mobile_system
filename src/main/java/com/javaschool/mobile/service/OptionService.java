@@ -9,4 +9,5 @@ public interface OptionService {
     void saveOption(Option option);
     void deleteOption(int id);
     Option getOptionById(int id);
+    Option getOptionByName(String name);
 }

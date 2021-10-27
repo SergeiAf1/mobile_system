@@ -79,7 +79,8 @@
             <td>
                 <c:forEach var="option" items="${tariff.options}">
                     <li>
-                        ${option.name}
+<%--                        ${option.name}--%>
+                        ${option}
                     </li>
                 </c:forEach>
             </td>

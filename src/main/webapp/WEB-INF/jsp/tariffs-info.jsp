@@ -34,7 +34,7 @@
             </tr>
             <c:forEach var="option" items="${options}">
                 <tr align="center">
-                    <td>${option.name}</td>
+                    <td>${option}</td>
                     <td><form:checkbox path="options" value="${option}"></form:checkbox></td>
                 </tr>
             </c:forEach>
