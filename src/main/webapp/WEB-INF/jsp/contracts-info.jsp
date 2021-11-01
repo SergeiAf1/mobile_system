@@ -25,22 +25,12 @@
     <br/> <br/>
     <div>
         Choose user by email
-        <form:select path="user" >
+        <form:select path="userEmail" >
             <option selected="selected"></option>
             <c:forEach var="user" items="${users}">
-<%--<form:hidden path="${user.role}"></form:hidden>--%>
-                <form:option value="${user}"> ${user.email}</form:option>
+                <form:option value="${user.email}"> ${user.email}</form:option>
             </c:forEach>
         </form:select>
-<%--        <label class="span2">Action--%>
-<%--            <form:select path="user">--%>
-<%--&lt;%&ndash;                <c:forEach var="user" items="${users}">&ndash;%&gt;--%>
-<%--                <option selected="selected"> -- Please choose --</option>--%>
-<%--                <form:option value="${user}" > ${user.email}</form:option>--%>
-<%--                <form:options items="${users}"  />--%>
-<%--&lt;%&ndash;                </c:forEach>&ndash;%&gt;--%>
-<%--            </form:select>--%>
-<%--        </label>--%>
     </div>
     <br/>
     <div id="wrapper">
@@ -49,30 +39,24 @@
             <tr align="center">
                 <th>Tariff name</th>
                 <th> Choice</th>
-                    <%--                <td>Options</td>--%>
             </tr>
             <c:forEach var="tariff" items="${tariffs}">
                 <tr align="center" style="background-color: orchid">
                     <td>${tariff.tariffName}</td>
 
-                    <td><form:radiobutton path="tariff" value="${tariff}"></form:radiobutton></td>
+                    <td><form:radiobutton path="tariffName" value="${tariff.tariffName}"></form:radiobutton></td>
 
                 </tr>
                 <tr>
                     <td>
                         Available options :
                         <c:forEach var="option" items="${tariff.options}">
-                            <%--                        <c:forEach var="contractopt" items="${contract.options}">--%>
-
                             <li>
-                                    ${option.name}
+                                    ${option}
                                 <form:checkbox path="options" value="${option}"></form:checkbox>
                             </li>
-                            <%--                        </c:forEach>--%>
                         </c:forEach>
                     </td>
-                </tr>
-
                 </tr>
             </c:forEach>
         </table>

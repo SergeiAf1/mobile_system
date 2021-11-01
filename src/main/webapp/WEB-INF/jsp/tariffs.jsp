@@ -64,9 +64,6 @@
         <th></th>
     </tr>
     <c:forEach var="tariff" items="${tariffs}">
-<%--        <c:url var="updateButton" value="/admin/update/tariffs">--%>
-<%--            <c:param name="tariffId" value="${tariff.id}"></c:param>--%>
-<%--        </c:url>--%>
         <c:url var="updateButton" value="/admin/update/tariffs">
             <c:param name="tariff_id" value="${tariff.id}"></c:param>
         </c:url>
@@ -79,7 +76,6 @@
             <td>
                 <c:forEach var="option" items="${tariff.options}">
                     <li>
-<%--                        ${option.name}--%>
                         ${option}
                     </li>
                 </c:forEach>
@@ -97,6 +93,5 @@
     </c:forEach>
 </table>
 <br />
-
 </body>
 </html>

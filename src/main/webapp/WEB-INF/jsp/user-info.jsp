@@ -23,13 +23,13 @@
     <br> <br>
     Surname <form:input required="required" minlength="2" maxlength="44" path="surname"/>
     <br/> <br/>
-    Email <form:input path="email" required="required" pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+" placeholder="email@email.ru"/>
+    Email <form:input path="email" required="required" pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+" maxlength="44" placeholder="email@email.ru"/>
     <br/> <br/>
-    Passport <form:input path="passport" placeholder="0000000000"/>
+    Passport <form:input path="passport" maxlength="10" placeholder="0000000000"/>
     <br/> <br/>
     Birth date <form:input path="birthDate" required="required" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"  placeholder="1900-12-31"/>
     <br/> <br/>
-    Address <form:input path="address"/>
+    Address <form:input maxlength="40" path="address"/>
     <br/> <br/>
     Temporary password <form:input type = "password" required="required" minlength="4" maxlength="44" path="password"/>
     <br/> <br/>

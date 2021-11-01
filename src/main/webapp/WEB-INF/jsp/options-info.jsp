@@ -21,9 +21,9 @@
         <form:hidden path="id"/>
         Name <form:input required="required" minlength="2" maxlength="44" path="name"/>
         <br/> <br/>
-        Price <form:input path="price"/>
+        Price <form:input pattern="\d+" required="required" maxlength="6" path="price"/>
         <br/> <br/>
-        Connection price <form:input path="connectionPrice"/>
+        Connection price <form:input pattern="\d+" required="required" maxlength="6"  path="connectionPrice"/>
         <br/> <br/>
 
         <input type="submit" value="CONFIRM">

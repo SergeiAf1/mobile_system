@@ -23,24 +23,33 @@ public class TariffMapper {
         tariffDto.setTariffName(tariff.getTariffName());
         tariffDto.setPrice(tariff.getPrice());
         tariffDto.setEnabled(tariff.getEnabled());
-        tariffDto.setOptions(tariff.getOptions()
-                .stream()
-                .map(Option::getName)
-                .collect(Collectors.toList())
-        );
+        if (tariff.getOptions() == null) {
+            tariffDto.setOptions(null);
+        } else {
+            tariffDto.setOptions(tariff.getOptions()
+                    .stream()
+                    .map(Option::getName)
+                    .collect(Collectors.toList())
+            );
+        }
         return tariffDto;
     }
+
     public Tariff toEntity(TariffDto tariffDto) {
         Tariff tariff = new Tariff();
         tariff.setId(tariffDto.getId());
         tariff.setTariffName(tariffDto.getTariffName());
         tariff.setPrice(tariffDto.getPrice());
         tariff.setEnabled(tariffDto.getEnabled());
-        tariff.setOptions(tariffDto.getOptions()
-                .stream()
-                .map(optionService::getOptionByName)
-                .collect(Collectors.toList())
-        );
+        if (tariffDto.getOptions() == null) {
+            tariff.setOptions(null);
+        } else {
+            tariff.setOptions(tariffDto.getOptions()
+                    .stream()
+                    .map(optionService::getOptionByName)
+                    .collect(Collectors.toList())
+            );
+        }
         return tariff;
     }
 }

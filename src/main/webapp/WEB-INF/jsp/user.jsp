@@ -30,14 +30,12 @@
     <tr class="header" align="center">
         <th width="150">Phone number</th>
         <th width="100">Tariff</th>
-        <th width="100">Tariff price</th>
         <th width="150">Options</th>
-        <th width="150">Option price</th>
         <th>Actions</th>
         <th>Actions</th>
     </tr>
     <c:forEach var="contract" items="${user.contracts}">
-        <c:url var="updateTariff" value="/user/update/contract">
+        <c:url var="updateTariff" value="/user/update/tariffs">
             <c:param name="contract_id" value="${contract.id}"></c:param>
         </c:url>
         <c:url var="updateOptions" value="/user/update/options">
@@ -45,17 +43,13 @@
         </c:url>
         <tr>
             <td align="center">${contract.phoneNumber}</td>
-            <td align="center">${contract.tariff.tariffName}</td>
-            <td align="center">${contract.tariff.price}</td>
+            <td align="center">${contract.tariffName}</td>
+<%--            <td align="center">${contract.tariff.price}</td>--%>
             <td>
                 <c:forEach var="option" items="${contract.options}">
-                    <li>${option.name}</li>
+                    <li>${option}</li>
                 </c:forEach>
             </td>
-            <td>
-                <c:forEach var="option" items="${contract.options}">
-                    <li>${option.price}</li>
-                </c:forEach></td>
             <td align="center">
                 <input type="button" value="Change tariff" onclick="window
                         .location.href = '${updateTariff}'"/>

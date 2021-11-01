@@ -21,9 +21,9 @@
         <form:form action="/user/save/contracts" modelAttribute="contract">
         <form:hidden path="id"/>
         <form:hidden path="phoneNumber"/>
-        <form:hidden path="tariff"/>
+        <form:hidden path="tariffName"/>
         <form:hidden path="enabled"/>
-        <form:hidden path="user"/>
+        <form:hidden path="userEmail"/>
         <tr align="center">
             <th width="150">Option name</th>
             <th width="70">Price</th>
@@ -35,7 +35,7 @@
                 <td>${option.name}</td>
                 <td>${option.price}</td>
                 <td>${option.connectionPrice}</td>
-                <td><form:checkbox path="options" value="${option}"></form:checkbox></td>
+                <td><form:checkbox path="options" value="${option.name}"></form:checkbox></td>
             </tr>
         </c:forEach>
     </table>

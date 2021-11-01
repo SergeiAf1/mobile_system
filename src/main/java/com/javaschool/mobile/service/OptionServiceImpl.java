@@ -39,6 +39,6 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public Option getOptionByName(String name) {
-        return optionDAO.findByName(name);
+        return optionDAO.findOptionByName(name);
     }
 }
