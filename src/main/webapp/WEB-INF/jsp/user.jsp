@@ -33,6 +33,7 @@
         <th width="100">Tariff</th>
         <th width="150">Options</th>
         <th width="150">Contract is Blocked by Operator</th>
+        <th width="150">Contract is Blocked by You</th>
         <th>Actions</th>
         <th>Actions</th>
     </tr>
@@ -58,8 +59,14 @@
                     <c:otherwise>Yes</c:otherwise>
                 </c:choose>
             </td>
+            <td align="center">
+                <c:choose>
+                    <c:when test="${contract.blockedByUser}">Yes</c:when>
+                    <c:otherwise>No</c:otherwise>
+                </c:choose>
+            </td>
             <c:choose>
-                <c:when test="${contract.enabled == true}">
+                <c:when test="${contract.enabled == true && contract.blockedByUser == false}">
                     <td align="center">
                         <input id="updtar" type="button" value="Change tariff" onclick="window
                                 .location.href = '${updateTariff}'"/>
@@ -80,6 +87,21 @@
                     </td>
                 </c:otherwise>
             </c:choose>
+            <td>
+                <c:if test="${contract.blockedByUser == false}">
+                    <button class="btn btn-outline-danger"
+                            onclick="return confirm('Are you sure you want to block the contract?')"
+                            formaction="/profile/blockContract/${contract.id}"
+                            type="submit">Block contract
+                    </button>
+                </c:if>
+                <c:if test="${contract.blockedByUser == true}">
+                    <button class="btn btn-outline-primary"
+                            formaction="/profile/unblockContract/${contract.id}"
+                            type="submit">Unblock contract
+                    </button>
+                </c:if>
+            </td>
         </tr>
     </c:forEach>
 </table>

@@ -22,7 +22,7 @@
     <form:hidden path="options"/>
     <form:hidden path="userEmail"/>
     <br/> <br/>
-<%--    Enabled <form:checkbox path="enabled"></form:checkbox>--%>
+    Block contract <form:checkbox path="blockedByUser"></form:checkbox>
         <table border="2">
             <tr align="center">
                 <th>Tariff name</th>

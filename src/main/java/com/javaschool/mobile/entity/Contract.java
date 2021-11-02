@@ -22,6 +22,9 @@ public class Contract {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @Column(name = "blocked_by_user")
+    private Boolean blockedByUser = false;
+
     @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER )
     @JoinColumn(name = "user_id")
     private User user;
@@ -55,6 +58,14 @@ public class Contract {
                 ", phoneNumber=" + phoneNumber +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    public Boolean getBlockedByUser() {
+        return blockedByUser;
+    }
+
+    public void setBlockedByUser(Boolean blockedByUser) {
+        this.blockedByUser = blockedByUser;
     }
 
     public User getUser() {
