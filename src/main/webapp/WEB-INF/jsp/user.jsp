@@ -1,3 +1,4 @@
+<%@ page import="com.javaschool.mobile.dto.UserDto" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -21,7 +22,7 @@
 <div>
     <security:authorize access="hasRole('ADMIN')">
         Go to <input type="button" value="admin page"
-                                onclick="window.location.href = '/admin'">
+                     onclick="window.location.href = '/admin'">
     </security:authorize>
 </div>
 <h1>${user.name} ${user.surname}</h1>
@@ -31,6 +32,7 @@
         <th width="150">Phone number</th>
         <th width="100">Tariff</th>
         <th width="150">Options</th>
+        <th width="150">Contract is Blocked by Operator</th>
         <th>Actions</th>
         <th>Actions</th>
     </tr>
@@ -44,20 +46,40 @@
         <tr>
             <td align="center">${contract.phoneNumber}</td>
             <td align="center">${contract.tariffName}</td>
-<%--            <td align="center">${contract.tariff.price}</td>--%>
+
             <td>
                 <c:forEach var="option" items="${contract.options}">
                     <li>${option}</li>
                 </c:forEach>
             </td>
             <td align="center">
-                <input type="button" value="Change tariff" onclick="window
-                        .location.href = '${updateTariff}'"/>
+                <c:choose>
+                    <c:when test="${contract.enabled}">No</c:when>
+                    <c:otherwise>Yes</c:otherwise>
+                </c:choose>
             </td>
-            <td align="center">
-                <input type="button" value="Change options" onclick="window
-                        .location.href = '${updateOptions}'"/>
-            </td>
+            <c:choose>
+                <c:when test="${contract.enabled == true}">
+                    <td align="center">
+                        <input id="updtar" type="button" value="Change tariff" onclick="window
+                                .location.href = '${updateTariff}'"/>
+                    </td>
+                    <td align="center">
+                        <input type="button" value="Change options" onclick="window
+                                .location.href = '${updateOptions}'"/>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td align="center">
+                        <input type="button" disabled="disabled" value="Change tariff" onclick="window
+                                .location.href = '${updateTariff}'"/>
+                    </td>
+                    <td align="center">
+                        <input type="button" disabled="disabled" value="Change options" onclick="window
+                                .location.href = '${updateOptions}'"/>
+                    </td>
+                </c:otherwise>
+            </c:choose>
         </tr>
     </c:forEach>
 </table>
@@ -65,7 +87,6 @@
 <input type="button" style="background-color: orchid" value="All Tariffs and Options"
        onclick="window.location.href = '/user/tariffs'">
 <br><br>
-
 </body>
 </html>
 
