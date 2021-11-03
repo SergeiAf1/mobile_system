@@ -12,4 +12,5 @@ public interface UserService {
     void deleteUser(int id);
     User getUserByEmail(String email);
     List<String> getUsersDeprecatedTariffs(User user);
+    User getUserByPhoneNumber(Long phoneNumber);
 }

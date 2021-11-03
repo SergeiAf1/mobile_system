@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,13 +41,13 @@ public class ContractController {
         this.userMapper = userMapper;
     }
 
-    @RequestMapping("/contracts/phoneNumber")
-    public String findContractByPhoneNumber(@RequestParam("phone") Long phone, Model model){
-        var contract = contractMapper.toDto(contractService.findContractByPhoneNumber(phone));
-        var options = contract.getOptions();
-        model.addAttribute("contract",contract);
-        model.addAttribute("options",options);
-        return "contract";
+    @RequestMapping("/users/phoneNumber")
+    public String findContractByPhoneNumber(@RequestParam("phoneNumber") Long phoneNumber, Model model){
+        var user = userMapper.toDto(userService.getUserByPhoneNumber(phoneNumber));
+        var users = new ArrayList<>();
+        users.add(user);
+        model.addAttribute("users",users);
+        return "users";
     }
     @GetMapping("/contracts")
     public String allContracts(Model model){
