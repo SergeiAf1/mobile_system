@@ -31,9 +31,10 @@
     <tr class="header" align="center">
         <th width="150">Phone number</th>
         <th width="100">Tariff</th>
-        <th width="150">Options</th>
-        <th width="150">Contract is Blocked by Operator</th>
-        <th width="150">Contract is Blocked by You</th>
+        <th width="170">Connected options</th>
+<%--        <th width="170">Contract is Blocked by Operator</th>--%>
+<%--        <th width="170">Contract is Blocked by You</th>--%>
+        <th>Actions</th>
         <th>Actions</th>
         <th>Actions</th>
     </tr>
@@ -53,55 +54,62 @@
                     <li>${option}</li>
                 </c:forEach>
             </td>
-            <td align="center">
-                <c:choose>
-                    <c:when test="${contract.enabled}">No</c:when>
-                    <c:otherwise>Yes</c:otherwise>
-                </c:choose>
-            </td>
-            <td align="center">
-                <c:choose>
-                    <c:when test="${contract.blockedByUser}">Yes</c:when>
-                    <c:otherwise>No</c:otherwise>
-                </c:choose>
-            </td>
+<%--            <td align="center">--%>
+<%--                <c:choose>--%>
+<%--                    <c:when test="${contract.enabled}">No</c:when>--%>
+<%--                    <c:otherwise>Yes</c:otherwise>--%>
+<%--                </c:choose>--%>
+<%--            </td>--%>
+<%--            <td align="center">--%>
+<%--                <c:choose>--%>
+<%--                    <c:when test="${contract.blockedByUser}">Yes</c:when>--%>
+<%--                    <c:otherwise>No</c:otherwise>--%>
+<%--                </c:choose>--%>
+<%--            </td>--%>
             <c:choose>
                 <c:when test="${contract.enabled == true && contract.blockedByUser == false}">
                     <td align="center">
-                        <input id="updtar" type="button" value="Change tariff" onclick="window
+                        <input id="updtar" class="btn-outline-success" type="button" value="Change tariff" onclick="window
                                 .location.href = '${updateTariff}'"/>
                     </td>
                     <td align="center">
-                        <input type="button" value="Change options" onclick="window
+                        <input type="button" class="btn-outline-success" value="Change options" onclick="window
                                 .location.href = '${updateOptions}'"/>
                     </td>
                 </c:when>
                 <c:otherwise>
                     <td align="center">
-                        <input type="button" disabled="disabled" value="Change tariff" onclick="window
+                        <input type="button" class="btn" disabled="disabled" value="Change tariff" onclick="window
                                 .location.href = '${updateTariff}'"/>
                     </td>
                     <td align="center">
-                        <input type="button" disabled="disabled" value="Change options" onclick="window
+                        <input type="button" class="btn" disabled="disabled" value="Change options" onclick="window
                                 .location.href = '${updateOptions}'"/>
                     </td>
                 </c:otherwise>
             </c:choose>
-            <td>
-                <c:if test="${contract.blockedByUser == false}">
-                    <button class="btn btn-outline-danger"
-                            onclick="return confirm('Are you sure you want to block the contract?')"
-                            formaction="/profile/blockContract/${contract.id}"
-                            type="submit">Block contract
-                    </button>
+            <form:form>
+                <td>
+                    <c:if test="${contract.blockedByUser == false}">
+                        <button class="btn btn-outline-danger"
+                                onclick="return confirm('Are you sure you want to block the contract?')"
+                                formaction="/user/blockContracts/${contract.id}"
+                                type="submit">Block contract
+                        </button>
+                    </c:if>
+                    <c:if test="${contract.blockedByUser == true}">
+                        <button class="btn btn-outline-primary"
+                                formaction="/user/unblockContracts/${contract.id}"
+                                type="submit">Unblock contract
+                        </button>
+                    </c:if>
+                </td>
+                <c:if test="${contract.enabled == false}">
+                    <td style="color: red">
+                        <h5>Contract is blocked by Operator</h5>
+                    </td>
                 </c:if>
-                <c:if test="${contract.blockedByUser == true}">
-                    <button class="btn btn-outline-primary"
-                            formaction="/profile/unblockContract/${contract.id}"
-                            type="submit">Unblock contract
-                    </button>
-                </c:if>
-            </td>
+            </form:form>
         </tr>
     </c:forEach>
 </table>

@@ -12,5 +12,7 @@ public interface ContractService {
     void saveContract(Contract contract);
     void deleteContract(int id);
     Contract findContractByPhoneNumber(Long phoneNumber);
+    void blockByUser(int id);
+    void unBlockByUser(int id);
 
 }

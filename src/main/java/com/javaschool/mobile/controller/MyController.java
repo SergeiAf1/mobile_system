@@ -121,5 +121,17 @@ public class MyController {
         return "all-tariffs";
     }
 
+    @RequestMapping("/user/blockContracts/{contract_id}")
+    public String blockContractByUser(@PathVariable("contract_id") int contract_id){
+        contractService.blockByUser(contract_id);
+        return "redirect:/user";
+    }
+
+    @RequestMapping("/user/unblockContracts/{contract_id}")
+    public String unBlockContractByUser(@PathVariable("contract_id") int contract_id){
+        contractService.unBlockByUser(contract_id);
+        return "redirect:/user";
+    }
+
 
 }

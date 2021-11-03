@@ -10,7 +10,7 @@ public class ContractDto {
 
     private Boolean enabled;
 
-    private Boolean blockedByUser;
+    private Boolean blockedByUser = false;
 
     private String tariffName;
 
