@@ -1,10 +1,13 @@
 package com.javaschool.mobile.service;
 
 import com.javaschool.mobile.dao.UserDAO;
+import com.javaschool.mobile.entity.Contract;
+import com.javaschool.mobile.entity.Tariff;
 import com.javaschool.mobile.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,5 +41,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userDAO.findByEmail(email);
+    }
+
+    @Override
+    public List<String> getUsersDeprecatedTariffs(User user) {
+        return user.getContracts().stream().map(Contract::getTariff).filter(tariff -> !tariff.getEnabled()).map(Tariff::getTariffName).collect(Collectors.toList());
     }
 }

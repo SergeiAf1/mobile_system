@@ -57,6 +57,7 @@ public class MyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("user", userMapper.toDto(userService.getUserByEmail(currentPrincipalName)));
+        model.addAttribute("deprecated_tariffs",userService.getUsersDeprecatedTariffs(userService.getUserByEmail(currentPrincipalName)));
         return "user";
     }
 
