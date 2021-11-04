@@ -24,6 +24,7 @@
         <form:hidden path="tariffName"/>
         <form:hidden path="enabled"/>
         <form:hidden path="userEmail"/>
+        <form:hidden path="blockedByUser"/>
         <tr align="center">
             <th width="150">Option name</th>
             <th width="70">Price</th>

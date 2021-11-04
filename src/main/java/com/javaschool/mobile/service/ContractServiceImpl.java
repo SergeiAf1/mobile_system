@@ -43,4 +43,18 @@ public class ContractServiceImpl implements ContractService {
     public Contract findContractByPhoneNumber(Long phoneNumber) {
         return contractDAO.findByPhoneNumber(phoneNumber);
     }
+
+    @Override
+    public void blockByUser(int id) {
+        Contract contract = contractDAO.findById(id).orElse(null);
+        contract.setBlockedByUser(true);
+        contractDAO.save(contract);
+    }
+
+    @Override
+    public void unBlockByUser(int id) {
+        Contract contract = contractDAO.findById(id).orElse(null);
+        contract.setBlockedByUser(false);
+        contractDAO.save(contract);
+    }
 }

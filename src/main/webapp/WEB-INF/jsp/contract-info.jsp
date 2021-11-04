@@ -21,8 +21,9 @@
     <form:hidden path="enabled"/>
     <form:hidden path="options"/>
     <form:hidden path="userEmail"/>
+    <form:hidden path="blockedByUser"/>
     <br/> <br/>
-<%--    Enabled <form:checkbox path="enabled"></form:checkbox>--%>
+<%--    <form:checkbox path="blockedByUser"></form:checkbox>--%>
         <table border="2">
             <tr align="center">
                 <th>Tariff name</th>

@@ -57,6 +57,7 @@ public class MyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         model.addAttribute("user", userMapper.toDto(userService.getUserByEmail(currentPrincipalName)));
+        model.addAttribute("deprecated_tariffs",userService.getUsersDeprecatedTariffs(userService.getUserByEmail(currentPrincipalName)));
         return "user";
     }
 
@@ -119,6 +120,18 @@ public class MyController {
                 .collect(Collectors.toList())
         );
         return "all-tariffs";
+    }
+
+    @RequestMapping("/user/blockContracts/{contract_id}")
+    public String blockContractByUser(@PathVariable("contract_id") int contract_id){
+        contractService.blockByUser(contract_id);
+        return "redirect:/user";
+    }
+
+    @RequestMapping("/user/unblockContracts/{contract_id}")
+    public String unBlockContractByUser(@PathVariable("contract_id") int contract_id){
+        contractService.unBlockByUser(contract_id);
+        return "redirect:/user";
     }
 
 

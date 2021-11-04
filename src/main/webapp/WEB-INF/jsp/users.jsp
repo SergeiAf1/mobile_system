@@ -28,7 +28,7 @@
     /*    border: 1px solid #ddd; !* Добавить серую границу *!*/
     /*    margin-bottom: 12px; !* Добавить некоторое пространство под входом *!*/
     /*}*/
-    #myInput, #email{
+    #myInput, #email, #phoneNumber{
         width: 25%;
     }
 
@@ -58,8 +58,12 @@
        onclick="window.location.href = '/admin/add/users'"/>
 <br><br>
 <div>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search user by phone number">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search user by phone number on page">
     <input type="text" id="email" onkeyup="myFunctionE()" placeholder="Search user by email">
+    <form action="/admin/users/phoneNumber">
+        <input id="phoneNumber" pattern="9([0-9]{9})" name="phoneNumber" placeholder="Search user by phone number in DB">
+        <input type = "submit" value = "Submit" />
+    </form>
 </div>
 <br/>
 <table id="myTable" border="2">

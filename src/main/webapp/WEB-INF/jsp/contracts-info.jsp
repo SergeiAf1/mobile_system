@@ -18,7 +18,7 @@
 <br/>
 <form:form action="/admin/save/contracts" modelAttribute="contract">
     <form:hidden path="id"/>
-    <%--<form:hidden path="user"/>--%>
+    <form:hidden path="blockedByUser"/>
     Phone number <form:input required="required" pattern="9([0-9]{9})"  path="phoneNumber" placeholder="9000000000"/>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>

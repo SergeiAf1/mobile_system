@@ -176,7 +176,7 @@
     </tr>
 </table>
 <br/>
-<p style="font-size: x-large"><a href="javascript:flipflop('oldtariffs');">Old tariffs</a></p>
+<p style="font-size: x-large"><a href="javascript:flipflop('oldtariffs');">Deprecated tariffs</a></p>
 <table id="oldtariffs" width="300" border="2" style="display: none;">
     <thead>
     <tr align="center">

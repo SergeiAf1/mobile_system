@@ -31,6 +31,7 @@ public class ContractMapper {
         contractDto.setId(contract.getId());
         contractDto.setPhoneNumber(contract.getPhoneNumber());
         contractDto.setEnabled(contract.getEnabled());
+        contractDto.setBlockedByUser(contract.getBlockedByUser());
         if (contract.getTariff() == null) {
             contractDto.setTariffName(null);
         } else contractDto.setTariffName(contract.getTariff().getTariffName());
@@ -56,6 +57,7 @@ public class ContractMapper {
         contract.setId(contractDto.getId());
         contract.setPhoneNumber(contractDto.getPhoneNumber());
         contract.setEnabled(contractDto.getEnabled());
+        contract.setBlockedByUser(contractDto.getBlockedByUser());
         if (contractDto.getTariffName() == null) {
             contract.setTariff(null);
         } else {

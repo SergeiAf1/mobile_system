@@ -10,6 +10,8 @@ public class ContractDto {
 
     private Boolean enabled;
 
+    private Boolean blockedByUser = false;
+
     private String tariffName;
 
     private List<String> options;
@@ -19,13 +21,22 @@ public class ContractDto {
     public ContractDto() {
     }
 
-    public ContractDto(int id, Long phoneNumber, Boolean enabled, String tariffName, List<String> options, String userEmail) {
+    public ContractDto(int id, Long phoneNumber, Boolean enabled, Boolean blockedByUser, String tariffName, List<String> options, String userEmail) {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.enabled = enabled;
         this.tariffName = tariffName;
         this.options = options;
         this.userEmail = userEmail;
+        this.blockedByUser = blockedByUser;
+    }
+
+    public Boolean getBlockedByUser() {
+        return blockedByUser;
+    }
+
+    public void setBlockedByUser(Boolean blockedByUser) {
+        this.blockedByUser = blockedByUser;
     }
 
     public int getId() {

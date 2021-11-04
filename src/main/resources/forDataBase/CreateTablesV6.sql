@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `javaschool`.`options` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`options` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(45) NOT NULL,
+    `name` VARCHAR(45) NOT NULL unique,
     `price` INT NULL DEFAULT 0,
     `connection_price` INT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `javaschool`.`tariff` ;
 
 CREATE TABLE IF NOT EXISTS `javaschool`.`tariff` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL unique,
   `price` INT NULL default 0,
   `enabled` TINYINT DEFAULT 1,
   PRIMARY KEY (`id`))
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `javaschool`.`users` (
     `password` VARCHAR(45) NULL DEFAULT 'user',
     `address` VARCHAR(225) NULL DEFAULT '',
     `enabled` TINYINT DEFAULT 1 NULL,
-    `authority` VARCHAR(45) DEFAULT 'ROLE_USER' NULL,
+    `authority` VARCHAR(45) DEFAULT 'ROLE_USER' null,
     PRIMARY KEY (`id`)
 )  ENGINE=INNODB;
 
@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `javaschool`.`contract` (
     `user_id` INT NULL,
     `phone_number` BIGINT NOT NULL UNIQUE,
     `enabled` TINYINT DEFAULT 1 NULL,
+    `blocked_by_user` TINYINT DEFAULT 0 NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`tariff_id`)
         REFERENCES `javaschool`.`tariff` (`id`),
