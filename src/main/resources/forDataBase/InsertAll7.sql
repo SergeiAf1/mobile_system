@@ -43,11 +43,11 @@ VALUES
 (1,2),
 (1,3),
 (1,4),
-(1,5),
+(1,10),
 (2,1),
-(2,2),
+(2,4),
 (2,10),
-(2,9),
+(2,3),
 (3,1),
 (3,4),
 (3,10),
@@ -56,17 +56,20 @@ VALUES
 (5,1),
 (5,2),
 (5,7),
-(5,3),
 (5,6),
-(6,7),
 (6,8),
 (6,9),
 (6,10),
 (6,1),
+(6,3),
+(6,2),
 (4,1),
-(4,2),
+(4,3),
 (4,10),
-(3,7);
+(7,1),
+(7,2),
+(7,4),
+(7,5);
 
 INSERT INTO `javaschool`.`users`
 (`name`,
@@ -94,10 +97,11 @@ VALUES
 ('Oleg','Gorov',2006525897,'olk@mail.ru','1980.05.12','Voronezh, Lenina 55, 44','user'),
 ('Masha','Putina',2004215887,'mau@mail.ru','1990.04.04','Voronezh, Lenina 88, 56','user'),
 ('Igor','Maheev',2008658796,'igi@mail.ru','1995.05.01','Voronezh, Lenina 77, 24','user'),
-('Ivan','Lotov',2009788963,'ive@mail.ru','2001.07.07','Voronezh, Lenina 44, 12','user'),
+('Ivan','Lotov',2009788963,'ive@mail.ru','2001.07.07','Voronezh, Kirova 44, 12','user'),
 ('Irina','Putina',2056215887,'ipy@mail.ru','1990.05.04','Voronezh, Lenina 10, 56','user'),
-('Igor','Nulov',2008651116,'inu@mail.ru','1990.07.05','Voronezh, Lenina 66, 22','user'),
-('Ivan','Kononov',2009788111,'ikon@mail.ru','2005.05.08','Voronezh, Lenina 11, 12','user')
+('Igor','Nulov',2008651116,'inu@mail.ru','1990.07.05','Voronezh, Kirova 66, 22','user'),
+('Ivan','Kononov',2009788111,'ikon@mail.ru','2005.05.08','Voronezh, Lenina 11, 12','user'),
+('Oleg','Onegin',2008205889,'oneg@mail.ru','1990-05-09','Lipetsk, Kirova 50, 12', 'user')
 ;
 
 
@@ -114,24 +118,31 @@ VALUES
 (4,3,9202192030),
 (5,8,9202192000),
 (6,6,9202192010),
+(6,14,9202192001),
+(7,14,9202192002),
 (3,7,9202192020);
 
-INSERT INTO `javaschool`.`contract_options`
-(`contract_id`,
-`option_id`)
+INSERT INTO `javaschool`.`dependent_options`
+(`option_id`,
+`dependent_option_id`)
 VALUES
-(1,1),
-(1,2),
-(1,3),
-(2,1),
-(2,2),
-(2,3),
-(3,4),
-(3,5),
-(3,6),
-(4,8),
-(5,7),
+(3,10),
 (6,7);
+
+INSERT INTO `javaschool`.`incompatible_options`
+(`option_id`,
+`incompatible_option_id`)
+VALUES
+(8,4),
+(9,5);
+
+INSERT INTO `javaschool`.`contract`
+(`tariff_id`,
+`user_id`,
+`phone_number`,
+`enabled`)
+VALUES
+(1,14,9202191919,0);
 
 
 

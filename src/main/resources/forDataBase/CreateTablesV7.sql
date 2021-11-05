@@ -106,3 +106,33 @@ CREATE TABLE IF NOT EXISTS `javaschool`.`contract_options` (
     FOREIGN KEY (`option_id`)
         REFERENCES `javaschool`.`options` (`id`)
 )  ENGINE=INNODB;
+
+-- -----------------------------------------------------
+-- Table `javaschool`.`dependent_options`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `javaschool`.`dependent_options` ;
+
+CREATE TABLE IF NOT EXISTS `javaschool`.`dependent_options` (
+    `option_id` INT NOT NULL,
+    `dependent_option_id` INT NOT NULL,
+    PRIMARY KEY (`option_id` , `dependent_option_id`),
+    FOREIGN KEY (`option_id`)
+        REFERENCES `javaschool`.`options` (`id`),
+    FOREIGN KEY (`dependent_option_id`)
+        REFERENCES `javaschool`.`options` (`id`)
+)  ENGINE=INNODB;
+
+-- -----------------------------------------------------
+-- Table `javaschool`.`incompatible_options`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `javaschool`.`incompatible_options` ;
+
+CREATE TABLE IF NOT EXISTS `javaschool`.`incompatible_options` (
+    `option_id` INT NOT NULL,
+    `incompatible_option_id` INT NOT NULL,
+    PRIMARY KEY (`option_id` , `incompatible_option_id`),
+    FOREIGN KEY (`option_id`)
+        REFERENCES `javaschool`.`options` (`id`),
+    FOREIGN KEY (`incompatible_option_id`)
+        REFERENCES `javaschool`.`options` (`id`)
+)  ENGINE=INNODB;
