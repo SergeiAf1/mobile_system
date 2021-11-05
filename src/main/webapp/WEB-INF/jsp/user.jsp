@@ -7,7 +7,10 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+<%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
+    >
 </head>
 <body style="background-color: violet">
 <br>
@@ -28,7 +31,7 @@
 <h1>${user.name} ${user.surname}</h1>
 <c:if test="${user.contracts.size()>0}">
     <h3>My contracts</h3>
-    <table id="myTable" border="2">
+    <table class="table table-hover" id="myTable" border="2">
         <thead>
         <tr class="header" align="center">
             <th width="150">Phone number</th>
