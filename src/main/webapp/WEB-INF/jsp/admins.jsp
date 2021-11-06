@@ -12,7 +12,7 @@
 <br>
 <br>
 <div align="right">
-    <input type="button" value="LOG OUT"
+    <input type="button" class="btn-danger" value="LOG OUT"
            onclick="window.location.href = '/logout'">
 </div>
 <br>

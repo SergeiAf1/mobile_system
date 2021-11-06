@@ -1,6 +1,7 @@
 package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.OptionDto;
+import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -54,4 +56,11 @@ public class OptionsController {
         return "options-info";
     }
 
+    @RequestMapping("/dependencies")
+    public String dependency(@RequestParam("optionId") int optionId, Model model){
+        var option = optionMapper.toDto(optionService.getOptionById(optionId));
+        model.addAttribute("option",option);
+        model.addAttribute("optionList",optionService.getAllOptions().stream().map(Option::getName).filter(s -> !s.equals(option.getName())).collect(Collectors.toList()));
+        return "option-dependency";
+    }
 }
