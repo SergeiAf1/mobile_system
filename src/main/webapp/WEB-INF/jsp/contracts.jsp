@@ -1,22 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
+<body style="background-color: violet" class="popover-body">
 <br/>
-<h2>
+<h2 align="center">
     All Contracts
 </h2>
 <div align="right">
-    Go back to <input type="button" value="admin page"
-                                onclick="window.location.href = '/admin'">
+    <input type="button" class="btn-info" value="admin page"
+                      onclick="window.location.href = '/admin'">
 </div>
-<input type="button" value="Add Contract"
+<input type="button" class="btn-outline-primary" value="Add Contract"
        onclick="window.location.href = '/admin/add/contracts'"/>
 <br><br>
 <style>
@@ -30,74 +31,81 @@
     /*    border: 1px solid #ddd; !* Добавить серую границу *!*/
     /*    margin-bottom: 12px; !* Добавить некоторое пространство под входом *!*/
     /*}*/
-    #myInput, #email{
+    #myInput, #email {
         width: 25%;
     }
 
     #myTable {
-        border-collapse: collapse; /* Свернуть границы */
+        /*border-collapse: collapse; !* Свернуть границы *!*/
         width: 100%; /* Полная ширина */
         border: 1px solid #ddd; /* Добавить серую границу */
         font-size: 18px; /* Увеличить размер шрифта */
     }
 
-    #myTable th, #myTable td {
-        text-align: left; /* Выравнивание текста по левому краю */
-        padding: 12px; /* Добавить отступ */
+    #myTable th{
+        text-align: center; /* Выравнивание текста по левому краю */
+        padding: 1px; /* Добавить отступ */
     }
 
     #myTable tr {
         /* Добавить нижнюю границу для всех строк таблицы */
         border-bottom: 1px solid #ddd;
     }
-
-    #myTable tr.header, #myTable tr:hover {
+    /*, #myTable tr:hover*/
+    #myTable tr.header {
         /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
         background-color: #f1f1f1;
     }
 </style>
 <div>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search contract by phone number">
-    <input type="text" id="email" onkeyup="myFunctionE()" placeholder="Search contract by user email">
+    <input type="text" id="myInput" style="background-color: #ffccf6" onkeyup="myFunction()"
+           placeholder="Search contract by phone number">
+    <input type="text" id="email" style="background-color: #ffccf6" onkeyup="myFunctionE()"
+           placeholder="Search contract by user email">
 </div>
 <br/>
 <%--<input type="number" id="myInput" onkeyup="myFunction()" placeholder="Search phone numbers..">--%>
-<table id="myTable">
+<table id="myTable" border="2">
     <tr class="header">
         <th>Phone number</th>
         <th>User email</th>
         <th>Tariff name</th>
         <th>Options</th>
-        <th>Enabled</th>
-        <th></th>
+        <th>Blocked</th>
+        <th> Edit</th>
     </tr>
     <c:forEach var="contract" items="${contracts}">
         <c:url var="updateButton" value="/admin/update/contracts">
             <c:param name="contract_id" value="${contract.id}"></c:param>
         </c:url>
         <tr>
-<%--            <td><form:hidden path="user"></form:hidden></td>--%>
+                <%--            <td><form:hidden path="user"></form:hidden></td>--%>
 
-            <td align="center"input type="number">${contract.phoneNumber}</td>
+            <td align="center" input type="number">${contract.phoneNumber}</td>
             <td align="center">${contract.userEmail}</td>
             <td align="center">${contract.tariffName}</td>
-            <td>
+            <td align="left">
                 <c:forEach var="option" items="${contract.options}">
                     <li>
                             ${option}
                     </li>
                 </c:forEach>
             </td>
-            <td align="center">${contract.enabled}
-            </td>
+            <c:if test="${contract.enabled == true}">
+                <td align="center">No</td>
+            </c:if>
+            <c:if test="${contract.enabled == false}">
+                <td align="center" style="background-color: fuchsia">Yes</td>
+            </c:if>
+                <%--            <td align="center">${contract.enabled}</td>--%>
             <td align="center">
-                <input type="button" value="Update" onclick="window
+                <input type="button" class="btn-outline-light" value="Update" onclick="window
                         .location.href = '${updateButton}'"/>
             </td>
         </tr>
     </c:forEach>
 </table>
-<br />
+<br/>
 
 <script>
 
@@ -122,6 +130,7 @@
             }
         }
     }
+
     function myFunctionE() {
         // Объявить переменные
         var input, filter, table, tr, td, i, txtValue;

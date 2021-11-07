@@ -8,24 +8,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
-<br/>
-<h2>Tariff Info</h2>
+<body style="background-color: violet" class="modal-body">
+<div class="col-sm-12">
+    <c:if test="${tariff.tariffName == null}">
+        <h2 align="center">Add new tariff</h2>
+    </c:if>
+    <c:if test="${tariff.tariffName != null}">
+        <h2 align="center">Update tariff</h2>
+    </c:if>
+</div>
 <div align="right">
-    Go back to <input type="button" value="admin page"
+    <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
+<%--@elvariable id="tariff" type="com.javaschool.mobile.dto.TariffDto"--%>
 <form:form action="/admin/save/tariffs" modelAttribute="tariff">
     <form:hidden path="id"/>
-    Name <form:input required="required" maxlength="44" path="tariffName"/>
-    <br/> <br/>
-    Price <form:input  pattern="\d+" required="required" maxlength="6" path="price"/>
-    <br/> <br/>
+    Name <br/> <form:input required="required" maxlength="44" path="tariffName"/>
+    <br/>
+    Price <br/> <form:input  pattern="\d+" required="required" maxlength="6" path="price"/>
+    <br/><br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/> <br/>
     <div id="wrapper">
-        <input type="button" value="Check All" onclick="check();">
-        <input type="button" value="Uncheck All" onclick="uncheck();">
+        <input type="button" class="btn-outline-light" value="Check All" onclick="check();">
+        <input type="button" class="btn-outline-light" value="Uncheck All" onclick="uncheck();">
         <br/>
         <table border="2">
             <tr align="center">
@@ -41,7 +48,7 @@
         </table>
     </div>
     <br/>
-    <input type="submit" value="CONFIRM">
+    <input type="submit" class="btn-success" value="CONFIRM">
     <br/> <br/>
 </form:form>
 <script>

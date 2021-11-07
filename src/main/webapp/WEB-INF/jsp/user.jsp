@@ -12,8 +12,31 @@
 <%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
     >
 </head>
-<body style="background-color: violet">
-<br>
+<body style="background-color: violet" class="modal-body">
+
+<style>
+    #myTable {
+        /*border-collapse: collapse; !* Свернуть границы *!*/
+        width: 100%; /* Полная ширина */
+        border: 1px solid #ddd; /* Добавить серую границу */
+        font-size: 18px; /* Увеличить размер шрифта */
+    }
+
+    #myTable th{
+        text-align: center; /* Выравнивание текста по левому краю */
+        padding: 1px; /* Добавить отступ */
+    }
+
+    #myTable tr {
+        /* Добавить нижнюю границу для всех строк таблицы */
+        border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header{
+        /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
+        background-color: #f1f1f1;
+    }
+</style>
 <br>
 <div align="right">
     <input class="btn-danger" type="button" value="LOG OUT"
@@ -35,10 +58,10 @@
         <thead>
         <tr class="header" align="center">
             <th width="150">Phone number</th>
-            <th width="100">Tariff</th>
-            <th width="170">Connected options</th>
-            <th>Actions</th>
-            <th>Actions</th>
+            <th width="150">Tariff</th>
+            <th width="180">Connected options</th>
+            <th>Edit</th>
+            <th>Edit</th>
             <th>Actions</th>
         </tr>
         </thead>

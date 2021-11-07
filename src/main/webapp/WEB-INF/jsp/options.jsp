@@ -7,29 +7,53 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet" class="popover-body">
+<body style="background-color: violet" class="modal-body">
+<style>
+    #myTable {
+        /*border-collapse: collapse; !* Свернуть границы *!*/
+        width: 100%; /* Полная ширина */
+        border: 1px solid #ddd; /* Добавить серую границу */
+        font-size: 18px; /* Увеличить размер шрифта */
+    }
+
+    #myTable th{
+        text-align: center; /* Выравнивание текста по левому краю */
+        padding: 1px; /* Добавить отступ */
+    }
+
+    #myTable tr {
+        /* Добавить нижнюю границу для всех строк таблицы */
+        border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header{
+        /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
+        background-color: #f1f1f1;
+    }
+</style>
 <h2 align="center">
     All Options
 </h2>
 <div align="right">
-    Go back to <input type="button" class="btn-info" value="admin page"
+    <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
 <input style="width: 13%" class="btn-outline-primary" type="button" value="Add new Option"
        onclick="window.location.href = '/admin/add/options'"/>
 <br>
 <br/>
-<table border="2">
-    <tr align="center">
-        <th width="150">Option name</th>
-        <th width="100">Price</th>
-        <th width="150">Connection price</th>
-        <th width="100">Edit</th>
-        <th width="150">Dependent options</th>
-        <th width="150">Incompatible options</th>
-        <th width="100">Edit</th>
-
+<table id="myTable" border="2">
+    <thead>
+    <tr  class="header" align="center">
+        <th  width="200">Option name</th>
+        <th width="150">Price</th>
+        <th>Connection price</th>
+        <th>Edit</th>
+        <th>Dependent options</th>
+        <th>Incompatible options</th>
+        <th>Edit</th>
     </tr>
+    </thead>
     <c:forEach var="option" items="${options}">
         <c:url var="updateButton" value="/admin/update/options">
             <c:param name="optionId" value="${option.id}"></c:param>

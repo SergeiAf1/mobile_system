@@ -11,7 +11,7 @@
 <body style="background-color: violet" class="modal-body">
 <div class="col-sm-12">
     <c:if test="${option.name == null}">
-        <h2 align="center">Add option</h2>
+        <h2 align="center">Add new option</h2>
     </c:if>
     <c:if test="${option.name != null}">
         <h2 align="center">Update option</h2>
@@ -19,7 +19,7 @@
 </div>
 
 <div align="right">
-    Go back to <input type="button" value="admin page"
+    <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
 <br/>
@@ -36,7 +36,7 @@
         Connection price <br/> <form:input pattern="\d+" required="required" maxlength="6"  path="connectionPrice"/>
         <br/> <br/>
 
-        <input type="submit" value="CONFIRM">
+        <input type="submit" class="btn-success" value="CONFIRM">
         <br/> <br/>
 
     </form:form>

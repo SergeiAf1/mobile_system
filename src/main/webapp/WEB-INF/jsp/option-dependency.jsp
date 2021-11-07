@@ -2,18 +2,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet" >
+<body style="background-color: violet">
 <br/>
-<div  >
+<div>
     <h2 align="center">Option dependencies</h2>
     <div align="right">
-        Go back to <input class="btn-outline-primary" type="button" value="admin page"
+        <input class="btn-primary" type="button" value="admin page"
                           onclick="window.location.href = '/admin'">
     </div>
     <div>
@@ -25,9 +24,9 @@
         <form:hidden path="name"/>
         <form:hidden path="price"/>
         <form:hidden path="connectionPrice"/>
-        <table >
-            <thead >
-            <tr >
+        <table>
+            <thead>
+            <tr>
                 <th width="300">Dependent options</th>
                 <th width="5"></th>
                 <th width="300">Incompatible options</th>
@@ -36,9 +35,9 @@
             <tbody>
             <td>
                 <table border="2">
-                    <thead >
+                    <thead>
                     <tr>
-                        <th align="center" >
+                        <th align="center">
                             Dependent option
                         </th>
                         <th align="center">
@@ -69,7 +68,7 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                     <c:forEach items="${optionList}" var="options">
                         <tr align="center">
                             <td>${options}</td>

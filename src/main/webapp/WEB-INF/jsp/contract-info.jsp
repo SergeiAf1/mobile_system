@@ -11,7 +11,7 @@
 <body style="background-color: violet">
 <h2>Contract Info</h2>
 <div align="right">
-    Go back to <input type="button" value="main page"
+    <input type="button" value="main page"
                                 onclick="window.location.href = '/user'">
 </div>
 <br/>
