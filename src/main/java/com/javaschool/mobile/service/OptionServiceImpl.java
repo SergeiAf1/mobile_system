@@ -2,11 +2,11 @@ package com.javaschool.mobile.service;
 
 import com.javaschool.mobile.dao.OptionDAO;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OptionServiceImpl implements OptionService {
@@ -24,7 +24,12 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public void saveOption(Option option) {
-        optionDAO.save(option);
+        var con =  option.getDependentOptions()
+                .stream()
+                .anyMatch(option1 -> option.getIncompatibleOptions().contains(option1));
+        if(con){
+            throw new IncompatibleOptionsException("You can't choose the same option in Dependent and Incompatible options");
+        } else optionDAO.save(option);
     }
 
     @Override
@@ -41,4 +46,5 @@ public class OptionServiceImpl implements OptionService {
     public Option getOptionByName(String name) {
         return optionDAO.findOptionByName(name);
     }
+
 }

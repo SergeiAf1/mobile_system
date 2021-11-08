@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
+<body style="background-color: #ffa2de" class="modal-body">
 <br/>
 <div>
     <h2 align="center">Option dependencies</h2>
     <div align="right">
         <input class="btn-primary" type="button" value="admin page"
-                          onclick="window.location.href = '/admin'">
+               onclick="window.location.href = '/admin'">
     </div>
     <div>
         <h3>Option name : "${option.name}"</h3>
@@ -80,7 +80,8 @@
             </td>
             </tbody>
         </table>
-        <input type="submit" class="btn-success" value="CONFIRM">
+        <input type="submit" class="btn-success" value="CONFIRM"> &ensp;&ensp;
+        <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/options'">
     </form:form>
 </div>
 </body>

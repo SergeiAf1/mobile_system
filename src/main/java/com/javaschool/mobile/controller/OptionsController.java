@@ -2,6 +2,7 @@ package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.OptionDto;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -37,9 +37,15 @@ public class OptionsController {
     }
 
     @PostMapping("/save/options")
-    public String saveOption(@ModelAttribute("option") OptionDto option) {
-        optionService.saveOption(optionMapper.toEntity(option));
-        return "redirect:/admin/options";
+    public String saveOption(@ModelAttribute("option") OptionDto option, Model model) {
+        try {
+            optionService.saveOption(optionMapper.toEntity(option));
+            return "redirect:/admin/options";
+        } catch (IncompatibleOptionsException e) {
+            model.addAttribute("message",e.getMessage());
+            return "option-exception";
+        }
+
     }
 
     @RequestMapping("/add/options")
