@@ -18,6 +18,9 @@ public class TariffMapper {
     }
 
     public TariffDto toDto(Tariff tariff) {
+        if(tariff == null){
+            return null;
+        }
         TariffDto tariffDto = new TariffDto();
         tariffDto.setId(tariff.getId());
         tariffDto.setTariffName(tariff.getTariffName());
@@ -36,6 +39,9 @@ public class TariffMapper {
     }
 
     public Tariff toEntity(TariffDto tariffDto) {
+        if(tariffDto == null){
+            return null;
+        }
         Tariff tariff = new Tariff();
         tariff.setId(tariffDto.getId());
         tariff.setTariffName(tariffDto.getTariffName());

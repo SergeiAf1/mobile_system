@@ -31,16 +31,28 @@
     }
 </style>
 <br>
-<c:if test="${users.size() == 0}">
+<c:if test="${users.get(0) == null}">
+
+    <h2 align="center">
+        Found User
+    </h2>
+    <br/>
     <div align="right">
         <input type="button" class="btn-info" value="admin page"
                onclick="window.location.href = '/admin'">
     </div>
+    <br/>
     <input type="button" class="btn-outline-primary" value="All users"
            onclick="window.location.href = '/admin/users'">
-    <h2 align="center">
-        User not found
-    </h2>
+    <h3>
+        <br>
+        &nbsp &nbsp User with phone number "${phoneNumber}" not found
+    </h3>
+    <style>#hide{display: none}</style>
+
+<%--    <script>--%>
+<%--        $('#hide').hide();--%>
+<%--    </script>--%>
 </c:if>
 <c:if test="${users.size() > 1}">
 <h2 align="center">
@@ -67,7 +79,7 @@
         <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>
     </form>
     </c:if>
-    <c:if test="${users.size() == 1}">
+    <c:if test="${(users.size() == 1) && (users.get(0) != null)}">
         <h2 align="center">
             Found User
         </h2>
@@ -82,105 +94,99 @@
     </c:if>
 </div>
 <br/>
-<table id="myTable" border="2">
-    <thead style="background-color: #f1f1f1">
-    <tr>
-        <th>Phone number</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Passport</th>
-        <th>Birth date</th>
-        <th>Address</th>
-        <th>Enabled</th>
-        <th>Edit</th>
-    </tr>
-    </thead>
-    <c:forEach var="user" items="${users}">
-        <c:url var="updateButton" value="/admin/update/users">
-            <c:param name="user_id" value="${user.id}"></c:param>
-        </c:url>
-        <%--        <c:url var="addContractButton" value="/admin/addcontract/users">--%>
-        <%--            <c:param name="user_id" value="${user.id}"></c:param>--%>
-        <%--        </c:url>--%>
+<div id="hide" >
+    <table id="myTable" border="2">
+        <thead style="background-color: #f1f1f1">
         <tr>
-            <td>
-                <c:forEach var="contract" items="${user.contracts}">
-                    <li>
-                            ${contract.phoneNumber}
-                    </li>
-                </c:forEach>
-            </td>
-            <td align="center">${user.name}</td>
-            <td align="center">${user.surname}</td>
-            <td align="center">${user.email}</td>
-            <td align="center">${user.passport}</td>
-            <td align="center">${user.birthDate}</td>
-            <td align="center">${user.address}</td>
-            <c:if test="${user.enabled == true}">
-                <td>Yes</td>
-            </c:if>
-            <c:if test="${user.enabled == false}">
-                <td style="background-color: fuchsia">No</td>
-            </c:if>
-            <td align="center">
-                <input type="button" class="btn-outline-light" value="Update" onclick="window
-                        .location.href = '${updateButton}'"/>
-            </td>
-                <%--            <td align="center">--%>
-                <%--                <input type="button" value="Add contract" onclick="window--%>
-                <%--                        .location.href = '${addContractButton}'"/>--%>
-                <%--            </td>--%>
+            <th>Phone number</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Passport</th>
+            <th>Birth date</th>
+            <th>Address</th>
+            <th>Enabled</th>
+            <th>Edit</th>
         </tr>
-    </c:forEach>
-</table>
-<br/>
+        </thead>
+        <c:forEach var="user" items="${users}">
+            <c:url var="updateButton" value="/admin/update/users">
+                <c:param name="user_id" value="${user.id}"></c:param>
+            </c:url>
+            <tr>
+                <td>
+                    <c:forEach var="contract" items="${user.contracts}">
+                        <li>
+                                ${contract.phoneNumber}
+                        </li>
+                    </c:forEach>
+                </td>
+                <td align="center">${user.name}</td>
+                <td align="center">${user.surname}</td>
+                <td align="center">${user.email}</td>
+                <td align="center">${user.passport}</td>
+                <td align="center">${user.birthDate}</td>
+                <td align="center">${user.address}</td>
+                <c:if test="${user.enabled == true}">
+                    <td>Yes</td>
+                </c:if>
+                <c:if test="${user.enabled == false}">
+                    <td style="background-color: fuchsia">No</td>
+                </c:if>
+                <td align="center">
+                    <input type="button" class="btn-outline-light" value="Update" onclick="window
+                            .location.href = '${updateButton}'"/>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br/>
+</div>
+<%--<script>--%>
 
-<script>
+<%--    function myFunction() {--%>
+<%--        // Объявить переменные--%>
+<%--        var input, filter, table, tr, td, i, txtValue;--%>
+<%--        input = document.getElementById("myInput");--%>
+<%--        filter = input.value.toUpperCase();--%>
+<%--        table = document.getElementById("myTable");--%>
+<%--        tr = table.getElementsByTagName("tr");--%>
 
-    function myFunction() {
-        // Объявить переменные
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+<%--        // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу--%>
+<%--        for (i = 0; i < tr.length; i++) {--%>
+<%--            td = tr[i].getElementsByTagName("td")[0];--%>
+<%--            if (td) {--%>
+<%--                txtValue = td.textContent || td.innerText;--%>
+<%--                if (txtValue.toUpperCase().indexOf(filter) > -1) {--%>
+<%--                    tr[i].style.display = "";--%>
+<%--                } else {--%>
+<%--                    tr[i].style.display = "none";--%>
+<%--                }--%>
+<%--            }--%>
+<%--        }--%>
+<%--    }--%>
 
-        // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+<%--    function myFunctionE() {--%>
+<%--        // Объявить переменные--%>
+<%--        var input, filter, table, tr, td, i, txtValue;--%>
+<%--        input = document.getElementById("email");--%>
+<%--        filter = input.value.toUpperCase();--%>
+<%--        table = document.getElementById("myTable");--%>
+<%--        tr = table.getElementsByTagName("tr");--%>
 
-    function myFunctionE() {
-        // Объявить переменные
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("email");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[3];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
+<%--        // Перебирайте все строки таблицы и скрывайте тех, кто не соответствует поисковому запросу--%>
+<%--        for (i = 0; i < tr.length; i++) {--%>
+<%--            td = tr[i].getElementsByTagName("td")[3];--%>
+<%--            if (td) {--%>
+<%--                txtValue = td.textContent || td.innerText;--%>
+<%--                if (txtValue.toUpperCase().indexOf(filter) > -1) {--%>
+<%--                    tr[i].style.display = "";--%>
+<%--                } else {--%>
+<%--                    tr[i].style.display = "none";--%>
+<%--                }--%>
+<%--            }--%>
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
 </body>
 </html>

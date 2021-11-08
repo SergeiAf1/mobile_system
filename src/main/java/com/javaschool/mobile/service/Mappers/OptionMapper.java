@@ -17,6 +17,9 @@ public class OptionMapper {
     }
 
     public Option toEntity(OptionDto optionDto){
+        if(optionDto == null){
+            return null;
+        }
         var option = new Option();
         option.setId(optionDto.getId());
         option.setName(optionDto.getName());
@@ -35,6 +38,9 @@ public class OptionMapper {
     }
 
     public OptionDto toDto(Option option){
+        if(option == null){
+            return null;
+        }
         var optionDto = new OptionDto();
         optionDto.setId(option.getId());
         optionDto.setName(option.getName());

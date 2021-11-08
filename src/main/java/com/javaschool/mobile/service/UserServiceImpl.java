@@ -53,6 +53,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByPhoneNumber(Long phoneNumber) {
+        if(contractService.findContractByPhoneNumber(phoneNumber) == null){
+            return null;
+        }
         return contractService.findContractByPhoneNumber(phoneNumber).getUser();
     }
 }

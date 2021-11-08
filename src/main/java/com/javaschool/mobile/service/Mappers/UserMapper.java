@@ -19,6 +19,9 @@ public class UserMapper {
     }
 
     public UserDto toDto(User user) {
+        if(user == null){
+            return null;
+        }
         var userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setName(user.getName());
@@ -43,6 +46,9 @@ public class UserMapper {
     }
 
     public User toEntity(UserDto userdto) {
+        if(userdto == null){
+            return null;
+        }
         var user = new User();
         user.setId(userdto.getId());
         user.setName(userdto.getName());

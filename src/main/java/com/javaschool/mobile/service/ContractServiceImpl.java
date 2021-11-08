@@ -41,6 +41,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract findContractByPhoneNumber(Long phoneNumber) {
+        if(contractDAO.findByPhoneNumber(phoneNumber) == null){
+            return null;
+        }
         return contractDAO.findByPhoneNumber(phoneNumber);
     }
 

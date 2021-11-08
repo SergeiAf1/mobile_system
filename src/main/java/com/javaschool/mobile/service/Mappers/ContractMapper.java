@@ -27,6 +27,9 @@ public class ContractMapper {
 
 
     public ContractDto toDto(Contract contract) {
+        if(contract == null){
+            return null;
+        }
         var contractDto = new ContractDto();
         contractDto.setId(contract.getId());
         contractDto.setPhoneNumber(contract.getPhoneNumber());
@@ -53,6 +56,9 @@ public class ContractMapper {
     }
 
     public Contract toEntity(ContractDto contractDto) {
+        if(contractDto == null){
+            return null;
+        }
         var contract = new Contract();
         contract.setId(contractDto.getId());
         contract.setPhoneNumber(contractDto.getPhoneNumber());

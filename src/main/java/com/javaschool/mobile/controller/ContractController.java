@@ -47,6 +47,7 @@ public class ContractController {
         var users = new ArrayList<>();
         users.add(user);
         model.addAttribute("users",users);
+        model.addAttribute("phoneNumber",phoneNumber);
         return "users";
     }
     @GetMapping("/contracts")
