@@ -17,12 +17,10 @@
         <h2 align="center">Update contract</h2>
     </c:if>
 </div>
-<%--<input type="button" value="All contracts" onclick="window.location.href='/admin/contracts'">--%>
 <div align="right">
     <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
-<br/>
 <%--@elvariable id="contract" type="com.javaschool.mobile.dto.ContractDto"--%>
 <form:form action="/admin/save/contracts" modelAttribute="contract">
     <form:hidden path="id"/>
@@ -30,7 +28,7 @@
     Phone number<br/> <form:input required="required" pattern="9([0-9]{9})"  path="phoneNumber" placeholder="9000000000"/>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
-    <br/> <br/>
+    <br/>
     <div>
         Choose user by email <br/>
         <form:select path="userEmail" >
@@ -74,7 +72,8 @@
             </c:forEach>
         </table>
     </div>
-    <input type="submit" class="btn-success" value="CONFIRM">
+    <input type="submit" class="btn-success" value="CONFIRM">&ensp;&ensp;
+    <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/contracts'">
     <br/> <br/>
 </form:form>
 <script>

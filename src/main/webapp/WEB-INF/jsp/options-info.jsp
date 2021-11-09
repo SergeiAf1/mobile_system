@@ -36,7 +36,8 @@
         Connection price <br/> <form:input pattern="\d+" required="required" maxlength="6"  path="connectionPrice"/>
         <br/> <br/>
 
-        <input type="submit" class="btn-success" value="CONFIRM">
+        <input type="submit" class="btn-success" value="CONFIRM">&ensp;&ensp;
+        <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/options'">
         <br/> <br/>
 
     </form:form>

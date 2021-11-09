@@ -43,7 +43,8 @@
     <br/><br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/> <br/>
-    <input type="submit" class="btn-success" value="CONFIRM">
+    <input type="submit" class="btn-success" value="CONFIRM">&ensp;&ensp;
+    <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/users'">
     <br/> <br/>
 </form:form>
 </div>

@@ -8,8 +8,8 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
+    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+    <%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
     >
 </head>
 <body style="background-color: violet" class="modal-body">
@@ -22,7 +22,7 @@
         font-size: 18px; /* Увеличить размер шрифта */
     }
 
-    #myTable th{
+    #myTable th {
         text-align: center; /* Выравнивание текста по левому краю */
         padding: 1px; /* Добавить отступ */
     }
@@ -32,7 +32,7 @@
         border-bottom: 1px solid #ddd;
     }
 
-    #myTable tr.header{
+    #myTable tr.header {
         /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
         background-color: #f1f1f1;
     }
@@ -45,10 +45,10 @@
 <h1 align="center">
     Hello ${user.name} !!!
 </h1>
-<div>
+<div align="right">
     <security:authorize access="hasRole('ADMIN')">
-        Go to <input type="button" value="admin page"
-                     onclick="window.location.href = '/admin'">
+        <input type="button" class="btn-info" value="admin page"
+               onclick="window.location.href = '/admin'">
     </security:authorize>
 </div>
 <h1>${user.name} ${user.surname}</h1>
@@ -97,7 +97,7 @@
                 <c:choose>
                     <c:when test="${contract.enabled == true && contract.blockedByUser == false}">
                         <td align="center">
-                            <input id="updtar" class="btn-outline-success" type="button" value="Change tariff"
+                            <input class="btn-outline-success" type="button" value="Change tariff"
                                    onclick="window
                                            .location.href = '${updateTariff}'"/>
                         </td>
