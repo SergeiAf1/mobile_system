@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tariff")
@@ -35,7 +36,9 @@ public class Tariff {
         if(options == null){
             options = new ArrayList<>();
         }
-        options.add(option);
+        if(!(options.contains(option))){
+            options.add(option);
+        }
     }
 
     public Tariff(String tariffName, int price, Boolean enabled, List<Option> options) {
@@ -97,4 +100,5 @@ public class Tariff {
                 ", price=" + price +
                 '}';
     }
+
 }

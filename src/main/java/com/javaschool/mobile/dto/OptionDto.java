@@ -1,6 +1,7 @@
 package com.javaschool.mobile.dto;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OptionDto {
 
@@ -12,9 +13,9 @@ public class OptionDto {
 
     private int connectionPrice;
 
-    private Set<String> dependentOptions;
+    private List<String> dependentOptions = new ArrayList<>();
 
-    private Set<String> incompatibleOptions;
+    private List<String> incompatibleOptions = new ArrayList<>();
 
     public OptionDto() {
     }
@@ -30,19 +31,19 @@ public class OptionDto {
         return id;
     }
 
-    public Set<String> getDependentOptions() {
+    public List<String> getDependentOptions() {
         return dependentOptions;
     }
 
-    public void setDependentOptions(Set<String> dependentOptions) {
+    public void setDependentOptions(List<String> dependentOptions) {
         this.dependentOptions = dependentOptions;
     }
 
-    public Set<String> getIncompatibleOptions() {
+    public List<String> getIncompatibleOptions() {
         return incompatibleOptions;
     }
 
-    public void setIncompatibleOptions(Set<String> incompatibleOptions) {
+    public void setIncompatibleOptions(List<String> incompatibleOptions) {
         this.incompatibleOptions = incompatibleOptions;
     }
 

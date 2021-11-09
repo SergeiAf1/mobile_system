@@ -2,10 +2,13 @@ package com.javaschool.mobile.service;
 
 import com.javaschool.mobile.dao.ContractDAO;
 import com.javaschool.mobile.entity.Contract;
+import com.javaschool.mobile.entity.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -31,6 +34,35 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void saveContract(Contract contract) {
+
+        var contractOptions = contract.getOptions().stream()
+                .filter(option -> contract.getTariff().getOptions().contains(option))
+                .collect(Collectors.toList());
+
+        var onlyDependentOptions = new ArrayList<Option>();
+
+        contractOptions.stream()
+                .filter(option -> option.getDependentOptions().size() > 0)
+                .forEach(option -> onlyDependentOptions.addAll(option.getDependentOptions()));
+
+//        var onlyWithDependent = contractOptions.stream()
+//                .filter(option -> option.getDependentOptions().size() > 0)
+//                .collect(Collectors.toList());
+//        for (Option option : onlyWithDependent) {
+//            onlyDependentOptions.addAll(option.getDependentOptions());
+//        }
+//        var dependentWithoutDuplicate = onlyDependentOptions.stream().distinct()
+//                .filter(option2 -> !contractOptions.contains(option2))
+//                .collect(Collectors.toList());
+//        for (Option opt : dependentWithoutDuplicate) {
+//            contractOptions.add(opt);
+//        }
+        onlyDependentOptions.stream()
+                .distinct()
+                .filter(option2 -> !contractOptions.contains(option2))
+                .forEach(contractOptions::add);
+
+        contract.setOptions(contractOptions);
         contractDAO.save(contract);
     }
 
@@ -41,7 +73,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract findContractByPhoneNumber(Long phoneNumber) {
-        if(contractDAO.findByPhoneNumber(phoneNumber) == null){
+        if (contractDAO.findByPhoneNumber(phoneNumber) == null) {
             return null;
         }
         return contractDAO.findByPhoneNumber(phoneNumber);

@@ -1,5 +1,6 @@
 package com.javaschool.mobile.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TariffDto {
@@ -12,7 +13,7 @@ public class TariffDto {
 
     private Boolean enabled;
 
-    private List<String> options;
+    private List<String> options = new ArrayList<>();
 
     public TariffDto() {
     }

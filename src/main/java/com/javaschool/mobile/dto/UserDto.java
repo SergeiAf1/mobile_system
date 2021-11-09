@@ -1,8 +1,6 @@
 package com.javaschool.mobile.dto;
 
 
-import com.javaschool.mobile.entity.Contract;
-
 import java.sql.Date;
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.javaschool.mobile.entity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "options")
@@ -25,13 +24,13 @@ public class Option {
     @JoinTable(name = "dependent_options"
             , joinColumns = @JoinColumn(name = "option_id")
             , inverseJoinColumns = @JoinColumn(name = "dependent_option_id"))
-    private Set<Option> dependentOptions;
+    private List<Option> dependentOptions;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "incompatible_options"
             , joinColumns = @JoinColumn(name = "option_id")
             , inverseJoinColumns = @JoinColumn(name = "incompatible_option_id"))
-    private Set<Option> incompatibleOptions;
+    private List<Option> incompatibleOptions;
 
     public Option() {
     }
@@ -42,19 +41,19 @@ public class Option {
         this.connectionPrice = connectionPrice;
     }
 
-    public Set<Option> getDependentOptions() {
+    public List<Option> getDependentOptions() {
         return dependentOptions;
     }
 
-    public void setDependentOptions(Set<Option> dependentOptions) {
+    public void setDependentOptions(List<Option> dependentOptions) {
         this.dependentOptions = dependentOptions;
     }
 
-    public Set<Option> getIncompatibleOptions() {
+    public List<Option> getIncompatibleOptions() {
         return incompatibleOptions;
     }
 
-    public void setIncompatibleOptions(Set<Option> incompatibleOptions) {
+    public void setIncompatibleOptions(List<Option> incompatibleOptions) {
         this.incompatibleOptions = incompatibleOptions;
     }
 

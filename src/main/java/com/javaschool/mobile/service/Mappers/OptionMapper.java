@@ -16,8 +16,8 @@ public class OptionMapper {
         this.optionService = optionService;
     }
 
-    public Option toEntity(OptionDto optionDto){
-        if(optionDto == null){
+    public Option toEntity(OptionDto optionDto) {
+        if (optionDto == null) {
             return null;
         }
         var option = new Option();
@@ -25,20 +25,28 @@ public class OptionMapper {
         option.setName(optionDto.getName());
         option.setPrice(optionDto.getPrice());
         option.setConnectionPrice(optionDto.getConnectionPrice());
-        option.setDependentOptions(optionDto.getDependentOptions()
-                .stream()
-                .map(optionService::getOptionByName)
-                .collect(Collectors.toSet())
-        );
-        option.setIncompatibleOptions(optionDto.getIncompatibleOptions()
-                .stream()
-                .map(optionService::getOptionByName)
-                .collect(Collectors.toSet()));
+        if (optionDto.getDependentOptions() == null) {
+            option.setDependentOptions(null);
+        } else {
+            option.setDependentOptions(optionDto.getDependentOptions()
+                    .stream()
+                    .map(optionService::getOptionByName)
+                    .collect(Collectors.toList())
+            );
+        }
+        if (optionDto.getIncompatibleOptions() == null) {
+            option.setIncompatibleOptions(null);
+        } else {
+            option.setIncompatibleOptions(optionDto.getIncompatibleOptions()
+                    .stream()
+                    .map(optionService::getOptionByName)
+                    .collect(Collectors.toList()));
+        }
         return option;
     }
 
-    public OptionDto toDto(Option option){
-        if(option == null){
+    public OptionDto toDto(Option option) {
+        if (option == null) {
             return null;
         }
         var optionDto = new OptionDto();
@@ -49,12 +57,12 @@ public class OptionMapper {
         optionDto.setDependentOptions(option.getDependentOptions()
                 .stream()
                 .map(Option::getName)
-                .collect(Collectors.toSet())
+                .collect(Collectors.toList())
         );
         optionDto.setIncompatibleOptions(option.getIncompatibleOptions()
                 .stream()
                 .map(Option::getName)
-                .collect(Collectors.toSet())
+                .collect(Collectors.toList())
         );
         return optionDto;
     }
