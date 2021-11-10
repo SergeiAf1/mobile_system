@@ -60,7 +60,7 @@
 <%--                                <form:checkbox path="options" value="${option}" ></form:checkbox>--%>
 <%--                            </li>--%>
 <%--                        </c:forEach>--%>
-                    <p align="center"><a href="javascript:flipflop('${tariff.tariffName}');">Available options</a></p>
+                    <p align="center"><a href="javascript:flipflop('${tariff.tariffName}');">Connected options</a></p>
                         <ul id="${tariff.tariffName}" style="display: none;">
                             <c:forEach var="option" items="${tariff.options}">
                                 <li>${option}   <form:checkbox path="options" value="${option}" ></form:checkbox></li>

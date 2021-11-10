@@ -43,7 +43,8 @@ public class OptionsController {
             return "redirect:/admin/options";
         } catch (IncompatibleOptionsException e) {
             model.addAttribute("message",e.getMessage());
-            return "option-exception";
+            model.addAttribute("redirect","/admin/dependencies?optionId=" + option.getId());
+            return "incompatible-exception";
         }
 
     }

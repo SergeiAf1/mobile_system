@@ -10,7 +10,7 @@
 <body style="background-color: #ffa2de" class="modal-body">
 <br/>
 <div>
-    <h2 align="center">Option dependencies</h2>
+    <h1 align="center">Option dependencies</h1>
     <div align="right">
         <input class="btn-primary" type="button" value="admin page"
                onclick="window.location.href = '/admin'">
@@ -18,29 +18,35 @@
     <div>
         <h3>Option name : "${option.name}"</h3>
     </div>
+    <br/>
     <%--@elvariable id="option" type="com.javaschool.mobile.dto.OptionDto"--%>
     <form:form action="/admin/save/options" method="post" modelAttribute="option">
         <form:hidden path="id"/>
         <form:hidden path="name"/>
         <form:hidden path="price"/>
         <form:hidden path="connectionPrice"/>
+
         <table>
             <thead>
             <tr>
-                <th width="300">Dependent options</th>
+                <th width="300">
+                        <%--                    <h4>Dependent options</h4>--%>
+                </th>
                 <th width="5"></th>
-                <th width="300">Incompatible options</th>
+                <th width="300">
+                        <%--                    <h4>Incompatible options</h4>--%>
+                </th>
             </tr>
             </thead>
             <tbody>
             <td>
                 <table border="2">
-                    <thead>
-                    <tr>
-                        <th align="center">
+                    <thead align="center">
+                    <tr class="header" style="background-color: #f1f1f1">
+                        <th width="200">
                             Dependent option
                         </th>
-                        <th align="center">
+                        <th width="80">
                             Yes/No
                         </th>
                     </tr>
@@ -58,12 +64,12 @@
             <td></td>
             <td>
                 <table border="2">
-                    <thead>
-                    <tr>
-                        <th align="center">
+                    <thead align="center">
+                    <tr style="background-color: #f1f1f1">
+                        <th width="200">
                             Incompatible option
                         </th>
-                        <th align="center">
+                        <th width="80">
                             Yes/No
                         </th>
                     </tr>

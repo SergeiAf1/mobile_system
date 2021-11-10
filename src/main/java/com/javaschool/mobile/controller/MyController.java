@@ -2,6 +2,7 @@ package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.ContractDto;
 import com.javaschool.mobile.dto.TariffDto;
+import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.ContractService;
 import com.javaschool.mobile.service.Mappers.ContractMapper;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
@@ -84,9 +85,15 @@ public class MyController {
     }
 
     @PostMapping("/user/save/contracts")
-    public String saveUserContract(@ModelAttribute("contract") ContractDto contract) {
-        contractService.saveContract(contractMapper.toEntity(contract));
-        return "redirect:/user";
+    public String saveUserContract(@ModelAttribute("contract") ContractDto contract, Model model) {
+        try {
+            contractService.saveContract(contractMapper.toEntity(contract));
+            return "redirect:/user";
+        } catch (IncompatibleOptionsException e) {
+            model.addAttribute("message",e.getMessage());
+            model.addAttribute("redirect","/user/update/options?contract_id="+contract.getId());
+            return "incompatible-exception";
+        }
     }
 
     @RequestMapping("/user/update/options")
