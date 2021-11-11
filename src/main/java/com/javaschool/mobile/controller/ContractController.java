@@ -43,12 +43,12 @@ public class ContractController {
     }
 
     @RequestMapping("/users/phoneNumber")
-    public String findContractByPhoneNumber(@RequestParam("phoneNumber") Long phoneNumber, Model model){
+    public String findUserByPhoneNumber(@RequestParam("phoneNumber") Long phoneNumber, Model model){
         var user = userMapper.toDto(userService.getUserByPhoneNumber(phoneNumber));
         var users = new ArrayList<>();
         users.add(user);
         model.addAttribute("users",users);
-        model.addAttribute("phoneNumber",phoneNumber);
+        model.addAttribute("search",phoneNumber);
         return "users";
     }
     @GetMapping("/contracts")
@@ -100,5 +100,14 @@ public class ContractController {
                 .collect(Collectors.toList())
         );
         return "contracts-info";
+    }
+    @RequestMapping("/contracts/phoneNumber")
+    public String findContractByPhoneNumber(@RequestParam("phoneNumber") Long phoneNumber, Model model){
+        var contract = contractMapper.toDto(contractService.findContractByPhoneNumber(phoneNumber));
+        var contracts = new ArrayList<>();
+        contracts.add(contract);
+        model.addAttribute("contracts",contracts);
+        model.addAttribute("phoneNumber", phoneNumber);
+        return "contracts";
     }
 }

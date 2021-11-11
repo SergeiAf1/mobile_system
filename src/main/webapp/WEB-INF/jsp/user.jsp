@@ -27,11 +27,6 @@
         padding: 1px; /* Добавить отступ */
     }
 
-    #myTable tr {
-        /* Добавить нижнюю границу для всех строк таблицы */
-        border-bottom: 1px solid #ddd;
-    }
-
     #myTable tr.header {
         /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
         background-color: #f1f1f1;
@@ -82,18 +77,6 @@
                         <li>${option}</li>
                     </c:forEach>
                 </td>
-                    <%--            <td align="center">--%>
-                    <%--                <c:choose>--%>
-                    <%--                    <c:when test="${contract.enabled}">No</c:when>--%>
-                    <%--                    <c:otherwise>Yes</c:otherwise>--%>
-                    <%--                </c:choose>--%>
-                    <%--            </td>--%>
-                    <%--            <td align="center">--%>
-                    <%--                <c:choose>--%>
-                    <%--                    <c:when test="${contract.blockedByUser}">Yes</c:when>--%>
-                    <%--                    <c:otherwise>No</c:otherwise>--%>
-                    <%--                </c:choose>--%>
-                    <%--            </td>--%>
                 <c:choose>
                     <c:when test="${contract.enabled == true && contract.blockedByUser == false}">
                         <td align="center">
@@ -158,8 +141,10 @@
     <h5>Please contact us</h5>
 </c:if>
 <br>
-<input type="button" class="btn-link" style="background-color: orchid" value="All Tariffs and Options"
-       onclick="window.location.href = '/user/tariffs'">
+<input style="width: 150px" type="button" class="btn-primary" value="All Tariffs"
+       onclick="window.location.href = '/user/tariffs'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input style="width: 150px" type="button" class="btn-primary" value="All Options"
+       onclick="window.location.href = '/user/options'">
 <br><br>
 </body>
 </html>

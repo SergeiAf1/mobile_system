@@ -11,7 +11,7 @@
 <body style="background-color: violet" class="modal-body">
 <style>
     #myTable {
-        width: 50%; /* Полная ширина */
+        width: 80%; /* Полная ширина */
         border: 1px solid #ddd; /* Добавить серую границу */
         font-size: 18px; /* Увеличить размер шрифта */
     }
@@ -19,7 +19,7 @@
         background-color: #f1f1f1;
     }
     #myTable td, #myTable th{
-        text-align: center; /* Выравнивание текста по левому краю */
+        /*text-align: center; !* Выравнивание текста по левому краю *!*/
         padding: 4px; /* Добавить отступ */
     }
 </style>
@@ -41,16 +41,28 @@
         <form:hidden path="userEmail"/>
         <form:hidden path="blockedByUser"/>
         <tr align="center" class="header">
-            <th width="150">Option name</th>
-            <th width="70">Price</th>
-            <th width="150">Connection price</th>
-            <th width="100">Choice</th>
+            <th width="170">Option name</th>
+            <th width="80">Price</th>
+            <th width="130">Connection price</th>
+            <th width="150">Dependent options</th>
+            <th width="150">Incompatible options</th>
+            <th width="80">Choice</th>
         </tr>
         <c:forEach items="${options}" var="option">
             <tr align="center">
                 <td>${option.name}</td>
                 <td>${option.price}</td>
                 <td>${option.connectionPrice}</td>
+                <td align="left">
+                    <c:forEach items="${option.dependentOptions}" var="optd">
+                        <li>${optd}</li>
+                    </c:forEach>
+                </td>
+                <td align="left">
+                    <c:forEach items="${option.incompatibleOptions}" var="opt">
+                        <li>${opt}</li>
+                    </c:forEach>
+                </td>
                 <td><form:checkbox path="options" value="${option.name}"></form:checkbox></td>
             </tr>
         </c:forEach>

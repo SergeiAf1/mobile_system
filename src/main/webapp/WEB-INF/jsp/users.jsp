@@ -24,11 +24,6 @@
         text-align: center; /* Выравнивание текста по левому краю */
         padding: 8px; /* Добавить отступ */
     }
-
-    #myTable tr {
-        /* Добавить нижнюю границу для всех строк таблицы */
-        border-bottom: 1px solid #ddd;
-    }
 </style>
 <br>
 <c:if test="${users.get(0) == null}">
@@ -44,15 +39,13 @@
     <br/>
     <input type="button" class="btn-outline-primary" value="All users"
            onclick="window.location.href = '/admin/users'">
-    <h3>
+    <h3 align="center">
         <br>
-        &nbsp &nbsp User with phone number "${phoneNumber}" not found
+        User with ${search} not found
     </h3>
-    <style>#hide{display: none}</style>
-
-<%--    <script>--%>
-<%--        $('#hide').hide();--%>
-<%--    </script>--%>
+    <style>#hide {
+        display: none
+    }</style>
 </c:if>
 <c:if test="${users.size() > 1}">
 <h2 align="center">
@@ -75,9 +68,16 @@
     <form action="/admin/users/phoneNumber">
         <input id="phoneNumber" style="background-color: #ffccf6" required="required" pattern="9([0-9]{9})"
                name="phoneNumber"
-               placeholder="Search user by phone number in DB">
+               placeholder="Search user by phone number">
+        <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>
+    </form><br/>
+    <form action="/admin/users/email">
+        <input id="email" style="background-color: #ffccf6" required="required" pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+"
+               name="email"
+               placeholder="Search user by email">
         <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>
     </form>
+</div>
     </c:if>
     <c:if test="${(users.size() == 1) && (users.get(0) != null)}">
         <h2 align="center">
@@ -92,9 +92,9 @@
                onclick="window.location.href = '/admin/users'">
         <br/>
     </c:if>
-</div>
+
 <br/>
-<div id="hide" >
+<div id="hide">
     <table id="myTable" border="2">
         <thead style="background-color: #f1f1f1">
         <tr>

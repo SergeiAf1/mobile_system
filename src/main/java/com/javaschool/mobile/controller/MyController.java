@@ -128,6 +128,15 @@ public class MyController {
         );
         return "all-tariffs";
     }
+    @RequestMapping("/user/options")
+    public String allOptions(Model model) {
+        model.addAttribute("options", optionService.getAllOptions()
+                .stream()
+                .map(optionMapper::toDto)
+                .collect(Collectors.toList())
+        );
+        return "all-options";
+    }
 
     @RequestMapping("/user/blockContracts/{contract_id}")
     public String blockContractByUser(@PathVariable("contract_id") int contract_id){
@@ -140,6 +149,5 @@ public class MyController {
         contractService.unBlockByUser(contract_id);
         return "redirect:/user";
     }
-
 
 }
