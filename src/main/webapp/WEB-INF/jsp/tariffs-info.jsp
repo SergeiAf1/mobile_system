@@ -8,27 +8,48 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
-<br/>
-<h2>Tariff Info</h2>
+<body style="background-color: violet" class="modal-body">
+<style>
+    #myTable {
+        width: 30%; /* Полная ширина */
+        border: 1px solid #ddd; /* Добавить серую границу */
+        font-size: 18px; /* Увеличить размер шрифта */
+    }
+    #myTable tr.header{
+        background-color: #f1f1f1;
+    }
+    #myTable td, #myTable th{
+        text-align: center; /* Выравнивание текста по левому краю */
+        padding: 1px; /* Добавить отступ */
+    }
+</style>
+<div class="col-sm-12">
+    <c:if test="${tariff.tariffName == null}">
+        <h2 align="center">Add new tariff</h2>
+    </c:if>
+    <c:if test="${tariff.tariffName != null}">
+        <h2 align="center">Update tariff</h2>
+    </c:if>
+</div>
 <div align="right">
-    Go back to <input type="button" value="admin page"
+    <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
+<%--@elvariable id="tariff" type="com.javaschool.mobile.dto.TariffDto"--%>
 <form:form action="/admin/save/tariffs" modelAttribute="tariff">
     <form:hidden path="id"/>
-    Name <form:input required="required" maxlength="44" path="tariffName"/>
-    <br/> <br/>
-    Price <form:input  pattern="\d+" required="required" maxlength="6" path="price"/>
-    <br/> <br/>
+    Name <br/> <form:input required="required" maxlength="44" path="tariffName"/>
+    <br/>
+    Price <br/> <form:input  pattern="\d+" required="required" maxlength="6" path="price"/>
+    <br/><br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/> <br/>
     <div id="wrapper">
-        <input type="button" value="Check All" onclick="check();">
-        <input type="button" value="Uncheck All" onclick="uncheck();">
+        <input type="button" class="btn-outline-light" value="Check All" onclick="check();">
+        <input type="button" class="btn-outline-light" value="Uncheck All" onclick="uncheck();">
         <br/>
-        <table border="2">
-            <tr align="center">
+        <table border="2" class="table table-hover" id="myTable">
+            <tr align="center" class="header">
                 <th>Option name</th>
                 <th> Choice</th>
             </tr>
@@ -41,7 +62,8 @@
         </table>
     </div>
     <br/>
-    <input type="submit" value="CONFIRM">
+    <input type="submit" class="btn-success" value="CONFIRM">&ensp;&ensp;
+    <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/tariffs'">
     <br/> <br/>
 </form:form>
 <script>

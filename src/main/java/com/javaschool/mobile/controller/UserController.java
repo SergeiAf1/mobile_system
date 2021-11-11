@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Controller
@@ -46,16 +47,14 @@ public class UserController {
         return "user-info";
     }
 
-//    @RequestMapping("/addcontract/users")
-//    public String addContractUser(@RequestParam("user_id") int user_id, Model model) {
-//        model.addAttribute("user", userMapper.toDto(userService.getUserById(user_id)));
-//        var contracts = contractService.getAllContracts()
-//                .stream()
-//                .filter(contract -> contract.getUser() == null || contract.getUser().getId() == user_id)
-//                .collect(Collectors.toList());
-//        model.addAttribute("contracts", contracts);
-//        return "user-contract";
-//    }
-
+    @RequestMapping("/users/email")
+    public String findContractByPhoneNumber(@RequestParam("email") String email, Model model){
+        var user = userMapper.toDto(userService.getUserByEmail(email));
+        var users = new ArrayList<>();
+        users.add(user);
+        model.addAttribute("users",users);
+        model.addAttribute("search",email);
+        return "users";
+    }
 
 }

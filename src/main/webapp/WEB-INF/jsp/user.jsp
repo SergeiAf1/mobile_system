@@ -7,10 +7,31 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
+    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+    <%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
+    >
 </head>
-<body style="background-color: violet">
-<br>
+<body style="background-color: violet" class="modal-body">
+
+<style>
+    #myTable {
+        /*border-collapse: collapse; !* Свернуть границы *!*/
+        width: 100%; /* Полная ширина */
+        border: 1px solid #ddd; /* Добавить серую границу */
+        font-size: 18px; /* Увеличить размер шрифта */
+    }
+
+    #myTable th {
+        text-align: center; /* Выравнивание текста по левому краю */
+        padding: 1px; /* Добавить отступ */
+    }
+
+    #myTable tr.header {
+        /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
+        background-color: #f1f1f1;
+    }
+</style>
 <br>
 <div align="right">
     <input class="btn-danger" type="button" value="LOG OUT"
@@ -19,23 +40,23 @@
 <h1 align="center">
     Hello ${user.name} !!!
 </h1>
-<div>
+<div align="right">
     <security:authorize access="hasRole('ADMIN')">
-        Go to <input type="button" value="admin page"
-                     onclick="window.location.href = '/admin'">
+        <input type="button" class="btn-info" value="admin page"
+               onclick="window.location.href = '/admin'">
     </security:authorize>
 </div>
 <h1>${user.name} ${user.surname}</h1>
 <c:if test="${user.contracts.size()>0}">
     <h3>My contracts</h3>
-    <table id="myTable" border="2">
+    <table class="table table-hover" id="myTable" border="2">
         <thead>
         <tr class="header" align="center">
             <th width="150">Phone number</th>
-            <th width="100">Tariff</th>
-            <th width="170">Connected options</th>
-            <th>Actions</th>
-            <th>Actions</th>
+            <th width="150">Tariff</th>
+            <th width="180">Connected options</th>
+            <th>Edit</th>
+            <th>Edit</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -56,22 +77,10 @@
                         <li>${option}</li>
                     </c:forEach>
                 </td>
-                    <%--            <td align="center">--%>
-                    <%--                <c:choose>--%>
-                    <%--                    <c:when test="${contract.enabled}">No</c:when>--%>
-                    <%--                    <c:otherwise>Yes</c:otherwise>--%>
-                    <%--                </c:choose>--%>
-                    <%--            </td>--%>
-                    <%--            <td align="center">--%>
-                    <%--                <c:choose>--%>
-                    <%--                    <c:when test="${contract.blockedByUser}">Yes</c:when>--%>
-                    <%--                    <c:otherwise>No</c:otherwise>--%>
-                    <%--                </c:choose>--%>
-                    <%--            </td>--%>
                 <c:choose>
                     <c:when test="${contract.enabled == true && contract.blockedByUser == false}">
                         <td align="center">
-                            <input id="updtar" class="btn-outline-success" type="button" value="Change tariff"
+                            <input class="btn-outline-success" type="button" value="Change tariff"
                                    onclick="window
                                            .location.href = '${updateTariff}'"/>
                         </td>
@@ -132,8 +141,10 @@
     <h5>Please contact us</h5>
 </c:if>
 <br>
-<input type="button" class="btn-link" style="background-color: orchid" value="All Tariffs and Options"
-       onclick="window.location.href = '/user/tariffs'">
+<input style="width: 150px" type="button" class="btn-primary" value="All Tariffs"
+       onclick="window.location.href = '/user/tariffs'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input style="width: 150px" type="button" class="btn-primary" value="All Options"
+       onclick="window.location.href = '/user/options'">
 <br><br>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.ContractDto;
 import com.javaschool.mobile.dto.TariffDto;
+import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.ContractService;
 import com.javaschool.mobile.service.Mappers.ContractMapper;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
@@ -10,6 +11,7 @@ import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 
 @Controller
 public class MyController {
+
+    private static final Logger LOGGER = Logger.getLogger(MyController.class);
 
     private final TariffService tariffService;
     private final UserService userService;
@@ -84,9 +88,16 @@ public class MyController {
     }
 
     @PostMapping("/user/save/contracts")
-    public String saveUserContract(@ModelAttribute("contract") ContractDto contract) {
-        contractService.saveContract(contractMapper.toEntity(contract));
-        return "redirect:/user";
+    public String saveUserContract(@ModelAttribute("contract") ContractDto contract, Model model) {
+        try {
+            contractService.saveContract(contractMapper.toEntity(contract));
+            return "redirect:/user";
+        } catch (IncompatibleOptionsException e) {
+            LOGGER.warn("Exception " + e.getStackTrace());
+            model.addAttribute("message",e.getMessage());
+            model.addAttribute("redirect","/user/update/options?contract_id="+contract.getId());
+            return "incompatible-exception";
+        }
     }
 
     @RequestMapping("/user/update/options")
@@ -121,6 +132,15 @@ public class MyController {
         );
         return "all-tariffs";
     }
+    @RequestMapping("/user/options")
+    public String allOptions(Model model) {
+        model.addAttribute("options", optionService.getAllOptions()
+                .stream()
+                .map(optionMapper::toDto)
+                .collect(Collectors.toList())
+        );
+        return "all-options";
+    }
 
     @RequestMapping("/user/blockContracts/{contract_id}")
     public String blockContractByUser(@PathVariable("contract_id") int contract_id){
@@ -133,6 +153,5 @@ public class MyController {
         contractService.unBlockByUser(contract_id);
         return "redirect:/user";
     }
-
 
 }

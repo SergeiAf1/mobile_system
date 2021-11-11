@@ -8,25 +8,36 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
-<br/>
-<h2>Options Info</h2>
+<body style="background-color: violet" class="modal-body">
+<div class="col-sm-12">
+    <c:if test="${option.name == null}">
+        <h2 align="center">Add new option</h2>
+    </c:if>
+    <c:if test="${option.name != null}">
+        <h2 align="center">Update option</h2>
+    </c:if>
+</div>
+
 <div align="right">
-    Go back to <input type="button" value="admin page"
+    <input type="button" class="btn-info" value="admin page"
                       onclick="window.location.href = '/admin'">
 </div>
 <br/>
 <div>
+    <%--@elvariable id="option" type="com.javaschool.mobile.dto.OptionDto"--%>
     <form:form action="/admin/save/options" modelAttribute="option">
         <form:hidden path="id"/>
-        Name <form:input required="required" minlength="2" maxlength="44" path="name"/>
-        <br/> <br/>
-        Price <form:input pattern="\d+" required="required" maxlength="6" path="price"/>
-        <br/> <br/>
-        Connection price <form:input pattern="\d+" required="required" maxlength="6"  path="connectionPrice"/>
+        <form:hidden path="dependentOptions"/>
+        <form:hidden path="incompatibleOptions"/>
+        Name <br><form:input required="required" minlength="2" maxlength="44" path="name"/>
+        <br/>
+        Price <br/> <form:input pattern="\d+" required="required" maxlength="6" path="price"/>
+        <br/>
+        Connection price <br/> <form:input pattern="\d+" required="required" maxlength="6"  path="connectionPrice"/>
         <br/> <br/>
 
-        <input type="submit" value="CONFIRM">
+        <input type="submit" class="btn-success" value="CONFIRM">&ensp;&ensp;
+        <input type="button" value="CANCEL" class="btn-warning" onclick="window.location.href = '/admin/options'">
         <br/> <br/>
 
     </form:form>
