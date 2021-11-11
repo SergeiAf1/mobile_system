@@ -9,6 +9,7 @@ import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class ContractController {
+
+    private final static Logger LOGGER = Logger.getLogger(ContractController.class);
 
     private final ContractService contractService;
 
@@ -81,6 +84,7 @@ public class ContractController {
             contractService.saveContract(contractMapper.toEntity(contract));
             return "redirect:/admin/contracts";
         } catch (IncompatibleOptionsException e) {
+            LOGGER.warn("Exception "+e.getMessage());
             model.addAttribute("message", e.getMessage());
             model.addAttribute("redirect","/admin/update/contracts?contract_id=" + contract.getId());
             return "incompatible-exception";

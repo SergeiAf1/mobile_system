@@ -11,6 +11,7 @@ import com.javaschool.mobile.service.Mappers.UserMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 
 @Controller
 public class MyController {
+
+    private static final Logger LOGGER = Logger.getLogger(MyController.class);
 
     private final TariffService tariffService;
     private final UserService userService;
@@ -90,6 +93,7 @@ public class MyController {
             contractService.saveContract(contractMapper.toEntity(contract));
             return "redirect:/user";
         } catch (IncompatibleOptionsException e) {
+            LOGGER.warn("Exception " + e.getStackTrace());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/user/update/options?contract_id="+contract.getId());
             return "incompatible-exception";

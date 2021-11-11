@@ -3,16 +3,18 @@ package com.javaschool.mobile.service;
 import com.javaschool.mobile.dao.TariffDAO;
 import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.entity.Tariff;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TariffServiceImpl implements TariffService {
+
+    private final static Logger LOGGER = Logger.getLogger(TariffServiceImpl.class);
 
     private final TariffDAO tariffDAO;
 
@@ -32,6 +34,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
+    @Transactional
     public void saveTariff(Tariff tariff) {
 
         var tariffOptions = tariff.getOptions();
@@ -49,6 +52,7 @@ public class TariffServiceImpl implements TariffService {
 
         tariff.setOptions(tariffOptions);
         tariffDAO.save(tariff);
+        LOGGER.info("Tariff " + tariff.getTariffName() + " was saved");
     }
 
     @Override

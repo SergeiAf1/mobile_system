@@ -3,13 +3,17 @@ package com.javaschool.mobile.service;
 import com.javaschool.mobile.dao.OptionDAO;
 import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class OptionServiceImpl implements OptionService {
+
+    private final static Logger LOGGER = Logger.getLogger(OptionServiceImpl.class);
 
     private final OptionDAO optionDAO;
 
@@ -23,6 +27,7 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
+    @Transactional
     public void saveOption(Option option) {
         var con =  option.getDependentOptions()
                 .stream()
@@ -30,6 +35,7 @@ public class OptionServiceImpl implements OptionService {
         if(con){
             throw new IncompatibleOptionsException("You can't choose the same option in Dependent and Incompatible options");
         } else optionDAO.save(option);
+        LOGGER.info("Option " + option.getName()+ " was saved");
     }
 
     @Override

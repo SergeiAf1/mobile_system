@@ -4,8 +4,10 @@ import com.javaschool.mobile.dao.ContractDAO;
 import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ContractServiceImpl implements ContractService {
+
+    private final static Logger LOGGER = Logger.getLogger(ContractServiceImpl.class);
 
     private final ContractDAO contractDAO;
 
@@ -34,6 +38,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
     public void saveContract(Contract contract) {
 
         var contractOptions = contract.getOptions().stream()
@@ -69,6 +74,7 @@ public class ContractServiceImpl implements ContractService {
 
         contract.setOptions(contractOptions);
         contractDAO.save(contract);
+        LOGGER.info("Contract with id = " + contract.getId()+ " was saved");
     }
 //    @Override
 //    public void saveContract(Contract contract) {
@@ -112,22 +118,28 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public Contract findContractByPhoneNumber(Long phoneNumber) {
         if (contractDAO.findByPhoneNumber(phoneNumber) == null) {
+            LOGGER.info("Contract with phoneNumber = " + phoneNumber + " not found");
             return null;
         }
+        LOGGER.info("Contract with phoneNumber = " + phoneNumber + " was found");
         return contractDAO.findByPhoneNumber(phoneNumber);
     }
 
     @Override
+    @Transactional
     public void blockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
         contract.setBlockedByUser(true);
         contractDAO.save(contract);
+        LOGGER.info("User has blocked contract with id = " + id);
     }
 
     @Override
+    @Transactional
     public void unBlockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
         contract.setBlockedByUser(false);
         contractDAO.save(contract);
+        LOGGER.info("User has unblocked contract with id = " + id);
     }
 }

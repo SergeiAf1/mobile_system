@@ -5,6 +5,7 @@ import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.OptionService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class OptionsController {
+
+    private final static Logger LOGGER = Logger.getLogger(OptionsController.class);
 
     private final OptionService optionService;
 
@@ -42,6 +45,7 @@ public class OptionsController {
             optionService.saveOption(optionMapper.toEntity(option));
             return "redirect:/admin/options";
         } catch (IncompatibleOptionsException e) {
+            LOGGER.warn("Exception " + e.getStackTrace());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/dependencies?optionId=" + option.getId());
             return "incompatible-exception";
