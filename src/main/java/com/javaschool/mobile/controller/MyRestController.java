@@ -20,6 +20,6 @@ public class MyRestController {
 
     @GetMapping("/tariffs")
     public List<Tariff> getAll() {
-        return tariffService.getAllTariffs();
+        return tariffService.getAvailableTariffs();
     }
 }
