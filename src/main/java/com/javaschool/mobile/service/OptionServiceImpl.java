@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class OptionServiceImpl implements OptionService {
@@ -17,9 +19,12 @@ public class OptionServiceImpl implements OptionService {
 
     private final OptionDAO optionDAO;
 
+    private final MQService mqService;
+
     @Autowired
-    public OptionServiceImpl(OptionDAO optionDAO) {
+    public OptionServiceImpl(OptionDAO optionDAO, MQService mqService) {
         this.optionDAO = optionDAO;
+        this.mqService = mqService;
     }
 
     public List<Option> getAllOptions() {
@@ -29,13 +34,16 @@ public class OptionServiceImpl implements OptionService {
     @Override
     @Transactional
     public void saveOption(Option option) {
-        var con =  option.getDependentOptions()
+        var con = option.getDependentOptions()
                 .stream()
                 .anyMatch(option1 -> option.getIncompatibleOptions().contains(option1));
-        if(con){
+        if (con) {
             throw new IncompatibleOptionsException("You can't choose the same option in Dependent and Incompatible options");
         } else optionDAO.save(option);
-        LOGGER.info("Option " + option.getName()+ " was saved");
+
+        LOGGER.info("Option " + option.getName() + " was saved");
+
+        sendMessage("Option " + option.getName() + " was saved");
     }
 
     @Override
@@ -51,6 +59,14 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public Option getOptionByName(String name) {
         return optionDAO.findOptionByName(name);
+    }
+
+    private void sendMessage(String message) {
+        try {
+            mqService.sendMessage(message);
+        } catch (IOException | TimeoutException e) {
+            LOGGER.warn("Couldn't send message. " + e.getMessage());
+        }
     }
 
 }
