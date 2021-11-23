@@ -20,10 +20,11 @@
         font-size: 18px; /* Увеличить размер шрифта */
     }
 
-    #myTable th{
+    #myTable th {
         text-align: center; /* Выравнивание текста по левому краю */
         padding: 1px; /* Добавить отступ */
     }
+
     #myTable tr.header {
         /* Добавить серый цвет фона для заголовка таблицы и при наведении курсора мыши */
         background-color: #f1f1f1;
@@ -33,7 +34,7 @@
 
 <div align="right">
     <input type="button" class="btn-info" value="admin page"
-                      onclick="window.location.href = '/admin'">
+           onclick="window.location.href = '/admin'">
 </div>
 <c:choose>
     <c:when test="${contracts.size() < 2}">
@@ -75,12 +76,12 @@
                placeholder="Search contract by phone number">
         <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>
     </form>
-<%--    <form action="/admin/contract/email">--%>
-<%--        <input id="email" style="background-color: #ffccf6" required="required" pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+"--%>
-<%--               name="email"--%>
-<%--               placeholder="Search user by email">--%>
-<%--        <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>--%>
-<%--    </form>--%>
+    <%--    <form action="/admin/contract/email">--%>
+    <%--        <input id="email" style="background-color: #ffccf6" required="required" pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+"--%>
+    <%--               name="email"--%>
+    <%--               placeholder="Search user by email">--%>
+    <%--        <input type="submit" style="background-color: #8cff81" class="btn-outline-success" value="Submit"/>--%>
+    <%--    </form>--%>
 </div>
 <br/>
 <%--<input type="number" id="myInput" onkeyup="myFunction()" placeholder="Search phone numbers..">--%>
@@ -89,12 +90,16 @@
         <th>Phone number</th>
         <th>User email</th>
         <th>Tariff name</th>
-        <th>Options</th>
+        <th>Connected options</th>
         <th>Blocked</th>
         <th> Edit</th>
+        <th>Edit options</th>
     </tr>
     <c:forEach var="contract" items="${contracts}">
         <c:url var="updateButton" value="/admin/update/contracts">
+            <c:param name="contract_id" value="${contract.id}"></c:param>
+        </c:url>
+        <c:url var="updateOptions" value="/admin/contract/options">
             <c:param name="contract_id" value="${contract.id}"></c:param>
         </c:url>
         <tr>
@@ -120,6 +125,10 @@
             <td align="center">
                 <input type="button" class="btn-outline-light" value="Update" onclick="window
                         .location.href = '${updateButton}'"/>
+            </td>
+            <td align="center">
+                <input type="button" class="btn-outline-light" value="Set Options" onclick="window
+                        .location.href = '${updateOptions}'"/>
             </td>
         </tr>
     </c:forEach>
