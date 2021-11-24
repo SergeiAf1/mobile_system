@@ -116,8 +116,8 @@
             <tr>
                 <td>
                     <c:forEach var="contract" items="${user.contracts}">
-                        <li>
-                                ${contract.phoneNumber}
+                        <li><a href="/admin/contracts/phoneNumber?phoneNumber=${contract.phoneNumber}">${contract.phoneNumber}</a>
+<%--                                ${contract.phoneNumber}--%>
                         </li>
                     </c:forEach>
                 </td>

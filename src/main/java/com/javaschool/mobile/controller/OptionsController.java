@@ -45,7 +45,7 @@ public class OptionsController {
             optionService.saveOption(optionMapper.toEntity(option));
             return "redirect:/admin/options";
         } catch (IncompatibleOptionsException e) {
-            LOGGER.warn("Exception " + e.getStackTrace());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/dependencies?optionId=" + option.getId());
             return "incompatible-exception";

@@ -93,7 +93,7 @@ public class MyController {
             contractService.saveContract(contractMapper.toEntity(contract));
             return "redirect:/user";
         } catch (IncompatibleOptionsException e) {
-            LOGGER.warn("Exception " + e.getStackTrace());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/user/update/options?contract_id="+contract.getId());
             return "incompatible-exception";

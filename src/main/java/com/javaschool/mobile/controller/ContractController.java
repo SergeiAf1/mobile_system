@@ -100,7 +100,7 @@ public class ContractController {
     @RequestMapping("/update/contracts")
     public String updateContract(@RequestParam("contract_id") int contract_id, Model model) {
         model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));
-        model.addAttribute("tariffs", tariffService.getAllTariffs()
+        model.addAttribute("tariffs", tariffService.getAvailableTariffs()
                 .stream()
                 .map(tariffMapper::toDto)
                 .collect(Collectors.toList())
