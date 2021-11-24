@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 @Service
 public class TariffServiceImpl implements TariffService {
@@ -17,10 +20,12 @@ public class TariffServiceImpl implements TariffService {
     private final static Logger LOGGER = Logger.getLogger(TariffServiceImpl.class);
 
     private final TariffDAO tariffDAO;
+    private final MQService mqService;
 
     @Autowired
-    public TariffServiceImpl(TariffDAO tariffDAO) {
+    public TariffServiceImpl(TariffDAO tariffDAO, MQService mqService) {
         this.tariffDAO = tariffDAO;
+        this.mqService = mqService;
     }
 
     @Override
@@ -53,9 +58,11 @@ public class TariffServiceImpl implements TariffService {
         tariff.setOptions(tariffOptions);
         tariffDAO.save(tariff);
         LOGGER.info("Tariff " + tariff.getTariffName() + " was saved");
+        sendMessage("Tariff " + tariff.getTariffName() + " was saved");
     }
 
     @Override
+    @Transactional
     public void deleteTariff(int id) {
         tariffDAO.deleteById(id);
     }
@@ -63,6 +70,22 @@ public class TariffServiceImpl implements TariffService {
     @Override
     public Tariff findByName(String name) {
         return tariffDAO.findTariffByTariffName(name);
+    }
+
+    @Override
+    public List<Tariff> getAvailableTariffs() {
+        return tariffDAO.findAll()
+                .stream()
+                .filter(Tariff::getEnabled)
+                .collect(Collectors.toList());
+    }
+
+    private void sendMessage(String message) {
+        try {
+            mqService.sendMessage(message);
+        } catch (IOException | TimeoutException e) {
+            LOGGER.warn("Couldn't send message. " + e.getMessage());
+        }
     }
 
 }

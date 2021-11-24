@@ -50,7 +50,7 @@
         <br/>
         <table border="2" class="table table-hover" id="myTable">
             <tr align="center" class="header">
-                <th>Option name</th>
+                <th>Available options</th>
                 <th> Choice</th>
             </tr>
             <c:forEach var="option" items="${options}">

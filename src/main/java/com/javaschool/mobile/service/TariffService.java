@@ -12,5 +12,6 @@ public interface TariffService {
     void saveTariff(Tariff tariff);
     void deleteTariff(int id);
     Tariff findByName(String name);
+    List<Tariff> getAvailableTariffs();
 
 }

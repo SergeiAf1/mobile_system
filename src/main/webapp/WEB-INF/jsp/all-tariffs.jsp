@@ -88,6 +88,7 @@
     </c:forEach>
     </tbody>
 </table>
+<br/><br/><br/>
 <script language="JavaScript">
     function flipflop(id) {
         element = document.getElementById(id);

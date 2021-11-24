@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet">
+<body style="background-color: violet" class="modal-body">
 <br>
 <br>
 <br>
@@ -22,19 +22,25 @@
 </h1>
 <br/>
 <div>
-    <input style="width: 15%" type="button" value="All Options" onclick="window.location.href = '/admin/options'">
-</div>
-<br>
-<div>
-    <input style="width: 15%" type="button" value="All Tariffs" onclick="window.location.href = '/admin/tariffs'">
-</div>
-<br>
-<div>
-    <input style="width: 15%" type="button" value="All Users" onclick="window.location.href = '/admin/users'">
-</div>
-<br>
-<div>
-    <input style="width: 15%" type="button" value="All Contracts" onclick="window.location.href = '/admin/contracts'">
+    <div>
+        <input style="width: 15%" type="button" value="All Options"
+               onclick="window.location.href = '/admin/options'">
+    </div>
+    <br>
+    <div>
+        <input style="width: 15%" type="button" value="All Tariffs"
+               onclick="window.location.href = '/admin/tariffs'">
+    </div>
+    <br>
+    <div>
+        <input style="width: 15%" type="button" value="All Users" onclick="window.location.href = '/admin/users'">
+    </div>
+    <br>
+    <div>
+        <input style="width: 15%" type="button" value="All Contracts"
+               onclick="window.location.href = '/admin/contracts'">
+    </div>
+
 </div>
 <br>
 <div>
