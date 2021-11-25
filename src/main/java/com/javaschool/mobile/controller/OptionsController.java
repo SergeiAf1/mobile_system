@@ -2,6 +2,7 @@ package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.OptionDto;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.OptionService;
@@ -44,8 +45,13 @@ public class OptionsController {
         try {
             optionService.saveOption(optionMapper.toEntity(option));
             return "redirect:/admin/options";
+        } catch (AlreadyExistsException e){
+            LOGGER.error("Exception " + e.getMessage());
+            model.addAttribute("message",e.getMessage());
+            model.addAttribute("redirect","/admin/add/options");
+            return "exists-exception";
         } catch (IncompatibleOptionsException e) {
-            LOGGER.warn("Exception " + e.getMessage());
+            LOGGER.error("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/dependencies?optionId=" + option.getId());
             return "incompatible-exception";

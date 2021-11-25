@@ -3,6 +3,7 @@ package com.javaschool.mobile.service;
 import com.javaschool.mobile.dao.TariffDAO;
 import com.javaschool.mobile.entity.Option;
 import com.javaschool.mobile.entity.Tariff;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,17 @@ public class TariffServiceImpl implements TariffService {
     @Override
     @Transactional
     public void saveTariff(Tariff tariff) {
+
+        if(tariff.getId() == 0){
+            boolean result = tariffDAO.findAll()
+                    .stream()
+                    .anyMatch(tariff1 -> tariff1.getTariffName().equals(tariff.getTariffName()));
+
+            if(result){
+                throw new AlreadyExistsException("Tariff with name = '"
+                        + tariff.getTariffName() + "' already exists");
+            }
+        }
 
         var tariffOptions = tariff.getOptions();
 

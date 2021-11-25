@@ -2,6 +2,7 @@ package com.javaschool.mobile.service;
 
 import com.javaschool.mobile.dao.OptionDAO;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class OptionServiceImpl implements OptionService {
     @Override
     @Transactional
     public void saveOption(Option option) {
+        if (option.getId() == 0) {
+            boolean result = optionDAO.findAll().stream()
+                    .anyMatch(option1 -> option.getName().equals(option1.getName()));
+            if(result){
+                throw new AlreadyExistsException("Option with name = '" + option.getName() + "' already exists");
+            }
+        }
         var con = option.getDependentOptions()
                 .stream()
                 .anyMatch(option1 -> option.getIncompatibleOptions().contains(option1));

@@ -2,9 +2,11 @@ package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.TariffDto;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import com.javaschool.mobile.service.Mappers.TariffMapper;
 import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class TariffController {
+
+    private final static Logger LOGGER = Logger.getLogger(TariffController.class);
 
     private final TariffService tariffService;
     private final OptionService optionService;
@@ -38,9 +42,17 @@ public class TariffController {
     }
 
     @PostMapping("/save/tariffs")
-    public String saveTariff(@ModelAttribute("tariff") TariffDto tariff) {
-        tariffService.saveTariff(tariffMapper.toEntity(tariff));
-        return "redirect:/admin/tariffs";
+    public String saveTariff(@ModelAttribute("tariff") TariffDto tariff, Model model) {
+        try {
+            tariffService.saveTariff(tariffMapper.toEntity(tariff));
+            return "redirect:/admin/tariffs";
+        } catch (AlreadyExistsException e) {
+            LOGGER.error("Exception " + e.getMessage());
+            model.addAttribute("message",e.getMessage());
+            model.addAttribute("redirect","/admin/add/tariffs");
+            return "exists-exception";
+        }
+
     }
 
     @RequestMapping("/update/tariffs")
