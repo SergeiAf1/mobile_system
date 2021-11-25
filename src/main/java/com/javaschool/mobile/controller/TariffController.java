@@ -47,7 +47,7 @@ public class TariffController {
             tariffService.saveTariff(tariffMapper.toEntity(tariff));
             return "redirect:/admin/tariffs";
         } catch (AlreadyExistsException e) {
-            LOGGER.error("Exception " + e.getMessage());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/add/tariffs");
             return "exists-exception";

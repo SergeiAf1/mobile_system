@@ -1,13 +1,13 @@
 package com.javaschool.mobile.controller;
 
 import com.javaschool.mobile.dto.ContractDto;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import com.javaschool.mobile.service.ContractService;
 import com.javaschool.mobile.service.Mappers.ContractMapper;
 import com.javaschool.mobile.service.Mappers.OptionMapper;
 import com.javaschool.mobile.service.Mappers.TariffMapper;
 import com.javaschool.mobile.service.Mappers.UserMapper;
-import com.javaschool.mobile.service.OptionService;
 import com.javaschool.mobile.service.TariffService;
 import com.javaschool.mobile.service.UserService;
 import org.apache.log4j.Logger;
@@ -25,22 +25,16 @@ public class ContractController {
     private final static Logger LOGGER = Logger.getLogger(ContractController.class);
 
     private final ContractService contractService;
-
     private final TariffService tariffService;
-
-    private final OptionService optionService;
-
     private final UserService userService;
-
     private final ContractMapper contractMapper;
     private final TariffMapper tariffMapper;
     private final UserMapper userMapper;
     private final OptionMapper optionMapper;
 
-    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, UserService userService, ContractMapper contractMapper, TariffMapper tariffMapper, UserMapper userMapper, OptionMapper optionMapper) {
+    public ContractController(ContractService contractService, TariffService tariffService, UserService userService, ContractMapper contractMapper, TariffMapper tariffMapper, UserMapper userMapper, OptionMapper optionMapper) {
         this.contractService = contractService;
         this.tariffService = tariffService;
-        this.optionService = optionService;
         this.userService = userService;
         this.contractMapper = contractMapper;
         this.tariffMapper = tariffMapper;
@@ -89,6 +83,11 @@ public class ContractController {
         try {
             contractService.saveContract(contractMapper.toEntity(contract));
             return "redirect:/admin/contracts";
+        } catch (AlreadyExistsException e) {
+            LOGGER.warn("Exception " + e.getMessage());
+            model.addAttribute("message", e.getMessage());
+            model.addAttribute("redirect", "/admin/add/contracts");
+            return "exists-exception";
         } catch (IncompatibleOptionsException e) {
             LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message", e.getMessage());

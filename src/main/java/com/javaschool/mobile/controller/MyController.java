@@ -65,16 +65,6 @@ public class MyController {
         return "user";
     }
 
-    @GetMapping("/admin/users")
-    public String getAllUsers(Model model) {
-        var users = userService.getAllUsers()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
-        model.addAttribute("users", users);
-        return "users";
-    }
-
     @RequestMapping("/user/update/tariffs")
     public String updateUserContract(@RequestParam("contract_id") int contract_id, Model model) {
         model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));

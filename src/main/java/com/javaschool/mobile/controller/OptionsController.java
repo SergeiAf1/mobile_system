@@ -46,12 +46,12 @@ public class OptionsController {
             optionService.saveOption(optionMapper.toEntity(option));
             return "redirect:/admin/options";
         } catch (AlreadyExistsException e){
-            LOGGER.error("Exception " + e.getMessage());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/add/options");
             return "exists-exception";
         } catch (IncompatibleOptionsException e) {
-            LOGGER.error("Exception " + e.getMessage());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/admin/dependencies?optionId=" + option.getId());
             return "incompatible-exception";

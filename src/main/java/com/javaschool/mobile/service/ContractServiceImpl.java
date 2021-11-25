@@ -3,6 +3,7 @@ package com.javaschool.mobile.service;
 import com.javaschool.mobile.dao.ContractDAO;
 import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.entity.Option;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import com.javaschool.mobile.exceptions.IncompatibleOptionsException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,18 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     public void saveContract(Contract contract) {
 
+        if (contract.getId() == 0) {
+            boolean result = contractDAO.findAll()
+                    .stream()
+                    .anyMatch(contract1 -> contract1.getPhoneNumber()
+                            .equals(contract.getPhoneNumber()));
+
+            if (result) {
+                throw new AlreadyExistsException("Contract with phone number = '"
+                        + contract.getPhoneNumber() + "' already exists");
+            }
+        }
+
         var contractOptions = contract.getOptions().stream()
                 .filter(option -> contract.getTariff().getOptions().contains(option))
                 .collect(Collectors.toList());
@@ -48,16 +61,17 @@ public class ContractServiceImpl implements ContractService {
         var onlyIncompatibleOptions = new ArrayList<Option>();
 
         contractOptions.stream()
-                .filter(option -> option.getIncompatibleOptions().size() >0)
+                .filter(option -> option.getIncompatibleOptions().size() > 0)
                 .forEach(option -> onlyIncompatibleOptions.addAll(option.getIncompatibleOptions()));
 
         var incompatibleOptionsWithoutDuplicate = onlyIncompatibleOptions.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
-        for(Option option1 : incompatibleOptionsWithoutDuplicate){
-            if(contractOptions.contains(option1)){
-                throw new IncompatibleOptionsException("Option " + option1.getName() + " is incompatible with other chosen Option.");
+        for (Option option1 : incompatibleOptionsWithoutDuplicate) {
+            if (contractOptions.contains(option1)) {
+                throw new IncompatibleOptionsException("Option " + option1.getName()
+                        + " is incompatible with other chosen Option.");
             }
         }
 
@@ -74,7 +88,7 @@ public class ContractServiceImpl implements ContractService {
 
         contract.setOptions(contractOptions);
         contractDAO.save(contract);
-        LOGGER.info("Contract with id = " + contract.getId()+ " was saved");
+        LOGGER.info("Contract with id = " + contract.getId() + " was saved");
     }
 //    @Override
 //    public void saveContract(Contract contract) {
@@ -129,17 +143,21 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     public void blockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
-        contract.setBlockedByUser(true);
-        contractDAO.save(contract);
-        LOGGER.info("User has blocked contract with id = " + id);
+        if (contract != null) {
+            contract.setBlockedByUser(true);
+            contractDAO.save(contract);
+            LOGGER.info("User has blocked contract with id = " + id);
+        }
     }
 
     @Override
     @Transactional
     public void unBlockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
-        contract.setBlockedByUser(false);
-        contractDAO.save(contract);
-        LOGGER.info("User has unblocked contract with id = " + id);
+        if (contract != null) {
+            contract.setBlockedByUser(false);
+            contractDAO.save(contract);
+            LOGGER.info("User has unblocked contract with id = " + id);
+        }
     }
 }
