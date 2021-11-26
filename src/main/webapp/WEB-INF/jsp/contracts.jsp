@@ -56,8 +56,10 @@
         <h2 align="center">
             All Contracts
         </h2>
-        <input type="button" class="btn-outline-primary" value="Add Contract"
+        <input type="button" class="btn-outline-primary" value="Add new Contract"
                onclick="window.location.href = '/admin/add/contracts'"/>
+        <input type="button" class="btn-outline-primary" value="Only free Contracts"
+               onclick="window.location.href = '/admin/contracts/free'"/>
     </c:otherwise>
 </c:choose>
 <br><br>
@@ -111,7 +113,8 @@
 
                 <td align="center" input type="number">${contract.phoneNumber}</td>
 
-                <td align="center"><a href="/admin/users/email?email=${contract.userEmail}" >${contract.userEmail}</a></td>
+                <td align="center"><a href="/admin/users/email?email=${contract.userEmail}">${contract.userEmail}</a>
+                </td>
 
                 <td align="center">${contract.tariffName}</td>
                 <td align="left">

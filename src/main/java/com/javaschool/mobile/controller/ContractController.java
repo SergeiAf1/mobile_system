@@ -64,8 +64,8 @@ public class ContractController {
 
     @RequestMapping("/add/contracts")
     public String addNewContract(Model model) {
-        model.addAttribute("contract", new ContractDto());
-        model.addAttribute("tariffs", tariffService.getAllTariffs()
+        model.addAttribute("contract", contractMapper.toDto(contractService.createNewContract()));
+        model.addAttribute("tariffs", tariffService.getAvailableTariffs()
                 .stream()
                 .map(tariffMapper::toDto)
                 .collect(Collectors.toList())
@@ -110,6 +110,19 @@ public class ContractController {
                 .collect(Collectors.toList())
         );
         return "contracts-info";
+    }
+
+    @RequestMapping("/contracts/free")
+    public String getFreeContracts(Model model) {
+        var contracts = contractService.getFreeContracts()
+                .stream()
+                .map(contractMapper::toDto)
+                .collect(Collectors.toList());
+        if(contracts.isEmpty()){
+            return "redirect:/contracts";
+        }
+        model.addAttribute("contracts", contracts);
+        return "contracts-activate";
     }
 
     @RequestMapping("/contract/options")

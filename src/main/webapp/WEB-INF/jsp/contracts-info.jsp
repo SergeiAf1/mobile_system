@@ -42,8 +42,10 @@
     <form:hidden path="id"/>
     <form:hidden path="blockedByUser"/>
     <form:hidden path="options"/>
-    Phone number<br/> <form:input required="required" pattern="9([0-9]{9})" path="phoneNumber"
-                                  placeholder="9000000000"/>
+    <form:hidden path="phoneNumber"/>
+    Phone number:   ${contract.phoneNumber}
+<%--    <form:input required="required" pattern="9([0-9]{9})" path="phoneNumber"--%>
+<%--                                  placeholder="9000000000"/>--%>
     <br/> <br/>
     Enabled <form:checkbox path="enabled"></form:checkbox>
     <br/>
@@ -70,7 +72,7 @@
         <c:forEach var="tariff" items="${tariffs}">
             <tr align="center">
                 <td>${tariff.tariffName}</td>
-                <td><form:radiobutton path="tariffName" value="${tariff.tariffName}"></form:radiobutton></td>
+                <td><form:radiobutton path="tariffName" required="required" value="${tariff.tariffName}"></form:radiobutton></td>
             </tr>
             <%--                <tr>--%>
             <%--                    <td>--%>
