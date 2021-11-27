@@ -7,10 +7,11 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="background-color: #ffa6fc" class="modal-body">
+<%--<body style="background-image: url(/WEB-INF/jsp/fon.jpg)">--%>
 <br/><br/>
 <div align="right">
     <input class="btn-primary" type="button" value="Go back"
-                   onclick="window.location.href = '${redirect}'">
+           onclick="window.location.href = '${redirect}'">
 </div>
 <br/><br/><br/>
 <h3 align="center">${message}</h3>

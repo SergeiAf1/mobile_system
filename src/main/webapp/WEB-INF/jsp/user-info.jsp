@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet" class="modal-body">
+<body style="background-color: #ffa6fc" class="modal-body">
 <div class="col-sm-12">
     <c:if test="${user.name == null}">
         <h2 align="center">Add new user</h2>

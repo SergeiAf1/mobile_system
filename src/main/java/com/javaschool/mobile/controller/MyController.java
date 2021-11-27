@@ -65,16 +65,6 @@ public class MyController {
         return "user";
     }
 
-    @GetMapping("/admin/users")
-    public String getAllUsers(Model model) {
-        var users = userService.getAllUsers()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
-        model.addAttribute("users", users);
-        return "users";
-    }
-
     @RequestMapping("/user/update/tariffs")
     public String updateUserContract(@RequestParam("contract_id") int contract_id, Model model) {
         model.addAttribute("contract", contractMapper.toDto(contractService.findContractById(contract_id)));
@@ -93,7 +83,7 @@ public class MyController {
             contractService.saveContract(contractMapper.toEntity(contract));
             return "redirect:/user";
         } catch (IncompatibleOptionsException e) {
-            LOGGER.warn("Exception " + e.getStackTrace());
+            LOGGER.warn("Exception " + e.getMessage());
             model.addAttribute("message",e.getMessage());
             model.addAttribute("redirect","/user/update/options?contract_id="+contract.getId());
             return "incompatible-exception";

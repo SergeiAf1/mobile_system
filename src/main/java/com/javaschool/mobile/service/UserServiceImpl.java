@@ -4,6 +4,7 @@ import com.javaschool.mobile.dao.UserDAO;
 import com.javaschool.mobile.entity.Contract;
 import com.javaschool.mobile.entity.Tariff;
 import com.javaschool.mobile.entity.User;
+import com.javaschool.mobile.exceptions.AlreadyExistsException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+
+        if(user.getId() == 0){
+            boolean result = userDAO.findAll()
+                    .stream()
+                    .anyMatch(user1 -> user1.getEmail().equals(user.getEmail()));
+
+            if(result){
+                throw new AlreadyExistsException("User with email = '" + user.getEmail() + "' already exists");
+            }
+        }
         userDAO.save(user);
         LOGGER.info("User with id = " + user.getId() + " was saved");
     }

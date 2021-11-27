@@ -14,5 +14,6 @@ public interface ContractService {
     Contract findContractByPhoneNumber(Long phoneNumber);
     void blockByUser(int id);
     void unBlockByUser(int id);
-
+    Contract createNewContract();
+    List<Contract> getFreeContracts();
 }

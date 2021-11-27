@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body style="background-color: violet" class="popover-body">
+<body style="background-color: #ffa6fc" class="popover-body">
 <style>
     #myInput, #email, #phoneNumber {
         width: 25%;
@@ -116,8 +116,8 @@
             <tr>
                 <td>
                     <c:forEach var="contract" items="${user.contracts}">
-                        <li>
-                                ${contract.phoneNumber}
+                        <li><a href="/admin/contracts/phoneNumber?phoneNumber=${contract.phoneNumber}">${contract.phoneNumber}</a>
+<%--                                ${contract.phoneNumber}--%>
                         </li>
                     </c:forEach>
                 </td>

@@ -26,7 +26,6 @@ public class ContractServiceImpl implements ContractService {
         this.contractDAO = contractDAO;
     }
 
-
     @Override
     public List<Contract> getAllContracts() {
         return contractDAO.findAll();
@@ -48,16 +47,17 @@ public class ContractServiceImpl implements ContractService {
         var onlyIncompatibleOptions = new ArrayList<Option>();
 
         contractOptions.stream()
-                .filter(option -> option.getIncompatibleOptions().size() >0)
+                .filter(option -> option.getIncompatibleOptions().size() > 0)
                 .forEach(option -> onlyIncompatibleOptions.addAll(option.getIncompatibleOptions()));
 
         var incompatibleOptionsWithoutDuplicate = onlyIncompatibleOptions.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
-        for(Option option1 : incompatibleOptionsWithoutDuplicate){
-            if(contractOptions.contains(option1)){
-                throw new IncompatibleOptionsException("Option " + option1.getName() + " is incompatible with other chosen Option.");
+        for (Option option1 : incompatibleOptionsWithoutDuplicate) {
+            if (contractOptions.contains(option1)) {
+                throw new IncompatibleOptionsException("Option " + option1.getName()
+                        + " is incompatible with other chosen Option.");
             }
         }
 
@@ -74,7 +74,7 @@ public class ContractServiceImpl implements ContractService {
 
         contract.setOptions(contractOptions);
         contractDAO.save(contract);
-        LOGGER.info("Contract with id = " + contract.getId()+ " was saved");
+        LOGGER.info("Contract with id = " + contract.getId() + " was saved");
     }
 //    @Override
 //    public void saveContract(Contract contract) {
@@ -129,17 +129,47 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     public void blockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
-        contract.setBlockedByUser(true);
-        contractDAO.save(contract);
-        LOGGER.info("User has blocked contract with id = " + id);
+        if (contract != null) {
+            contract.setBlockedByUser(true);
+            contractDAO.save(contract);
+            LOGGER.info("User has blocked contract with id = " + id);
+        }
     }
 
     @Override
     @Transactional
     public void unBlockByUser(int id) {
         Contract contract = contractDAO.findById(id).orElse(null);
-        contract.setBlockedByUser(false);
-        contractDAO.save(contract);
-        LOGGER.info("User has unblocked contract with id = " + id);
+        if (contract != null) {
+            contract.setBlockedByUser(false);
+            contractDAO.save(contract);
+            LOGGER.info("User has unblocked contract with id = " + id);
+        }
     }
+
+    @Override
+    public Contract createNewContract() {
+        Long phone;
+        var list = contractDAO.findAll();
+        if (list.isEmpty()) {
+            phone = 9001000000L;
+        } else {
+            phone = list.get(list.size() - 1).getPhoneNumber();
+        }
+        phone++;
+        Contract contract = new Contract();
+        contract.setEnabled(false);
+        contract.setPhoneNumber(phone);
+        return contract;
+    }
+
+    @Override
+    public List<Contract> getFreeContracts() {
+        return contractDAO.findAll()
+                .stream()
+                .filter(contract -> contract.getUser() == null)
+                .limit(15)
+                .collect(Collectors.toList());
+    }
+
 }
