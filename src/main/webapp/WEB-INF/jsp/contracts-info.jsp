@@ -24,7 +24,7 @@
         padding: 4px; /* Добавить отступ */
     }
 </style>
-<body style="background-color: violet" class="modal-body">
+<body style="background-color: #ffa6fc" class="modal-body">
 <div class="col-sm-12">
     <c:if test="${contract.phoneNumber == null}">
         <h2 align="center">Add new contract</h2>

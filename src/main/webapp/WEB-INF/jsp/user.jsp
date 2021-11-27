@@ -12,7 +12,7 @@
     <%--          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"--%>
     >
 </head>
-<body style="background-color: violet" class="modal-body">
+<body style="background-color: #ffa6fc" class="modal-body">
 
 <style>
     #myTable {
