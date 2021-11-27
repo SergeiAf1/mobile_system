@@ -49,7 +49,7 @@
                 <tr align="center">
                     <td>${tariff.tariffName}</td>
                     <td>${tariff.price}</td>
-                    <td><form:radiobutton path="tariffName" value="${tariff.tariffName}"></form:radiobutton></td>
+                    <td><form:radiobutton path="tariffName" required="required" value="${tariff.tariffName}"></form:radiobutton></td>
                 </tr>
             </c:forEach>
         </table>
